@@ -7,13 +7,13 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import sg.edu.nus.javalapsteam9.enums.Roles;
 import sg.edu.nus.javalapsteam9.model.User;
-import sg.edu.nus.javalapsteam9.repo.UserRepository;
+import sg.edu.nus.javalapsteam9.service.AdminService;
 
 @SpringBootApplication
 public class JavalapsTeam9Application implements CommandLineRunner {
 
 	@Autowired
-	private UserRepository userRepo;
+	private AdminService adminService;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(JavalapsTeam9Application.class, args);
@@ -24,7 +24,7 @@ public class JavalapsTeam9Application implements CommandLineRunner {
 
 		User admin = new User("admin1", "Suria", "R Asai", "12345",
 				"suria@gmail.com", Roles.AMDIN, 14, 60, "");
-		userRepo.save(admin);
+		adminService.createUser(admin);
 	}
 
 }
