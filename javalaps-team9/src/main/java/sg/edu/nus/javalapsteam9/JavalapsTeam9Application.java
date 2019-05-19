@@ -10,7 +10,7 @@ import sg.edu.nus.javalapsteam9.model.User;
 import sg.edu.nus.javalapsteam9.repo.UserRepository;
 
 @SpringBootApplication
-public class JavalapsTeam9Application implements CommandLineRunner{
+public class JavalapsTeam9Application implements CommandLineRunner {
 
 	@Autowired
 	private UserRepository userRepo;
