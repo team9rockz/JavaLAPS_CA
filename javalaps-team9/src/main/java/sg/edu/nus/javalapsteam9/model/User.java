@@ -30,7 +30,7 @@ public class User implements Serializable {
 	
 	private int annualLeaveBalance;
 	
-	private int mediaclLeaveBalance;
+	private int medicalLeaveBalance;
 	
 	private String reportTo;
 
@@ -40,7 +40,7 @@ public class User implements Serializable {
 
 	//For testing
 	public User(String userId, String firstName, String lastName, String password, String email, Roles role,
-			int annualLeaveBalance, int mediaclLeaveBalance, String reportTo) {
+			int annualLeaveBalance, int medicalLeaveBalance, String reportTo) {
 		super();
 		this.userId = userId;
 		this.firstName = firstName;
@@ -49,7 +49,7 @@ public class User implements Serializable {
 		this.email = email;
 		this.role = role;
 		this.annualLeaveBalance = annualLeaveBalance;
-		this.mediaclLeaveBalance = mediaclLeaveBalance;
+		this.medicalLeaveBalance = medicalLeaveBalance;
 		this.reportTo = reportTo;
 	}
 
@@ -109,12 +109,12 @@ public class User implements Serializable {
 		this.annualLeaveBalance = annualLeaveBalance;
 	}
 
-	public int getMediaclLeaveBalance() {
-		return mediaclLeaveBalance;
+	public int getMedicalLeaveBalance() {
+		return medicalLeaveBalance;
 	}
 
-	public void setMediaclLeaveBalance(int mediaclLeaveBalance) {
-		this.mediaclLeaveBalance = mediaclLeaveBalance;
+	public void setMedicalLeaveBalance(int medicalLeaveBalance) {
+		this.medicalLeaveBalance = medicalLeaveBalance;
 	}
 
 	public String getReportTo() {
