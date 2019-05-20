@@ -10,5 +10,7 @@ import sg.edu.nus.javalapsteam9.model.User;
 public interface LeaveApplicationRepository extends JpaRepository<LeaveApplication, Integer>{
 	
 	List<LeaveApplication> findAllByUser(User user);
+	
+	List<LeaveApplication> findAllByUserOrderByAppliedDateDesc(User user);
 
 }

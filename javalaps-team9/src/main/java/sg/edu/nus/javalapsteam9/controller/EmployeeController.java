@@ -43,7 +43,7 @@ public class EmployeeController {
 
 	@GetMapping("/home")
 	public String home(Model model) {
-		List<LeaveApplication> leaves = staffService.findAllLeavesByUserId();
+		List<LeaveApplication> leaves = staffService.findAllLeavesByUserOrderByAppliedDate();
 		User user = staffService.findUserById(Util.TEST_EMP_ID);
 		model.addAttribute("leaves", leaves);
 		model.addAttribute("name", user.getFirstName() + " " + user.getLastName());

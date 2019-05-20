@@ -110,6 +110,11 @@ public class StaffService {
 		return leaveRepo.findAllByUser(user);
 	}
 	
+	public List<LeaveApplication> findAllLeavesByUserOrderByAppliedDate() {
+		User user = findUserById(Util.TEST_EMP_ID);
+		return leaveRepo.findAllByUserOrderByAppliedDateDesc(user);
+	}
+	
 	public LeaveApplication findLeaveById(Integer id) {
 		return leaveRepo.findById(id).get();
 	}
