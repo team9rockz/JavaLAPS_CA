@@ -34,7 +34,7 @@ public final class Util {
 	
 	private static LocalDate parseDateToLocalDate(Date date) {
 		Calendar cal = getInstance();
-		cal.setTime(date);
+		cal.setTime(getUtcDate(date));
 		return LocalDate.of(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + 1, cal.get(Calendar.DAY_OF_MONTH));
 	}
 	
@@ -43,7 +43,7 @@ public final class Util {
 		cal.add(Calendar.YEAR, localDate.getYear());
 		cal.add(Calendar.MONTH, localDate.getMonthValue() - 1);
 		cal.add(Calendar.DAY_OF_MONTH, localDate.getDayOfMonth());
-		return cal.getTime();
+		return getUtcDate(cal.getTime());
 	}
 	
 	public static Boolean isValidStartDate(Date date) {

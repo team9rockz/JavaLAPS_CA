@@ -107,7 +107,7 @@ public class EmployeeController {
 		
 		int days = staffService.calculateLeavesBetweenDates(leave.getStartDate(), leave.getEndDate());
 		if(days == 0) {
-			CustomFieldError cd = new CustomFieldError("form", "startDate", "Incorrect Start and End dates");
+			CustomFieldError cd = new CustomFieldError("form", "startDate", "musht include working dates");
 			result.addError(cd);
 		}
 		
