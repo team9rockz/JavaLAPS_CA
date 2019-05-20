@@ -23,8 +23,15 @@ public class JavalapsTeam9Application implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 
 		User admin = new User("admin1", "Suria", "R Asai", "12345",
-				"suria@gmail.com", Roles.AMDIN, 14, 60, "");
+				"suria@gmail.com", Roles.ADMIN, 14, 60, "");
 		adminService.createUser(admin);
+		
+		User manager = new User("manager1", "Cher", "Weh", "12345", "cherweh@gmail.com", Roles.MANAGER, 18, 60, admin.getUserId());
+		adminService.createUser(manager);
+		
+		User emp = new User("emp1", "Mock", "Tail", "12345", "mocktail@gmail.com", Roles.STAFF, 18, 60, manager.getUserId());
+		adminService.createUser(emp);
+		
 	}
 
 }

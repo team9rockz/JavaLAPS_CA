@@ -1,10 +1,54 @@
 <!DOCTYPE html>
 <html xmlns:th="http://thymeleaf.org">
-<head>
+<head th:replace="fragments/header :: header-css">
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
+<!-- <div th:replace="fragments/header :: header-css"/> -->
 </head>
 <body>
-<p th:text="${msg}"></p>
+<!-- 	<div th:replace="fragments/logged_header :: logged-header"></div> -->
+	<div class="container">
+		<p th:text="'Hello, ' + ${name}"></p>
+<!-- 		<h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1> -->
+<!-- 		<form th:action="@{/logout}" method="post">
+			<input type="submit" value="Sign Out" />
+		</form> -->
+		
+		<div>
+		<p>Leaves Available : </p>
+		<p>Annual Leaves : <span th:text="${annual_leave}"></span></p>
+		<p>Medical Leaves : <span th:text="${medical_leave}"></span></p>
+		</div>
+		
+		<a th:href="@{/employee/leaveform}" class="btn btn-primary">New Application</a>
+		
+		<div style="margin-top:10px">
+			<table border="1" cellpadding="5">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Start Date</th>
+						<th>End Date</th>
+						<th>Leave Type</th>
+						<th>Status</th>
+						<th>Applied On</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="leave : ${leaves}">
+						<td><a th:href="@{'/employee/leave/view/' + ${leave.id}}"><span
+								th:text="${leave.id}"></span></a></td>
+						<td th:text="${leave.startDate}"></td>
+						<td th:text="${leave.endDate}"></td>
+						<td th:text="${leave.leaveType}"></td>
+						<td th:text="${leave.status}"></td>
+						<td th:text="${leave.appliedDate}"></td>
+					</tr>
+					<tr th:if="${leaves.empty}">No Applications Found</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>

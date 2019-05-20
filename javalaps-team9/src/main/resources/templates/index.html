@@ -3,14 +3,25 @@
 <head>
 <meta charset="UTF-8">
 <title>LAPS</title>
+<div th:replace="fragments/header :: header-css"></div>
 </head>
 <body>
+	<div th:replace="fragments/header :: header"></div>
 	<h1>Leave Application Processing System(LAPS)</h1>
-	<form action="">
-		<input type="submit" value="Admin Login">
-	</form>
-	<form action="">
-		<input type="submit" value="Employee Login">
-	</form>
+	<div class="container">
+		<div style="width: 25%; float:left">
+			<form th:action="@{/login}" method="post">
+				<input type="hidden" name="role" value="ADMIN">
+				<input type="submit" value="Admin Login">
+			</form>
+		</div>
+		<div>
+			<form th:action="@{/login}" method="post">
+				<input type="hidden" name="role" value="MANAGER">
+				<input type="submit" value="Employee Login">
+			</form>
+		</div>
+	</div>
+	<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>

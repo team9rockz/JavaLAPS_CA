@@ -13,10 +13,15 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import sg.edu.nus.javalapsteam9.enums.LeaveStatus;
 import sg.edu.nus.javalapsteam9.enums.LeaveType;
 import sg.edu.nus.javalapsteam9.util.Util;
+import sg.edu.nus.javalapsteam9.validation.LeaveTypeConstraint;
 
 @Entity
 public class LeaveApplication implements Serializable{
@@ -27,19 +32,31 @@ public class LeaveApplication implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 
+	@NotNull
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
 	private Date startDate;
 	
+	@NotNull
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
 	private Date endDate;
 
+	@LeaveTypeConstraint
 	@Enumerated(EnumType.STRING)
 	private LeaveType leaveType;
 	
 	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date appliedDate;
 	
+	@NotEmpty
 	private String reason;
+	
+	@NotEmpty
+	private String workDissemination;
+	
+	private int leavePeriod;
 	
 	private String contactDetails;
 	
@@ -48,7 +65,7 @@ public class LeaveApplication implements Serializable{
 	
 	private String comment;
 	
-	private Boolean overseasTrip;
+	private boolean overseasTrip;
 
 	@OneToOne
 	@JoinColumn(name = "userId")
@@ -92,6 +109,14 @@ public class LeaveApplication implements Serializable{
 		this.leaveType = leaveType;
 	}
 
+	public boolean isOverseasTrip() {
+		return overseasTrip;
+	}
+
+	public void setOverseasTrip(boolean overseasTrip) {
+		this.overseasTrip = overseasTrip;
+	}
+
 	public Date getAppliedDate() {
 		return appliedDate;
 	}
@@ -132,20 +157,28 @@ public class LeaveApplication implements Serializable{
 		this.comment = comment;
 	}
 
-	public Boolean getOverseasTrip() {
-		return overseasTrip;
-	}
-
-	public void setOverseasTrip(Boolean overseasTrip) {
-		this.overseasTrip = overseasTrip;
-	}
-
 	public User getUser() {
 		return user;
 	}
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public String getWorkDissemination() {
+		return workDissemination;
+	}
+
+	public void setWorkDissemination(String workDissemination) {
+		this.workDissemination = workDissemination;
+	}
+
+	public int getLeavePeriod() {
+		return leavePeriod;
+	}
+
+	public void setLeavePeriod(int leavePeriod) {
+		this.leavePeriod = leavePeriod;
 	}
 
 	@Override

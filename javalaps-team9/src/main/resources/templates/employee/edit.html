@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head th:replace="fragments/header :: header-css">
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<div class="container">
+		<form th:action="@{/employee/leave/update}" method="POST" th:object="${form}">
+			<input type="hidden" th:value="${id}" th:field="*{id}">
+			<table class="leaveformtab">
+				<tr>
+					<td><label th:for="startDate">Start Date : </label></td>
+					<td><input type="date" th:value="${startDate}"
+						th:field="*{startDate}"></td>
+					<td><span th:if="${#fields.hasErrors('startDate')}"
+						th:errors="*{startDate}">Start Date Error</span></td>
+				</tr>
+
+				<tr>
+					<td><label th:for="endDate">End Date : </label></td>
+					<td><input type="date" th:value="${endDate}"
+						th:field="*{endDate}"></td>
+					<td><span th:if="${#fields.hasErrors('endDate')}"
+						th:errors="*{endDate}">End Date Error</span></td>
+				</tr>
+
+				<tr>
+					<td><label th:for="leaveType">Leave Category : </label></td>
+					<td><select th:field="*{leaveType}">
+							<option value=""></option>
+							<option
+								th:each="type : ${T(sg.edu.nus.javalapsteam9.enums.LeaveType).values()}"
+								th:value="${type}" th:text="${type.type}"></option>
+					</select>
+					<td><span th:if="${#fields.hasErrors('leaveType')}"
+						th:errors="*{leaveType}">Leave Type Error</span></td>
+				</tr>
+
+				<tr>
+					<td><label th:for="reason">Reason : </label></td>
+					<td>
+						<textarea rows="3" cols="20" th:field="*{reason}" th:text="${reason}"></textarea>
+					</td>
+					<td><span th:if="${#fields.hasErrors('reason')}"
+						th:errors="*{reason}">Reason Error</span></td>
+				</tr>
+
+				<tr>
+					<td><label th:for="workDissemination">Work Dissemination : </label></td>
+					<td>
+						<textarea rows="3" cols="20" th:field="*{workDissemination}" th:text="${workDissemination}"></textarea>
+					</td>
+					<td><span th:if="${#fields.hasErrors('workDissemination')}"
+						th:errors="*{workDissemination}">Work Dissemination Error</span></td>
+				</tr>
+
+				<tr>
+					<td colspan="3"><input type="checkbox"
+						th:field="*{overseasTrip}" th:value="${overseasTrip}"> <label
+						th:for="overseasTrip">Overseas Trip </label></td>
+				</tr>
+
+				<tr>
+					<td><label th:for="contactDetails">Contact Details : </label></td>
+					<td>
+						<textarea rows="3" cols="20" th:field="*{contactDetails}" th:text="${contactDetails}"></textarea>
+					</td>
+					<td><span th:if="${#fields.hasErrors('contactDetails')}"
+						th:errors="*{contactDetails}">Contact Details Error</span></td>
+				</tr>
+				
+				<tr>
+					<td>
+						<input type="reset" value="Clear">
+					</td>
+					<td>
+						<input type="submit" value="Submit">
+					</td>
+				</tr>
+
+			</table>
+			
+			<br/>
+			<br/>
+			
+		</form>
+		<div>
+			<a th:href="@{/employee/home}">Go To Home</a>
+		</div>
+	</div>
+	<div th:replace="fragments/footer :: footer"></div>
+
+</body>
+</html>
