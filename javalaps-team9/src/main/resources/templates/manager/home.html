@@ -2,9 +2,35 @@
 <html xmlns:th="http://thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Outstanding Leaves</title>
 </head>
+
 <body>
-<p th:text="${msg}"></p>
+		<div style="margin-top:10px">
+			<table border="1" cellpadding="5">
+				
+				<tr>
+					<th>Leave ID</th>
+					<th>Status</th>
+					<th>Start Date</th>
+					<th>End Date</th>
+					<th>Leave Type</th>
+					<th>Applied On</th>
+					<th>Staff Name</th>
+					<th>Process Request</th>
+				</tr>
+					<tr th:each="leave : ${leaves}">
+					<td th:text="${leave.id}"></td>
+					<td th:text="${leave.status}"></td>
+					<td th:text="${leave.startDate}"></td>
+					<td th:text="${leave.endDate}"></td>
+					<td th:text="${leave.leaveType}"></td>
+					<td th:text="${leave.appliedDate}"></td>
+					<td th:text="${leave.user.firstName}"></td>
+					<td><a th:href="@{'/manager/details/' + ${leave.id}}"><span
+								th:text="Process"></span></a></td>
+				</tr>
+				<tr th:if="${leaves.empty}">No Applications Found</tr>	
+		</div>
 </body>
 </html>

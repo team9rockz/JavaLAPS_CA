@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Details | Leave</title>
+</head>
+<body>
+	<div class="container">
+		<table>
+			<tbody th:object="${leave}">
+				<tr>
+					<td>Leave Id:</td>
+					<td th:text="${leave.Id}"></td>
+				</tr>
+				<tr>
+					<td>Applied Date: </td>
+					<td th:text="${leave.appliedDate}"></td>
+				</tr>
+				<tr>
+					<td>Contact Details: </td>
+					<td th:text="${leave.contactDetails}"></td>
+				</tr>
+				<tr>
+					<td>Start Date:</td>
+					<td th:text="${leave.startDate}"></td>
+				</tr>
+				<tr>
+					<td>End Date: </td>
+					<td th:text="${leave.endDate}"></td>
+				</tr>
+				<tr>
+					<td>Leave Type:</td>
+					<td th:text="${leave.leaveType}"></td>
+				</tr>
+				<tr>
+					<td>Reason:</td>
+					<td th:text="${leave.reason}"></td>
+				</tr>
+				<tr>
+					<td>Comments:</td>
+					<td><input type = "text"></input></td>
+				</tr>
+				<tr>
+					<td>
+						<form th:action="@{'/manager/approve'}" method="post">
+							<input type="hidden" th:value="${leave.id}" name="id"> <input
+								type="submit" value="Approve">
+						</form>
+					</td>
+					<td>
+						<form th:action="@{'/manager/approve'}" method="post">
+							<input type="hidden" th:value="${leave.id}" name="id"> <input
+								type="submit" value="Reject">
+						</form>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<a th:href="@{'/manager/home'}">Go Back</a>
+	</div>
+</body>
+</html>
