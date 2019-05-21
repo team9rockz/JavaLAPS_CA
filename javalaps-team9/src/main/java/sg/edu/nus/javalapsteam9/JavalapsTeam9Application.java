@@ -44,7 +44,7 @@ public class JavalapsTeam9Application implements CommandLineRunner {
 		
 		PublicHoliday hol1 = new PublicHoliday(new java.util.Date(1546300800*1000L),new java.util.Date(1546387199*1000L),"NEW YEAR");
 		PublicHoliday hol2 = new PublicHoliday(new java.util.Date(1549324800*1000L),new java.util.Date(1549497599*1000L),"CHINESE NEW YEAR");
-		PublicHoliday hol3 = new PublicHoliday(new java.util.Date(1555632000*1000L),new java.util.Date(15557183991000L),"GOOD FRIDAY");
+		PublicHoliday hol3 = new PublicHoliday(new java.util.Date(1555632000*1000L),new java.util.Date(1555718399*1000L),"GOOD FRIDAY");
 		PublicHoliday hol4 = new PublicHoliday(new java.util.Date(1556668800*1000L),new java.util.Date(1556755199*1000L),"LABOUR DAY");
 		PublicHoliday hol5 = new PublicHoliday(new java.util.Date(1558310400*1000L),new java.util.Date(1558396799*1000L),"VESAK DAY");
 		PublicHoliday hol6 = new PublicHoliday(new java.util.Date(1559692800*1000L),new java.util.Date(1559779199*1000L),"HARI RAYA PUASA");
