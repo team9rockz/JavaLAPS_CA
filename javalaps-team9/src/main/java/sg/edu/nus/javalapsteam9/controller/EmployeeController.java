@@ -88,6 +88,13 @@ public class EmployeeController {
 					CustomFieldError cd = new CustomFieldError("form", "endDate", leave.getEndDate(), "Invalid end date");
 					result.addError(cd);
 				}
+				
+				int days = staffService.calculateLeavesBetweenDates(leave.getStartDate(), leave.getEndDate());
+				if(days == 0) {
+					CustomFieldError cd = new CustomFieldError("form", "startDate", "musht include working dates");
+					result.addError(cd);
+				}
+				
 			}
 			
 		}
@@ -103,12 +110,6 @@ public class EmployeeController {
 				CustomFieldError cd = new CustomFieldError("form", "contactDetails", "must not be empty");
 				result.addError(cd);
 			}
-		}
-		
-		int days = staffService.calculateLeavesBetweenDates(leave.getStartDate(), leave.getEndDate());
-		if(days == 0) {
-			CustomFieldError cd = new CustomFieldError("form", "startDate", "musht include working dates");
-			result.addError(cd);
 		}
 		
 	}
