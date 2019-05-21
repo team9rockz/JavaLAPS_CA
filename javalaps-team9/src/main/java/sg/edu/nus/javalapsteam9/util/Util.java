@@ -11,7 +11,7 @@ import sg.edu.nus.javalapsteam9.model.PublicHoliday;
 
 public final class Util {
 	
-	public static final int TEST_EMP_ID = 2;
+	public static final int TEST_EMP_ID = 4;
 	
 	public static Date now() {
 		return getInstance().getTime();
@@ -40,10 +40,10 @@ public final class Util {
 	
 	private static Date parseLocalDateToDate(LocalDate localDate) {
 		Calendar cal = getInstance();
-		cal.add(Calendar.YEAR, localDate.getYear());
-		cal.add(Calendar.MONTH, localDate.getMonthValue() - 1);
-		cal.add(Calendar.DAY_OF_MONTH, localDate.getDayOfMonth());
-		return getUtcDate(cal.getTime());
+		cal.set(Calendar.YEAR, localDate.getYear());
+		cal.set(Calendar.MONTH, localDate.getMonthValue() - 1);
+		cal.set(Calendar.DAY_OF_MONTH, localDate.getDayOfMonth());
+		return cal.getTime();
 	}
 	
 	public static Boolean isValidStartDate(Date date) {
@@ -87,10 +87,12 @@ public final class Util {
 	}
 	
 	private static Boolean isPublicHoliday(final LocalDate date, List<PublicHoliday> holidays) {
-		PublicHoliday holiday = holidays.stream().filter(h -> h.getStartDate().equals(parseLocalDateToDate(date)))
-				.findFirst().orElse(null);
-		return (holiday != null);
-
+		Date dt = parseLocalDateToDate(date);
+		for(PublicHoliday holiday : holidays) {
+			if(dt.after(holiday.getStartDate()) && date.isBefore(parseDateToLocalDate(holiday.getEndDate()).plusDays(1))) {
+				return Boolean.TRUE;
+			}
+		}
+		return Boolean.FALSE;
 	}
-	
 }

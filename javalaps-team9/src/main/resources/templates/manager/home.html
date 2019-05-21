@@ -26,7 +26,7 @@
 					<td th:text="${leave.endDate}"></td>
 					<td th:text="${leave.leaveType}"></td>
 					<td th:text="${leave.appliedDate}"></td>
-					<td th:text="${leave.user}"></td>
+					<td th:text="${leave.user.firstName + ' ' + leave.user.lastName}"></td>
 					<td><a th:href="@{'/manager/details/' + ${leave.id}}"><span
 								th:text="Process"></span></a></td>
 				</tr>

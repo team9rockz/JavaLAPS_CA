@@ -91,17 +91,32 @@ public class EmployeeController {
 				
 				int days = staffService.calculateLeavesBetweenDates(leave.getStartDate(), leave.getEndDate());
 				if(days == 0) {
-					CustomFieldError cd = new CustomFieldError("form", "startDate", "musht include working dates");
+					CustomFieldError cd = new CustomFieldError("form", "startDate", leave.getStartDate(), "must include working dates");
 					result.addError(cd);
 				}
-				
+
+				User user = staffService.findUserById(Util.TEST_EMP_ID);
+				switch(leave.getLeaveType()) {
+				case ANNUAL:
+					if(days > user.getAnnualLeaveBalance()) {
+						CustomFieldError cd = new CustomFieldError("form", "leaveType", leave.getLeaveType(), "no leaves available");
+						result.addError(cd);
+					}
+					break;
+				case MEDICAL:
+					if(days > user.getMedicalLeaveBalance()) {
+						CustomFieldError cd = new CustomFieldError("form", "leaveType", leave.getLeaveType(), "no leaves available");
+						result.addError(cd);
+					}
+					break;
+				case COMPENSATION:
+					CustomFieldError cd = new CustomFieldError("form", "leaveType", leave.getLeaveType(), "compensation leave not allowed");
+					result.addError(cd);
+					break;
+				}
+
 			}
 			
-		}
-		
-		if(leave.getLeaveType() == LeaveType.COMPENSATION) {
-			CustomFieldError cd = new CustomFieldError("form", "leaveType", leave.getLeaveType(), "compensation leave not allowed");
-			result.addError(cd);
 		}
 		
 		if (leave.isOverseasTrip() && (leave.getContactDetails() == null

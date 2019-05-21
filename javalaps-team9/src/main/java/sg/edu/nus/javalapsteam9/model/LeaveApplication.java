@@ -68,7 +68,7 @@ public class LeaveApplication implements Serializable{
 	private boolean overseasTrip;
 
 	@OneToOne
-	@JoinColumn(name = "id")
+	@JoinColumn(name = "user_id", referencedColumnName = "id")
 	private User user;
 
 	public LeaveApplication() {
