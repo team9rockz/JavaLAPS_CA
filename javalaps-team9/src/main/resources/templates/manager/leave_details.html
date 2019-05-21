@@ -36,27 +36,39 @@
 					<td>Reason:</td>
 					<td th:text="${leave.reason}"></td>
 				</tr>
-				<tr>
-					<td>Comments:</td>
-					<td><input type = "text"></input></td>
-				</tr>
-				<tr>
-					<td>
-						<form th:action="@{'/manager/approve'}" method="post">
-							<input type="hidden" th:value="${leave.id}" name="id"> <input
-								type="submit" value="Approve">
-						</form>
-					</td>
-					<td>
-						<form th:action="@{'/manager/approve'}" method="post">
-							<input type="hidden" th:value="${leave.id}" name="id"> <input
-								type="submit" value="Reject">
-						</form>
-					</td>
-				</tr>
+				
+<!-- 				<tr> -->
+<!-- 					<td>Comments:</td> -->
+<!-- 					<td><input type = "text" name="comments"></input></td> -->
+<!-- 				</tr> -->
+				
+				
+<!-- 				<tr> -->
+<!-- 					<td> -->
+<!-- 						<form th:action="@{'/manager/approve/'+${leave.id} + '&' + comments}" method="post"> -->
+<!-- 							<input type="hidden" th:value="${leave.id}" name="id"> <input -->
+<!-- 								type="submit" value="Approve"> -->
+<!-- 						</form> -->
+<!-- 					</td> -->
+<!-- 					<td> -->
+<!-- 						<form th:action="@{'/manager/approve'}" method="post"> -->
+<!-- 							<input type="hidden" th:value="${leave.id}" name="id"> <input -->
+<!-- 								type="submit" value="Reject"> -->
+<!-- 						</form> -->
+<!-- 					</td> -->
+<!-- 				</tr> -->
 			</tbody>
 		</table>
+		<form th:action="@{'/manager/approve/'+ ${leave.Id}}" method="post">
+				<fieldset>Comments: <input type="text" th:field ="${leave.comment}"></fieldset>
+				<fieldset> <button type="submit" onclick="alert('Leave approved')">Approve</button></fieldset>
+		</form>
+		<form th:action="@{'/manager/reject/'+ ${leave.Id}}" method="post">
+				<fieldset>Comments: <input type="text" th:field ="${leave.comment}"></fieldset>
+				<fieldset> <button type="submit" onclick="alert('Leave rejected')">Reject</button></fieldset> 
+		</form>
 		<a th:href="@{'/manager/home'}">Go Back</a>
+		
 	</div>
 </body>
 </html>

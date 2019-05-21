@@ -36,5 +36,19 @@ public class ManagerService {
 		return leaveRepo.findById(id);
 	}
 	
+	public void approveLeave(int id,String comment) {
+		
+		LeaveApplication leave = leaveRepo.findById(id);
+		leave.setStatus(LeaveStatus.APPROVED);
+		leave.setComment(comment);
+		leaveRepo.save(leave);
+	}
 	
+	public void rejectLeave(int id,String comment) {
+		
+		LeaveApplication leave = leaveRepo.findById(id);
+		leave.setStatus(LeaveStatus.REJECTED);
+		leave.setComment(comment);
+		leaveRepo.save(leave);
+	}
 }
