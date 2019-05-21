@@ -26,11 +26,12 @@
 					<td th:text="${leave.endDate}"></td>
 					<td th:text="${leave.leaveType}"></td>
 					<td th:text="${leave.appliedDate}"></td>
-					<td th:text="${leave.user.firstName}"></td>
+					<td th:text="${leave.user}"></td>
 					<td><a th:href="@{'/manager/details/' + ${leave.id}}"><span
 								th:text="Process"></span></a></td>
 				</tr>
 				<tr th:if="${leaves.empty}">No Applications Found</tr>	
+				</table>
 		</div>
 </body>
 </html>
