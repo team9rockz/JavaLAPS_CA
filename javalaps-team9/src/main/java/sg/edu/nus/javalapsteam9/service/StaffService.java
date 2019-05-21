@@ -138,7 +138,7 @@ public class StaffService {
 		leaveRepo.save(leaveApp);
 	}
 	
-	public User findUserById(String userId) {
-		return userRepo.findById(userId).get();
+	public User findUserById(int testEmpId) {
+		return userRepo.findById(testEmpId).get();
 	}
 }

@@ -8,6 +8,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.Id;
 
 import sg.edu.nus.javalapsteam9.enums.Roles;
+import sg.edu.nus.javalapsteam9.enums.Scheme;
 
 @Entity
 public class User implements Serializable {
@@ -15,6 +16,8 @@ public class User implements Serializable {
 	private static final long serialVersionUID = 941454760630567685L;
 	
 	@Id
+	private int staffId;
+	
 	private String userId;
 	
 	private String firstName;
@@ -28,29 +31,42 @@ public class User implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private Roles role;
 	
+	@Enumerated(EnumType.STRING)
+	private Scheme scheme;
+	
 	private int annualLeaveBalance;
 	
 	private int medicalLeaveBalance;
 	
-	private String reportTo;
+	private int reportTo;
 
 	public User() {
 		super();
 	}
 
 	//For testing
-	public User(String userId, String firstName, String lastName, String password, String email, Roles role,
-			int annualLeaveBalance, int medicalLeaveBalance, String reportTo) {
+	public User(int staffId, String userId, String firstName, String lastName, String password, String email, Roles role, Scheme scheme,
+			int annualLeaveBalance, int medicalLeaveBalance, int reportTo) {
 		super();
+		this.staffId = staffId;
 		this.userId = userId;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.password = password;
 		this.email = email;
 		this.role = role;
+		this.scheme = scheme;
 		this.annualLeaveBalance = annualLeaveBalance;
 		this.medicalLeaveBalance = medicalLeaveBalance;
 		this.reportTo = reportTo;
+	}
+
+	public int getStaffId() {
+		return staffId;
+	}
+
+	public void setStaffId(int staffId) {
+		this.staffId = staffId;
 	}
 
 	public String getUserId() {
@@ -101,6 +117,14 @@ public class User implements Serializable {
 		this.role = role;
 	}
 
+	public Scheme getScheme() {
+		return scheme;
+	}
+
+	public void setScheme(Scheme scheme) {
+		this.scheme = scheme;
+	}
+
 	public int getAnnualLeaveBalance() {
 		return annualLeaveBalance;
 	}
@@ -117,11 +141,11 @@ public class User implements Serializable {
 		this.medicalLeaveBalance = medicalLeaveBalance;
 	}
 
-	public String getReportTo() {
+	public int getReportTo() {
 		return reportTo;
 	}
 
-	public void setReportTo(String reportTo) {
+	public void setReportTo(int reportTo) {
 		this.reportTo = reportTo;
 	}
 
