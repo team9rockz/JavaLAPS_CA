@@ -13,10 +13,12 @@ public class PublicHoliday implements Serializable{
 
 	private static final long serialVersionUID = -8607640984681418685L;
 
-	@Id
 	@Temporal(TemporalType.DATE)
-	private Date date;
+	private Date startDate;
+	@Temporal(TemporalType.DATE)
+	private Date endDate;
 	
+	@Id
 	private String name;
 	
 	public PublicHoliday() {
@@ -24,18 +26,27 @@ public class PublicHoliday implements Serializable{
 	}
 	
 	//For Testing
-	public PublicHoliday(Date date, String name) {
+	public PublicHoliday(Date startDate, Date endDate, String name) {
 		super();
-		this.date = date;
+		this.startDate = startDate;
+		this.endDate = endDate;
 		this.name = name;
 	}
 
-	public Date getDate() {
-		return date;
+	public Date getStartDate() {
+		return startDate;
 	}
 
-	public void setDate(Date date) {
-		this.date = date;
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+
+	public Date getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
 	}
 
 	public String getName() {
@@ -50,7 +61,9 @@ public class PublicHoliday implements Serializable{
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((date == null) ? 0 : date.hashCode());
+		result = prime * result + ((endDate == null) ? 0 : endDate.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((startDate == null) ? 0 : startDate.hashCode());
 		return result;
 	}
 
@@ -63,12 +76,21 @@ public class PublicHoliday implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		PublicHoliday other = (PublicHoliday) obj;
-		if (date == null) {
-			if (other.date != null)
+		if (endDate == null) {
+			if (other.endDate != null)
 				return false;
-		} else if (!date.equals(other.date))
+		} else if (!endDate.equals(other.endDate))
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		if (startDate == null) {
+			if (other.startDate != null)
+				return false;
+		} else if (!startDate.equals(other.startDate))
 			return false;
 		return true;
 	}
-	
 }

@@ -87,7 +87,7 @@ public final class Util {
 	}
 	
 	private static Boolean isPublicHoliday(final LocalDate date, List<PublicHoliday> holidays) {
-		PublicHoliday holiday = holidays.stream().filter(h -> h.getDate().equals(parseLocalDateToDate(date)))
+		PublicHoliday holiday = holidays.stream().filter(h -> h.getStartDate().equals(parseLocalDateToDate(date)))
 				.findFirst().orElse(null);
 		return (holiday != null);
 
