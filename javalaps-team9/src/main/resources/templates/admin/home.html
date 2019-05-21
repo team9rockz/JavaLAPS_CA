@@ -1,10 +1,40 @@
 <!DOCTYPE html>
 <html xmlns:th="http://thymeleaf.org">
-<head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<head th:replace="fragments/header :: header-css">
+	<title>Home | Admin</title>
 </head>
 <body>
-<p th:text="${msg}"></p>
+	<h1>Admin Home</h1>
+	<div class="container">
+		
+		<a th:href="@{/admin/add}" class="btn btn-primary">Add User</a>
+	
+	    <div style="margin-top:10px">
+	        <h2>All Users</h2>
+	        <table border="1" cellpadding="5">
+				<thead>
+		            <tr>
+		                <th>Name</th>
+		                <th>Email</th>
+		                <th>Role</th>
+		                <th>AnnualLeaveBalance</th>
+		                <th>MedicalLeaveBalance</th>
+		                <th>Report to</th>
+		            </tr>
+		        </thead>
+		        <tbody>
+		            <tr th:each="user : ${users}">
+		                <td th:text="${user.firstName}+' '+${user.lastName}">Name</td>
+		                <td th:text="${user.email}">Email</td>
+		                <td th:text="${user.role}">Role</td>
+		                <td th:text="${user.annualLeaveBalance}">AnnualLeaveBalance</td>
+		                <td th:text="${user.medicalLeaveBalance}">MedicalLeaveBalance</td>
+		                <td th:text="${user.reportTo}">Report to</td>
+	            	</tr>
+	            	<tr th:if="${#lists.isEmpty(users)}">No User Found</tr>
+	            </tbody>
+	        </table>
+	    </div>
+	</div>
 </body>
 </html>
