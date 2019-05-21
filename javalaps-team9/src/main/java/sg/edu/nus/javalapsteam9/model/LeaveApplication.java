@@ -10,7 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotEmpty;
@@ -67,8 +67,8 @@ public class LeaveApplication implements Serializable{
 	
 	private boolean overseasTrip;
 
-	@OneToOne
-	@JoinColumn(name = "user_id", referencedColumnName = "id")
+	@ManyToOne
+	@JoinColumn(name = "staff_id")
 	private User user;
 
 	public LeaveApplication() {

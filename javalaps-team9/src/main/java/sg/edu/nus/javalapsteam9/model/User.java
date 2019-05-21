@@ -1,6 +1,7 @@
 package sg.edu.nus.javalapsteam9.model;
 
 import java.io.Serializable;
+import java.util.Collection;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -8,6 +9,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 import sg.edu.nus.javalapsteam9.enums.Roles;
 import sg.edu.nus.javalapsteam9.enums.Scheme;
@@ -43,6 +45,9 @@ public class User implements Serializable {
 	
 	private int reportTo;
 
+	@OneToMany(targetEntity = LeaveApplication.class, mappedBy = "user")
+	private Collection<LeaveApplication> leaves;
+	
 	public User() {
 		super();
 	}
