@@ -21,18 +21,22 @@ public class AdminService {
 		userRepo.save(user);
 	}
 	
+	public User findUserById(int id) {
+
+		return userRepo.findById(id).get();
+	}
+	
 	public List<User> getAllUsers(){
 		
 		List<User> users = userRepo.findAll();
 		return users;
 	}
 	
-	public List<String> getAllManagers(){
+	public List<User> getAllManagers(){
 		
 		List<User> users = userRepo.findAll();
-		List<String> managers = users.stream()
+		List<User> managers = users.stream()
 				.filter(u -> u.getRole().equals(Roles.MANAGER))
-				.map(m -> m.getUserId())
 				.collect(Collectors.toList());
 		
 		return managers;

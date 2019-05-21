@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Details | User</title>
+</head>
+<body>
+	<div class="container">
+		<table>
+			<tbody th:object="${user}">
+				<tr>
+					<td>User Id:</td>
+					<td th:text="${user.userId}"></td>
+				</tr>
+				<tr>
+					<td>Name :</td>
+					<td th:text="${user.firstName}+' '+${user.lastName}"></td>
+				</tr>
+				<tr>
+					<td>Email :</td>
+					<td th:text="${user.email}"></td>
+				</tr>
+				<tr>
+					<td>Role :</td>
+					<td th:text="${user.role}"></td>
+				</tr>
+				<tr>
+					<td>Annual Leave Balance</td>
+					<td th:text="${user.annualLeaveBalance}"></td>
+				</tr>
+				<tr>
+					<td>Medical Leave Balance :</td>
+					<td th:text="${user.medicalLeaveBalance}"></td>
+				</tr>
+				<tr>
+					<td>Report To :</td>
+					<td th:text="${user.reportTo}"></td>
+				</tr>
+				<tr>
+					<td>
+						<form th:action="@{'/admin/user/edit'}" method="post">
+							<input type="hidden" th:value="${user.id}" name="id"> <input
+								type="submit" value="Update">
+						</form>
+					</td>
+					<td>
+						<form th:action="@{'/admin/user/delete'}" method="post">
+							<input type="hidden" th:value="${user.id}" name="id"> <input
+								type="submit" value="Delete">
+						</form>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<a th:href="@{'/admin/home'}">Go Back</a>
+	</div>
+</body>
+</html>

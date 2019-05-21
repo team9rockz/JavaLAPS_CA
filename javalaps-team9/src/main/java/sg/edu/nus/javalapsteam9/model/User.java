@@ -5,6 +5,8 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import sg.edu.nus.javalapsteam9.enums.Roles;
@@ -16,7 +18,8 @@ public class User implements Serializable {
 	private static final long serialVersionUID = 941454760630567685L;
 	
 	@Id
-	private int staffId;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
 	
 	private String userId;
 	
@@ -45,10 +48,10 @@ public class User implements Serializable {
 	}
 
 	//For testing
-	public User(int staffId, String userId, String firstName, String lastName, String password, String email, Roles role, Scheme scheme,
+	public User(int id, String userId, String firstName, String lastName, String password, String email, Roles role, Scheme scheme,
 			int annualLeaveBalance, int medicalLeaveBalance, int reportTo) {
 		super();
-		this.staffId = staffId;
+		this.id = id;
 		this.userId = userId;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -61,12 +64,12 @@ public class User implements Serializable {
 		this.reportTo = reportTo;
 	}
 
-	public int getStaffId() {
-		return staffId;
+	public int getId() {
+		return id;
 	}
 
-	public void setStaffId(int staffId) {
-		this.staffId = staffId;
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getUserId() {

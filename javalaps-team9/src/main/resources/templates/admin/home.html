@@ -14,6 +14,8 @@
 	        <table border="1" cellpadding="5">
 				<thead>
 		            <tr>
+		            	<th>Id</th>
+		            	<th>UserId</th>
 		                <th>Name</th>
 		                <th>Email</th>
 		                <th>Role</th>
@@ -24,6 +26,9 @@
 		        </thead>
 		        <tbody>
 		            <tr th:each="user : ${users}">
+		            	<td><a th:href="@{'/admin/user/details/' + ${user.id}}"><span
+								th:text="${user.id}"></span></a></td>
+		                <td th:text="${user.userId}">userId</td>
 		                <td th:text="${user.firstName}+' '+${user.lastName}">Name</td>
 		                <td th:text="${user.email}">Email</td>
 		                <td th:text="${user.role}">Role</td>
