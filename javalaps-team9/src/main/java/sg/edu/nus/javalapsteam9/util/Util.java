@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.TimeZone;
 
@@ -18,10 +19,10 @@ public final class Util {
 	}
 	
 	private static Calendar getInstance() {
-		return Calendar.getInstance(getTimeZone());
+		return Calendar.getInstance();
 	}
 	
-	private static TimeZone getTimeZone() {
+	private static TimeZone getUtcTZone() {
 		return TimeZone.getTimeZone("UTC");
 	}
 	
@@ -32,9 +33,19 @@ public final class Util {
 		return cal.getTime();
 	}
 	
-	private static LocalDate parseDateToLocalDate(Date date) {
+	public static Date parseFromUtcDate(Date date) {
 		Calendar cal = getInstance();
-		cal.setTime(getUtcDate(date));
+		cal.setTime(date);
+		cal.add(Calendar.HOUR_OF_DAY, -8);
+		return cal.getTime();
+	}
+	
+	public static LocalDate parseDateToLocalDate(Date date, boolean isUtcRequired) {
+		Calendar cal = getInstance();
+		cal.setTime(date);
+		if(isUtcRequired) {
+			cal.setTimeZone(getUtcTZone());
+		}
 		return LocalDate.of(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH) + 1, cal.get(Calendar.DAY_OF_MONTH));
 	}
 	
@@ -47,28 +58,28 @@ public final class Util {
 	}
 	
 	public static Boolean isValidStartDate(Date date) {
-		LocalDate locdate = parseDateToLocalDate(date);
-		LocalDate today = parseDateToLocalDate(now());
+		LocalDate locdate = parseDateToLocalDate(date, false);
+		LocalDate today = parseDateToLocalDate(now(), false);
 		return !locdate.isBefore(today);
 	}
 	
 	public static Boolean isValidEndDate(Date startDate, Date endDate) {
-		LocalDate startdate = parseDateToLocalDate(startDate);
-		LocalDate enddate = parseDateToLocalDate(endDate);
+		LocalDate startdate = parseDateToLocalDate(startDate, false);
+		LocalDate enddate = parseDateToLocalDate(endDate, false);
 		return (startdate.isBefore(enddate) || startdate.isEqual(enddate));
 	}
 	
 	public static long calculatePeriodBetweenDates(Date startDate, Date endDate) {
-		LocalDate startdate = parseDateToLocalDate(startDate);
-		LocalDate enddate = parseDateToLocalDate(endDate);
+		LocalDate startdate = parseDateToLocalDate(startDate, false);
+		LocalDate enddate = parseDateToLocalDate(endDate, false).plusDays(1);
 		return ChronoUnit.DAYS.between(startdate, enddate);
 	}
 
-	public static Long calculatePeriodBetweenDatesExcludeHolidays(Date startDate, Date endDate, List<PublicHoliday> holidays) {
+	public static long calculatePeriodBetweenDatesExcludeHolidays(Date startDate, Date endDate, List<PublicHoliday> holidays) {
 
-		Long days = 0L;
-		LocalDate startdate = parseDateToLocalDate(startDate);
-		LocalDate enddate = parseDateToLocalDate(endDate).plusDays(1);
+		long days = 0;
+		LocalDate startdate = parseDateToLocalDate(startDate, false);
+		LocalDate enddate = parseDateToLocalDate(endDate, false).plusDays(1);
 		for (; startdate.isBefore(enddate); startdate = startdate.plusDays(1)) {
 			switch (startdate.getDayOfWeek()) {
 			case SATURDAY:
@@ -86,13 +97,34 @@ public final class Util {
 		return days;
 	}
 	
-	private static Boolean isPublicHoliday(final LocalDate date, List<PublicHoliday> holidays) {
+	public static Boolean isHoliday(LocalDate ldate) {
+		switch (ldate.getDayOfWeek()) {
+		case SATURDAY:
+		case SUNDAY:
+			return Boolean.TRUE;
+		default:
+			return Boolean.FALSE;
+		}
+	}
+	
+	public static Boolean isPublicHoliday(final LocalDate date, List<PublicHoliday> holidays) {
 		Date dt = parseLocalDateToDate(date);
 		for(PublicHoliday holiday : holidays) {
-			if(dt.after(holiday.getStartDate()) && date.isBefore(parseDateToLocalDate(holiday.getEndDate()).plusDays(1))) {
+			if(dt.after(holiday.getStartDate()) && date.isBefore(parseDateToLocalDate(holiday.getEndDate(), true).plusDays(1))) {
 				return Boolean.TRUE;
 			}
 		}
 		return Boolean.FALSE;
 	}
+	
+	public static HashSet<Date> getAllDates(Date fromDate, Date toDate) {
+		HashSet<Date> set = new HashSet<>();
+		LocalDate startdate = parseDateToLocalDate(fromDate, false);
+		LocalDate enddate = parseDateToLocalDate(toDate, false).plusDays(1);
+		for (; startdate.isBefore(enddate); startdate = startdate.plusDays(1)) {
+			set.add(parseLocalDateToDate(startdate));
+		}
+		return set;
+	}
+	
 }
