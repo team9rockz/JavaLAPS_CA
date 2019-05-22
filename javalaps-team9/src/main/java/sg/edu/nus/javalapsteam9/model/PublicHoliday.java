@@ -13,13 +13,12 @@ public class PublicHoliday implements Serializable{
 
 	private static final long serialVersionUID = -8607640984681418685L;
 
+	@Id
+	private String name;
 	@Temporal(TemporalType.DATE)
 	private Date startDate;
 	@Temporal(TemporalType.DATE)
 	private Date endDate;
-	
-	@Id
-	private String name;
 	
 	public PublicHoliday() {
 		super();
