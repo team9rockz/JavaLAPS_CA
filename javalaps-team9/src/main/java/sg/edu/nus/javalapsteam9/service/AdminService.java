@@ -1,6 +1,10 @@
 package sg.edu.nus.javalapsteam9.service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +28,24 @@ public class AdminService {
 	
 	public void createUser(User user) {
 		user.setPassword(null == user.getPassword()? "12345" : user.getPassword());
+		if (user.getId() == 0) {
+	    	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+	    	Date joinDate = Util.getUtcDate(user.getJoinDate());
+	    	int nextYear = joinDate.getYear()+ 1901;
+	    	try {
+				Date startOfNextYear = format.parse(nextYear+"-01-01");
+				
+				long workDaysOfYearMS = Math.abs(startOfNextYear.getTime() - user.getJoinDate().getTime());
+			    double workDaysOfYear = (double)TimeUnit.DAYS.convert(workDaysOfYearMS, TimeUnit.MILLISECONDS);
+			    
+			    int annualBalance = (int) ((workDaysOfYear/365)*18);
+			    
+			    user.setAnnualLeaveBalance(annualBalance);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			
+		}
 		userRepo.save(user);
 	}
 	

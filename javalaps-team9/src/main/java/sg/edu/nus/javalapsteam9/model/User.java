@@ -2,6 +2,7 @@ package sg.edu.nus.javalapsteam9.model;
 
 import java.io.Serializable;
 import java.util.Collection;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -10,6 +11,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.validation.constraints.NotNull;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import sg.edu.nus.javalapsteam9.enums.Roles;
 import sg.edu.nus.javalapsteam9.enums.Scheme;
@@ -39,6 +45,12 @@ public class User implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private Scheme scheme;
 	
+	@NotNull
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	@Temporal(TemporalType.DATE)
+	private Date joinDate;
+
+	
 	private int annualLeaveBalance;
 	
 	private int medicalLeaveBalance;
@@ -53,8 +65,8 @@ public class User implements Serializable {
 	}
 
 	//For testing
-	public User(int id, String userId, String firstName, String lastName, String password, String email, Roles role, Scheme scheme,
-			int annualLeaveBalance, int medicalLeaveBalance, int reportTo) {
+	public User(int id, String userId, String firstName, String lastName, String password, String email, Roles role,
+			Scheme scheme, @NotNull Date joinDate, int annualLeaveBalance, int medicalLeaveBalance, int reportTo) {
 		super();
 		this.id = id;
 		this.userId = userId;
@@ -64,6 +76,7 @@ public class User implements Serializable {
 		this.email = email;
 		this.role = role;
 		this.scheme = scheme;
+		this.joinDate = joinDate;
 		this.annualLeaveBalance = annualLeaveBalance;
 		this.medicalLeaveBalance = medicalLeaveBalance;
 		this.reportTo = reportTo;
@@ -131,6 +144,14 @@ public class User implements Serializable {
 
 	public void setScheme(Scheme scheme) {
 		this.scheme = scheme;
+	}
+
+	public Date getJoinDate() {
+		return joinDate;
+	}
+
+	public void setJoinDate(Date joinDate) {
+		this.joinDate = joinDate;
 	}
 
 	public int getAnnualLeaveBalance() {

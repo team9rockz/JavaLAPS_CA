@@ -44,7 +44,7 @@ public class AdminController {
 	}
 
     @RequestMapping(path = "/create", method = RequestMethod.POST)
-    public String saveProduct(User user) {
+    public String saveUser(User user) {
     	
         adminService.createUser(user);
         return "redirect:/admin/home";
