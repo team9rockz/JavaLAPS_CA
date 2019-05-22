@@ -61,7 +61,7 @@ public class ManagerController {
 	 public String rejectLeave(@Valid @ModelAttribute("leave") LeaveApplication leave, BindingResult result) {
 		 
 		 if(leave.getComment() == null || leave.getComment().isEmpty()) {
-			 CustomFieldError err = new CustomFieldError("leave", "comment", "must not be empty");
+			 CustomFieldError err = new CustomFieldError("leave", "comment", "Comment needed for rejection");
 			 result.addError(err);
 		 }
 		 
