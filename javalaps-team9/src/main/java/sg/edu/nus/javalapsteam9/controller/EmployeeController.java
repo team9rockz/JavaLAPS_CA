@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import sg.edu.nus.javalapsteam9.enums.LeaveType;
 import sg.edu.nus.javalapsteam9.model.LeaveApplication;
 import sg.edu.nus.javalapsteam9.model.User;
 import sg.edu.nus.javalapsteam9.service.StaffService;
@@ -76,45 +75,59 @@ public class EmployeeController {
 		
 		if(leave.getStartDate() != null) {
 			
-			boolean isValidDate = Util.isValidStartDate(leave.getStartDate());
+			boolean isValidDate = staffService.isValidStartDate(leave.getStartDate());
 			if(!isValidDate) {
 				CustomFieldError cd = new CustomFieldError("form", "startDate", leave.getStartDate(), "Invalid start date");
 				result.addError(cd);
+			} else {
+				isValidDate = staffService.isHoliday(leave.getStartDate());
+				if(isValidDate) {
+					CustomFieldError cd = new CustomFieldError("form", "startDate", leave.getStartDate(), "must be working day");
+					result.addError(cd);
+				}
 			}
 			
 			if(leave.getEndDate() != null) {
-				isValidDate = Util.isValidEndDate(leave.getStartDate(), leave.getEndDate());
+				isValidDate = staffService.isValidEndDate(leave.getStartDate(), leave.getEndDate());
 				if(!isValidDate) {
 					CustomFieldError cd = new CustomFieldError("form", "endDate", leave.getEndDate(), "Invalid end date");
+					result.addError(cd);
+				} else {
+					isValidDate = staffService.isHoliday(leave.getEndDate());
+					if(isValidDate) {
+						CustomFieldError cd = new CustomFieldError("form", "endDate", leave.getEndDate(), "must be working day");
+						result.addError(cd);
+					}
+				}
+				
+				boolean isNotValidDates = staffService.isNotValidDates(leave.getStartDate(), leave.getEndDate());
+				if(isNotValidDates) {
+					CustomFieldError cd = new CustomFieldError("form", "startDate", leave.getStartDate(), "Leaves matched with your previous history");
 					result.addError(cd);
 				}
 				
 				int days = staffService.calculateLeavesBetweenDates(leave.getStartDate(), leave.getEndDate());
-				if(days == 0) {
-					CustomFieldError cd = new CustomFieldError("form", "startDate", leave.getStartDate(), "must include working dates");
-					result.addError(cd);
-				}
-
-				User user = staffService.findUserById(Util.TEST_EMP_ID);
-				switch(leave.getLeaveType()) {
-				case ANNUAL:
-					if(days > user.getAnnualLeaveBalance()) {
-						CustomFieldError cd = new CustomFieldError("form", "leaveType", leave.getLeaveType(), "no leaves available");
+				if(!result.hasFieldErrors("leaveType")) {
+					User user = staffService.findUserById(Util.TEST_EMP_ID);
+					switch(leave.getLeaveType()) {
+					case ANNUAL:
+						if(days > user.getAnnualLeaveBalance()) {
+							CustomFieldError cd = new CustomFieldError("form", "leaveType", leave.getLeaveType(), "no leaves available");
+							result.addError(cd);
+						}
+						break;
+					case MEDICAL:
+						if(days > user.getMedicalLeaveBalance()) {
+							CustomFieldError cd = new CustomFieldError("form", "leaveType", leave.getLeaveType(), "no leaves available");
+							result.addError(cd);
+						}
+						break;
+					case COMPENSATION:
+						CustomFieldError cd = new CustomFieldError("form", "leaveType", leave.getLeaveType(), "compensation leave not allowed");
 						result.addError(cd);
+						break;
 					}
-					break;
-				case MEDICAL:
-					if(days > user.getMedicalLeaveBalance()) {
-						CustomFieldError cd = new CustomFieldError("form", "leaveType", leave.getLeaveType(), "no leaves available");
-						result.addError(cd);
-					}
-					break;
-				case COMPENSATION:
-					CustomFieldError cd = new CustomFieldError("form", "leaveType", leave.getLeaveType(), "compensation leave not allowed");
-					result.addError(cd);
-					break;
 				}
-
 			}
 			
 		}

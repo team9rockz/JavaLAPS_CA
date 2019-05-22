@@ -1,72 +1,71 @@
 <!DOCTYPE html>
 <html xmlns:th="http://thymeleaf.org">
-<head>
+<head th:replace="fragments/header :: header-css">
 <meta charset="UTF-8">
 <title>Details | Leave</title>
 </head>
 <body>
 	<div class="container">
+	<form  th:action="@{'/manager/reject'}" th:object="${leave}" method="post">
 		<table>
-			<tbody th:object="${leave}">
+			<tbody>
 				<tr>
 					<td>Leave Id:</td>
-					<td th:text="${leave.Id}"></td>
+					<td><input type="text" th:field="*{id}" th:value="${id}" readonly></td>
 				</tr>
 				<tr>
 					<td>Applied Date: </td>
-					<td th:text="${leave.appliedDate}"></td>
+					<td><input type="text" th:field="*{appliedDate}" th:value="${appliedDate}" readonly></td>
 				</tr>
 				<tr>
 					<td>Contact Details: </td>
-					<td th:text="${leave.contactDetails}"></td>
+					<td><input type="text" th:field="*{contactDetails}" th:value="${contactDetails}" readonly></td>
 				</tr>
 				<tr>
 					<td>Start Date:</td>
-					<td th:text="${leave.startDate}"></td>
+					<td><input type="text" th:field="*{startDate}" th:value="${startDate}" readonly></td>
 				</tr>
 				<tr>
 					<td>End Date: </td>
-					<td th:text="${leave.endDate}"></td>
+					<td><input type="text" th:field="*{endDate}" th:value="${endDate}" readonly></td>
 				</tr>
 				<tr>
 					<td>Leave Type:</td>
-					<td th:text="${leave.leaveType}"></td>
+					<td><input type="text" th:field="*{leaveType}" th:value="${leaveType}" readonly></td>
 				</tr>
 				<tr>
 					<td>Reason:</td>
-					<td th:text="${leave.reason}"></td>
+					<td><input type="text" th:field="*{reason}" th:value="${reason}" readonly></td>
+				</tr>
+				<tr>
+					<td>Comments : </td>
+					<td>
+					<textarea rows="3" cols="20" th:field="*{comment}" th:value="${comment}"></textarea> <span
+						th:if="${#fields.hasErrors('comment')}" th:errors="*{comment}">Mandatory comment to reject leave</span>
+					</td>
+				</tr>
+				<tr>
+					<td>
+<!-- 						<form th:action="@{'/manager/approve/'+ ${leave.Id}}"
+							method="post">
+						</form> -->
+<!-- 						<button type="button" th:action="@{/manager/approve/'+ ${leave.Id}}">Approve</button> -->
+						<a class="btn btn-success" th:href="@{'/manager/approve/'+ ${leave.Id}}">Approve</a>
+					</td>
+					<td>
+						<input type="hidden" th:field="*{id}" th:value="${id}">
+						<input class="btn btn-danger" type="submit" value="Reject">
+					</td>
 				</tr>
 				
-<!-- 				<tr> -->
-<!-- 					<td>Comments:</td> -->
-<!-- 					<td><input type = "text" name="comments"></input></td> -->
-<!-- 				</tr> -->
-				
-				
-<!-- 				<tr> -->
-<!-- 					<td> -->
-<!-- 						<form th:action="@{'/manager/approve/'+${leave.id} + '&' + comments}" method="post"> -->
-<!-- 							<input type="hidden" th:value="${leave.id}" name="id"> <input -->
-<!-- 								type="submit" value="Approve"> -->
-<!-- 						</form> -->
-<!-- 					</td> -->
-<!-- 					<td> -->
-<!-- 						<form th:action="@{'/manager/approve'}" method="post"> -->
-<!-- 							<input type="hidden" th:value="${leave.id}" name="id"> <input -->
-<!-- 								type="submit" value="Reject"> -->
-<!-- 						</form> -->
-<!-- 					</td> -->
-<!-- 				</tr> -->
 			</tbody>
 		</table>
-		<form th:action="@{'/manager/approve/'+ ${leave.Id}}" method="post">
-				<fieldset>Comments: <input type="text" th:field ="${leave.comment}"></fieldset>
-				<fieldset> <button type="submit" onclick="alert('Leave approved')">Approve</button></fieldset>
-		</form>
-		<form th:action="@{'/manager/reject/'+ ${leave.Id}}" method="post">
+	</form>
+<!-- 		<form th:action="@{'/manager/reject/'+ ${leave.Id}}" method="post">
 				<fieldset>Comments: <input type="text" th:field ="${leave.comment}"></fieldset>
 				<fieldset> <button type="submit" onclick="alert('Leave rejected')">Reject</button></fieldset> 
-		</form>
+		</form> -->
+		
 		<a th:href="@{'/manager/home'}">Go Back</a>
 		
 	</div>
