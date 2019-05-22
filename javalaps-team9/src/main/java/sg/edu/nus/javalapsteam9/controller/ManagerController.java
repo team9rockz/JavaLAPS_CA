@@ -50,18 +50,11 @@ public class ManagerController {
 		 return "redirect:/manager/home";
 	 }
 	 
-	 @PostMapping("/reject/{id}")
-	 public String rejectLeave(@PathVariable("id") Integer id, @RequestParam("comment") String comment) {
-		 
-		 managerService.rejectLeave(id, comment);
-		 return "redirect:/manager/home";
-	 }
-	 
 	 @PostMapping("/reject")
 	 public String rejectLeave(@Valid @ModelAttribute("leave") LeaveApplication leave, BindingResult result) {
 		 
 		 if(leave.getComment() == null || leave.getComment().isEmpty()) {
-			 CustomFieldError err = new CustomFieldError("leave", "comment", "Comment needed for rejection");
+			 CustomFieldError err = new CustomFieldError("leave", "comment", "Please provide comments for rejection");
 			 result.addError(err);
 		 }
 		 

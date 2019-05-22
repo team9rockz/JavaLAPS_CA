@@ -11,6 +11,7 @@ import sg.edu.nus.javalapsteam9.model.PublicHoliday;
 import sg.edu.nus.javalapsteam9.model.User;
 import sg.edu.nus.javalapsteam9.repo.PublicHolidayRepository;
 import sg.edu.nus.javalapsteam9.repo.UserRepository;
+import sg.edu.nus.javalapsteam9.util.Util;
 
 @Service
 public class AdminService {
@@ -48,7 +49,29 @@ public class AdminService {
 		
 	}
 	
+	public PublicHoliday findPublicHolidayByName(String name) {
+
+		return holidayRepo.findById(name).get();
+	}
 	public void createPublicHolidays(List<PublicHoliday> holidays){
 		holidayRepo.saveAll(holidays);
+	}
+	public void createPublicHoliday(PublicHoliday holiday){
+		holiday.setStartDate(Util.getUtcDate(holiday.getStartDate()));
+		holiday.setEndDate(Util.getUtcDate(holiday.getEndDate()));
+		holidayRepo.save(holiday);
+	}
+	public void updatePublicHoliday(PublicHoliday holiday){
+		holiday.setStartDate(Util.getUtcDate(holiday.getStartDate()));
+		holiday.setEndDate(Util.getUtcDate(holiday.getEndDate()));
+		holidayRepo.save(holiday);
+	}
+	public void deletePublicHoliday(PublicHoliday holiday){
+		
+		holidayRepo.delete(holiday);
+	}
+	public List<PublicHoliday> getAllPublicHolidays(){	
+		List<PublicHoliday> publicHolidays = holidayRepo.findAll();
+		return publicHolidays;
 	}
 }
