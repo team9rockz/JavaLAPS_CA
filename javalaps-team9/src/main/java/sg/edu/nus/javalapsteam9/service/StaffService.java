@@ -1,6 +1,8 @@
 package sg.edu.nus.javalapsteam9.service;
 
+import java.time.LocalDate;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -98,11 +100,11 @@ public class StaffService {
 	}
 	
 	public int calculateLeavesBetweenDates(Date startDate, Date endDate) {
-		Long days = Util.calculatePeriodBetweenDates(startDate, endDate);
-		if (days <= 14) {
+		long days = Util.calculatePeriodBetweenDates(startDate, endDate);
+		if (days > 0 && days <= 14) {
 			days = Util.calculatePeriodBetweenDatesExcludeHolidays(startDate, endDate, holidayRepo.findAll());
 		}
-		return days.intValue();
+		return (int) days;
 	}
 	
 	public List<LeaveApplication> findAllLeavesByUserId() {
@@ -141,4 +143,49 @@ public class StaffService {
 	public User findUserById(int empId) {
 		return userRepo.findById(empId).get();
 	}
+	
+	public boolean isNotValidDates(Date startDate, Date endDate) {
+		List<LeaveApplication> existingLeaves = findAllLeavesByUserId();
+		if(existingLeaves.isEmpty()) {
+			return false;
+		}
+		
+		HashSet<Date> existingLeavesSet = getAllAppliedLeaveDates(existingLeaves);
+		if(startDate.compareTo(endDate) == 0) {
+			return existingLeavesSet.contains(startDate);
+		} else {
+			HashSet<Date> newLeaveSet = Util.getAllDates(startDate, endDate);
+			for(Date date : newLeaveSet) {
+				if(existingLeavesSet.contains(date)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	public HashSet<Date> getAllAppliedLeaveDates(List<LeaveApplication> leaves) {
+		HashSet<Date> dateSet = new HashSet<>();
+		for(LeaveApplication leave : leaves) {
+			dateSet.addAll(Util.getAllDates(Util.parseFromUtcDate(leave.getStartDate()), Util.parseFromUtcDate(leave.getEndDate())));
+		}
+		return dateSet;
+	}
+	
+	public boolean isValidStartDate(Date startDate) {
+		return Util.isValidStartDate(startDate);
+	}
+	
+	public boolean isValidEndDate(Date startDate, Date endDate) {
+		return Util.isValidEndDate(startDate, endDate);
+	}
+	
+	public boolean isHoliday(Date date) {
+		LocalDate ldate = Util.parseDateToLocalDate(date, false);
+		boolean isWeekend = Util.isHoliday(ldate);
+		if(isWeekend)
+			return true;
+		return Util.isPublicHoliday(ldate, holidayRepo.findAll());
+	}
+
 }
