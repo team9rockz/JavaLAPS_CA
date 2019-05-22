@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Details | User</title>
+</head>
+<body>
+	<div class="container">
+		<table>
+			<tbody th:object="${publicHoliday}">
+				<tr>
+					<td>Name:</td>
+					<td th:text="${publicHoliday.name}"></td>
+				</tr>
+				
+				<tr>
+					<td>Start Date:</td>
+					<td th:text="${publicHoliday.startDate}"></td>
+				</tr>
+				<tr>
+					<td>End Date:</td>
+					<td th:text="${publicHoliday.endDate}"></td>
+				</tr>
+				<tr>
+					<td>
+						<form th:action="@{'/admin/publicHoliday/edit/'+${publicHoliday.name}}" method="post">
+							<input type="hidden" th:value="${publicHoliday.name}" name="name"> <input
+								type="submit" value="Update">
+						</form>
+					</td>
+					<td>
+						<form th:action="@{'/admin/publicHoliday/delete/'+${publicHoliday.name}}" method="post">
+							<input type="hidden" th:value="${publicHoliday.name}" name="name"> <input
+								type="submit" value="Delete">
+						</form>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<a th:href="@{'/admin/home'}">Go Back</a>
+	</div>
+</body>
+</html>

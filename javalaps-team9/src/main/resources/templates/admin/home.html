@@ -8,6 +8,7 @@
 	<div class="container">
 		
 		<a th:href="@{/admin/add}" class="btn btn-primary">Add User</a>
+		<a th:href="@{/admin/addPublicHoliday}" class="btn btn-primary">Add Holiday</a>
 	
 	    <div style="margin-top:10px">
 	        <h2>All Users</h2>
@@ -37,6 +38,28 @@
 		                <td th:text="${user.reportTo}">Report to</td>
 	            	</tr>
 	            	<tr th:if="${#lists.isEmpty(users)}">No User Found</tr>
+	            </tbody>
+	        </table>
+	    </div>
+	    
+	    <div style="margin-top:10px">
+	        <h2>All Public Holidays</h2>
+	        <table border="1" cellpadding="5">
+				<thead>
+		            <tr>
+		            	<th>Name</th>
+		            	<th>Start Date</th>
+		                <th>End Date</th>       
+		            </tr>
+		        </thead>
+		        <tbody>
+		            <tr th:each="publicHoliday : ${publicHolidays}">
+		            	<td><a th:href="@{'/admin/publicHoliday/holidayDetails/' + ${publicHoliday.name}}"><span
+								th:text="${publicHoliday.name}"></span></a></td>
+		                <td th:text="${publicHoliday.startDate}">Start Date</td>
+		                <td th:text="${publicHoliday.endDate}">End Date</td>
+	            	</tr>
+	            	<tr th:if="${#lists.isEmpty(publicHolidays)}">No Public Holiday Found</tr>
 	            </tbody>
 	        </table>
 	    </div>

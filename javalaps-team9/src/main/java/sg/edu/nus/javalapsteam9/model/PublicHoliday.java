@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 @Entity
 public class PublicHoliday implements Serializable{
 
@@ -15,8 +17,10 @@ public class PublicHoliday implements Serializable{
 
 	@Id
 	private String name;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
 	private Date startDate;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
 	private Date endDate;
 	
