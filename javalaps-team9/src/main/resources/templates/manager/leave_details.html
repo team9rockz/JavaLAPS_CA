@@ -18,7 +18,11 @@
 					<td><input type="text" th:field="*{appliedDate}" th:value="${appliedDate}" readonly></td>
 				</tr>
 				<tr>
-					<td>Contact Details: </td>
+					<td>Overseas: <input type="hidden" th:field="*{overseasTrip}" th:value="${overseasTrip}"/></td>
+					<td th:text="${leave.overseasTrip} ? 'Yes' : 'No'"></td>
+				</tr>
+				<tr>
+					<td>Overseas Contact Details (if applicable): </td>
 					<td><input type="text" th:field="*{contactDetails}" th:value="${contactDetails}" readonly></td>
 				</tr>
 				<tr>
