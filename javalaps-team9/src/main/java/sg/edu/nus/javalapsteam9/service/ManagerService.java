@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import sg.edu.nus.javalapsteam9.enums.LeaveStatus;
+import sg.edu.nus.javalapsteam9.enums.LeaveType;
 import sg.edu.nus.javalapsteam9.model.LeaveApplication;
 import sg.edu.nus.javalapsteam9.repo.LeaveApplicationRepository;
 import sg.edu.nus.javalapsteam9.repo.PublicHolidayRepository;
@@ -49,6 +50,17 @@ public class ManagerService {
 		LeaveApplication leave = leaveRepo.findById(id);
 		leave.setStatus(LeaveStatus.REJECTED);
 		leave.setComment(comment);
+		
+		//To return the number of leave days applied 
+		if(leave.getLeaveType() == LeaveType.ANNUAL) {
+			int adjustedLeaveBalance = leave.getUser().getAnnualLeaveBalance() + leave.getLeavePeriod();
+			leave.getUser().setAnnualLeaveBalance(adjustedLeaveBalance);
+		}
+		else if (leave.getLeaveType() == LeaveType.MEDICAL) {
+			int adjustedLeaveBalance = leave.getUser().getMedicalLeaveBalance() + leave.getLeavePeriod();
+			leave.getUser().setMedicalLeaveBalance(adjustedLeaveBalance);
+		}
+			
 		leaveRepo.save(leave);
 	}
 }

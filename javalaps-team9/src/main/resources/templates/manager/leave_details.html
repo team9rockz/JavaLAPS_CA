@@ -40,16 +40,12 @@
 				<tr>
 					<td>Comments : </td>
 					<td>
-					<textarea rows="3" cols="20" th:field="*{comment}" th:value="${comment}"></textarea> <span
-						th:if="${#fields.hasErrors('comment')}" th:errors="*{comment}">Mandatory comment to reject leave</span>
+					<textarea rows="3" cols="20" th:field="*{comment}" th:value="${comment}"></textarea> 
+					<span th:if="${#fields.hasErrors('comment')}" th:errors="*{comment}"></span>
 					</td>
 				</tr>
 				<tr>
 					<td>
-<!-- 						<form th:action="@{'/manager/approve/'+ ${leave.Id}}"
-							method="post">
-						</form> -->
-<!-- 						<button type="button" th:action="@{/manager/approve/'+ ${leave.Id}}">Approve</button> -->
 						<a class="btn btn-success" th:href="@{'/manager/approve/'+ ${leave.Id}}">Approve</a>
 					</td>
 					<td>
@@ -61,10 +57,6 @@
 			</tbody>
 		</table>
 	</form>
-<!-- 		<form th:action="@{'/manager/reject/'+ ${leave.Id}}" method="post">
-				<fieldset>Comments: <input type="text" th:field ="${leave.comment}"></fieldset>
-				<fieldset> <button type="submit" onclick="alert('Leave rejected')">Reject</button></fieldset> 
-		</form> -->
 		
 		<a th:href="@{'/manager/home'}">Go Back</a>
 		
