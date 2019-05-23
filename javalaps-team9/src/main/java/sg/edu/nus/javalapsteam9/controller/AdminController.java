@@ -52,11 +52,13 @@ public class AdminController {
 	}
     
     @RequestMapping(path = "/create", method = RequestMethod.POST)
-    public String saveUser(@Valid @ModelAttribute("user") User user, BindingResult result) {
+    public String saveUser(@Valid @ModelAttribute("user") User user, BindingResult result, Model model) {
 
     	validateEmployeeForm(user, result);
     	
 		if(result.hasErrors()) {
+			
+			model.addAttribute("managers", adminService.getAllManagers());
 			return "admin/user_form";
 		}
 		
