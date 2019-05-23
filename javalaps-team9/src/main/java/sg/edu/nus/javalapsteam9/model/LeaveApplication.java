@@ -24,7 +24,7 @@ import sg.edu.nus.javalapsteam9.util.Util;
 import sg.edu.nus.javalapsteam9.validation.LeaveTypeConstraint;
 
 @Entity
-public class LeaveApplication implements Serializable{
+public class LeaveApplication implements Serializable, Comparable <LeaveApplication>{
 
 	private static final long serialVersionUID = -2833426574597193027L;
 
@@ -204,6 +204,11 @@ public class LeaveApplication implements Serializable{
 		} else if (!id.equals(other.id))
 			return false;
 		return true;
+	}
+
+	@Override
+	public int compareTo(LeaveApplication o) {
+		return this.getAppliedDate().compareTo(o.getAppliedDate());
 	}
 	
 }

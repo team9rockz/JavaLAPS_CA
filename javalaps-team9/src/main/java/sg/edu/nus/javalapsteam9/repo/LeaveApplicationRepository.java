@@ -3,6 +3,7 @@ package sg.edu.nus.javalapsteam9.repo;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import sg.edu.nus.javalapsteam9.enums.LeaveStatus;
@@ -20,4 +21,7 @@ public interface LeaveApplicationRepository extends JpaRepository<LeaveApplicati
 	LeaveApplication findById(int id);
 	
 	List<LeaveApplication> findAllByUserAndStatusOrderByStartDateDesc(User user, LeaveStatus status);
+
+	@Query(value="SELECT * from Leave_Application l, User u WHERE l.staff_id = u.id AND u.id != u.report_to AND u.report_to = ? AND l.status in ('APPLIED','UPDATED') ORDER BY l.applied_date",nativeQuery=true)
+	List<LeaveApplication> findSubordinatesOutstandingLeavesOrderByAppliedDate(int managerid);
 }
