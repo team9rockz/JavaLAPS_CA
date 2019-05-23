@@ -80,25 +80,43 @@ public class AdminService {
 
 		return holidayRepo.findById(name).get();
 	}
+	
 	public void createPublicHolidays(List<PublicHoliday> holidays){
 		holidayRepo.saveAll(holidays);
 	}
+	
 	public void createPublicHoliday(PublicHoliday holiday){
 		holiday.setStartDate(Util.getUtcDate(holiday.getStartDate()));
 		holiday.setEndDate(Util.getUtcDate(holiday.getEndDate()));
 		holidayRepo.save(holiday);
 	}
-	public void updatePublicHoliday(PublicHoliday holiday){
-		holiday.setStartDate(Util.getUtcDate(holiday.getStartDate()));
-		holiday.setEndDate(Util.getUtcDate(holiday.getEndDate()));
-		holidayRepo.save(holiday);
-	}
+
 	public void deletePublicHoliday(PublicHoliday holiday){
 		
 		holidayRepo.delete(holiday);
 	}
+	
 	public List<PublicHoliday> getAllPublicHolidays(){	
 		List<PublicHoliday> publicHolidays = holidayRepo.findAll();
 		return publicHolidays;
 	}
+	
+	public boolean checkValidPublicHolidayName(String phName) {
+		List<PublicHoliday> publicHolidays=holidayRepo.findAll();
+		boolean flag;
+		
+		flag = publicHolidays.stream()
+				.anyMatch(p -> p.getName().toUpperCase().equals(phName.toUpperCase()));
+		
+		return flag;
+	}
+	
+	public boolean isValidStartDate(Date startDate) {
+		return Util.isValidStartDate(startDate);
+	}
+	
+	public boolean isValidEndDate(Date startDate, Date endDate) {
+		return Util.isValidEndDate(startDate, endDate);
+	}
+
 }

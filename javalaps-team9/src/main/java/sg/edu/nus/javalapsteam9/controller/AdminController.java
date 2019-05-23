@@ -101,7 +101,11 @@ public class AdminController {
 	}
 
     @RequestMapping(path = "/createPublicHoliday", method = RequestMethod.POST)
-    public String savePublicHoliday(PublicHoliday publicHoliday) {
+    public String savePublicHoliday(Model model, @Valid @ModelAttribute("publicHoliday") PublicHoliday publicHoliday, BindingResult result) {
+    	validate(publicHoliday,result);
+    	if(result.hasErrors()) {
+    		return "admin/publicHoliday_form";
+    	}
         adminService.createPublicHoliday(publicHoliday);
         return "redirect:/admin/home";
     }
@@ -114,18 +118,7 @@ public class AdminController {
     	return "admin/publicHoliday_detail";
     }
     
-    @PostMapping("/publicHoliday/edit/{name}")
-    public String editDetail(Model model, @PathVariable("name") String name) {
-    	
-    	PublicHoliday publicHoliday = adminService.findPublicHolidayByName(name);
-    	model.addAttribute("publicHoliday", publicHoliday);
-    	return "admin/publicHoliday_edit";
-    }
-    @RequestMapping(path = "/updatePublicHoliday", method = RequestMethod.POST)
-    public String saveUpdeatedPublicHoliday(PublicHoliday publicHoliday) {
-        adminService.updatePublicHoliday(publicHoliday);
-        return "redirect:/admin/home";
-    }
+
     @PostMapping("/publicHoliday/delete/{name}")
     public String delete(Model model, @PathVariable("name") String name) {
     	
@@ -133,4 +126,26 @@ public class AdminController {
     	adminService.deletePublicHoliday(publicHoliday);
     	return "redirect:/admin/home";
     }
+    
+    private void validate(PublicHoliday publicHoliday, BindingResult result) {
+		if(publicHoliday.getName()!=null) {
+			
+			boolean notAvailableName=adminService.checkValidPublicHolidayName(publicHoliday.getName());
+			if(notAvailableName) {
+				CustomFieldError cd=new CustomFieldError("publicHoliday","name",publicHoliday.getName(),"Invalid Name");
+				result.addError(cd);
+			}
+		}
+		if (publicHoliday.getStartDate() != null) {
+			boolean isValidDate;
+			if (publicHoliday.getEndDate() != null) {
+				isValidDate = adminService.isValidEndDate(publicHoliday.getStartDate(), publicHoliday.getEndDate());
+				if (!isValidDate) {
+					CustomFieldError cd = new CustomFieldError("publicHoliday", "endDate", publicHoliday.getEndDate(),
+							"Invalid end date");
+					result.addError(cd);
+				}
+			}
+		}
+	}
 }

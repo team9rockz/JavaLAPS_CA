@@ -2,7 +2,7 @@
 <html xmlns:th="http://thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Details | User</title>
+<title>Details | Public Holiday</title>
 </head>
 <body>
 	<div class="container">
@@ -23,10 +23,10 @@
 				</tr>
 				<tr>
 					<td>
-						<form th:action="@{'/admin/publicHoliday/edit/'+${publicHoliday.name}}" method="post">
+						<!-- <form th:action="@{'/admin/publicHoliday/edit/'+${publicHoliday.name}}" method="post">
 							<input type="hidden" th:value="${publicHoliday.name}" name="name"> <input
 								type="submit" value="Update">
-						</form>
+						</form> -->
 					</td>
 					<td>
 						<form th:action="@{'/admin/publicHoliday/delete/'+${publicHoliday.name}}" method="post">

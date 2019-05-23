@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -16,10 +18,15 @@ public class PublicHoliday implements Serializable{
 	private static final long serialVersionUID = -8607640984681418685L;
 
 	@Id
+	@NotEmpty
 	private String name;
+	
+	@NotNull
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
 	private Date startDate;
+	
+	@NotNull
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
 	private Date endDate;
