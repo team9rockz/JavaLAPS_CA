@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -62,7 +63,7 @@ public class User implements Serializable {
 	
 	private int reportTo;
 
-	@OneToMany(targetEntity = LeaveApplication.class, mappedBy = "user")
+	@OneToMany(targetEntity = LeaveApplication.class, mappedBy = "user", cascade = CascadeType.ALL)
 	private Collection<LeaveApplication> leaves;
 	
 	public User() {

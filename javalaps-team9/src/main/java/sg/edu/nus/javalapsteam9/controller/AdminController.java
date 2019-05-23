@@ -54,6 +54,11 @@ public class AdminController {
     @RequestMapping(path = "/create", method = RequestMethod.POST)
     public String saveUser(@Valid @ModelAttribute("user") User user, BindingResult result, Model model) {
 
+		if(adminService.findUserByUserId(user.getUserId()) != null) {
+			CustomFieldError cd = new CustomFieldError("user", "userId", user.getUserId(), "User ID already exists");
+			result.addError(cd);
+		}
+    	
     	validateEmployeeForm(user, result);
     	
 		if(result.hasErrors()) {
@@ -62,7 +67,7 @@ public class AdminController {
 			return "admin/user_form";
 		}
 		
-        adminService.createUser(user);
+        adminService.saveUser(user);
         return "redirect:/admin/home";
     }
     
@@ -77,20 +82,45 @@ public class AdminController {
 			
 			CustomFieldError cd = new CustomFieldError("user", "role", "Invalid role for Professional scheme");
 			result.addError(cd);
-		}
-		
-		if(adminService.findUserByUserId(user.getUserId()) != null) {
-			CustomFieldError cd = new CustomFieldError("user", "userId", user.getUserId(), "User ID already exists");
-			result.addError(cd);
-		}
+		}		
 	}
     
     @GetMapping("/user/details/{id}")
-    public String userForm(Model model, @PathVariable("id") Integer id) {
+    public String userDetail(Model model, @PathVariable("id") Integer id) {
     	
     	User user = adminService.findUserById(id);
     	model.addAttribute("user", user);
     	return "admin/user_detail";
+    }
+    
+    @PostMapping("/user/edit/{id}")
+    public String editUserDetail(Model model, @PathVariable("id") int id) {
+    	
+    	User user = adminService.findUserById(id);
+    	model.addAttribute("user", user);
+    	model.addAttribute("managers", adminService.getAllManagers());
+    	return "admin/user_edit";
+    }
+    
+    @RequestMapping(path = "/updateUser", method = RequestMethod.POST)
+    public String saveUpdatedUser(@Valid @ModelAttribute("user") User user, BindingResult result, Model model) {
+    	
+    	validateEmployeeForm(user, result);
+    	
+		if(result.hasErrors()) {
+			
+			model.addAttribute("managers", adminService.getAllManagers());
+			return "admin/user_edit";
+		}
+    	
+        adminService.saveUser(user);
+        return "redirect:/admin/home";
+    }
+    
+    @RequestMapping(path = "/user/delete/{id}", method = RequestMethod.POST)
+    public String deleteUser(@PathVariable("id") int id) {
+        adminService.deleteUser(adminService.findUserById(id));
+        return "redirect:/admin/home";
     }
     
     @RequestMapping(path = "/addPublicHoliday", method = RequestMethod.GET)

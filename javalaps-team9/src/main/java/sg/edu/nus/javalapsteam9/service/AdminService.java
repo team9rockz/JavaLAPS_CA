@@ -26,29 +26,6 @@ public class AdminService {
 	@Autowired
 	private PublicHolidayRepository holidayRepo;
 	
-	public void createUser(User user) {
-		user.setPassword(null == user.getPassword()? "12345" : user.getPassword());
-		if (user.getId() == 0) {
-	    	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-	    	Date joinDate = Util.getUtcDate(user.getJoinDate());
-	    	int nextYear = joinDate.getYear()+ 1901;
-	    	try {
-				Date startOfNextYear = format.parse(nextYear+"-01-01");
-				
-				long workDaysOfYearMS = Math.abs(startOfNextYear.getTime() - user.getJoinDate().getTime());
-			    double workDaysOfYear = (double)TimeUnit.DAYS.convert(workDaysOfYearMS, TimeUnit.MILLISECONDS);
-			    
-			    int annualBalance = (int) ((workDaysOfYear/365)*18);
-			    
-			    user.setAnnualLeaveBalance(annualBalance);
-			} catch (ParseException e) {
-				e.printStackTrace();
-			}
-			
-		}
-		userRepo.save(user);
-	}
-	
 	public User findUserById(int id) {
 
 		return userRepo.findById(id).get();
@@ -74,6 +51,34 @@ public class AdminService {
 		
 		return managers;
 		
+	}
+	
+	public void saveUser(User user) {
+
+		Date joinDate = Util.getUtcDate(user.getJoinDate());
+		if (user.getId() == 0) {
+	    	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+	    	int nextYear = joinDate.getYear()+ 1901;
+	    	try {
+				Date startOfNextYear = format.parse(nextYear+"-01-01");
+				
+				long workDaysOfYearMS = Math.abs(startOfNextYear.getTime() - user.getJoinDate().getTime());
+			    double workDaysOfYear = (double)TimeUnit.DAYS.convert(workDaysOfYearMS, TimeUnit.MILLISECONDS);
+			    
+			    int annualBalance = (int) ((workDaysOfYear/365)*18);
+			    
+			    user.setAnnualLeaveBalance(annualBalance);
+			    user.setPassword("12345");
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+			
+		}
+		userRepo.save(user);
+	}
+	
+	public void deleteUser(User user) {
+		userRepo.delete(user);
 	}
 	
 	public PublicHoliday findPublicHolidayByName(String name) {
