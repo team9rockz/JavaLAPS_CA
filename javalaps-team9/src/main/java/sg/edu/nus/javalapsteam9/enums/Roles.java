@@ -2,9 +2,9 @@ package sg.edu.nus.javalapsteam9.enums;
 
 public enum Roles {
 
-	ADMIN("ADMIN"),
+	STAFF("STAFF"),
 	MANAGER("MANAGER"),
-	STAFF("STAFF");
+	ADMIN("ADMIN");
 	
 	private String role;
 	

@@ -9,4 +9,6 @@ import sg.edu.nus.javalapsteam9.model.User;
 public interface UserRepository extends JpaRepository<User, Integer>{
 
 	List<User> findAllByReportTo(int id);
+	
+	User findByUserId(String userId);
 }

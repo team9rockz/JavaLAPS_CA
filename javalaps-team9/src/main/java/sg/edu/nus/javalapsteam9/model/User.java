@@ -13,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -29,14 +31,19 @@ public class User implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
+	@NotEmpty
 	private String userId;
 	
+	@NotEmpty
 	private String firstName;
 	
+	@NotEmpty
 	private String lastName;
 	
 	private String password;
 	
+	@Email
+	@NotEmpty
 	private String email;
 	
 	@Enumerated(EnumType.STRING)
@@ -45,12 +52,10 @@ public class User implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private Scheme scheme;
 	
-	@NotNull
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
 	private Date joinDate;
 
-	
 	private int annualLeaveBalance;
 	
 	private int medicalLeaveBalance;
@@ -178,4 +183,11 @@ public class User implements Serializable {
 		this.reportTo = reportTo;
 	}
 
+	public Collection<LeaveApplication> getLeaves() {
+		return leaves;
+	}
+
+	public void setLeaves(Collection<LeaveApplication> leaves) {
+		this.leaves = leaves;
+	}
 }

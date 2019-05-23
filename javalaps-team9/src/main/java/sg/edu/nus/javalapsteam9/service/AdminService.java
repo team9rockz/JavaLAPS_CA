@@ -54,6 +54,11 @@ public class AdminService {
 		return userRepo.findById(id).get();
 	}
 	
+	public User findUserByUserId(String userId) {
+
+		return userRepo.findByUserId(userId);
+	}
+	
 	public List<User> getAllUsers(){
 		
 		List<User> users = userRepo.findAll();
