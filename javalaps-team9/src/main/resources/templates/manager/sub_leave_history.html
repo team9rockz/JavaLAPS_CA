@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th = "http://thymeLeaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+<div th:each="subordinate,iter1: ${subordinates}">
+
+	<h3 th:text="${subordinate.firstName + ' ' + subordinate.lastName}"></h3>
+	
+	<div th:each = "subLeave,iter2: ${subLeaves}" >		
+		<table th:if = "${iter2.index}== ${iter1.index}" style="border: 1px solid black">
+			<tr>
+				<th>Leave Id</th>
+				<th>Leave Type</th>
+				<th>Start Date</th>
+				<th>End Date</th>
+				<th>Reason</th>
+			</tr>
+			
+			<tr th:each="leave : ${subLeave}">					
+				<td th:text = "${leave.id}">NA</td>
+				<td th:text = "${leave.leaveType}">NA</td>
+				<td th:text ="${leave.startDate}">NA</td>
+				<td th:text = "${leave.endDate}">NA</td>
+				<td th:text = "${leave.reason}">NA</td>
+			</tr>
+			
+			<tr >
+				<td th:if="${#lists.isEmpty(subLeave)}">NA</td>
+				<td th:if="${#lists.isEmpty(subLeave)}">NA</td>
+				<td th:if="${#lists.isEmpty(subLeave)}">NA</td>
+				<td th:if="${#lists.isEmpty(subLeave)}">NA</td>
+				<td th:if="${#lists.isEmpty(subLeave)}">NA</td>
+			</tr>
+				
+		</table>
+		
+		
+	</div>
+</div>
+
+</body>
+</html>	

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import sg.edu.nus.javalapsteam9.model.LeaveApplication;
+import sg.edu.nus.javalapsteam9.model.User;
 import sg.edu.nus.javalapsteam9.service.ManagerService;
 import sg.edu.nus.javalapsteam9.validation.CustomFieldError;
 
@@ -66,4 +67,12 @@ public class ManagerController {
 		 return "redirect:/manager/home";
 	 }
 	 
+	 @GetMapping("/sub_leave_history")
+	 public String viewSubLeaveHist(Model model) {
+		 List<List<LeaveApplication>> subLeaves = managerService.getSubLeaveHistory();	
+		 model.addAttribute("subLeaves", subLeaves);
+		 List<User> subordinates = managerService.getSub();
+		 model.addAttribute("subordinates",subordinates); 
+		 return "manager/sub_leave_history";
+	 }
 }

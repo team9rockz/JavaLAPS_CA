@@ -18,5 +18,6 @@ public interface LeaveApplicationRepository extends JpaRepository<LeaveApplicati
 	List<LeaveApplication> findByStatus(LeaveStatus status);
 	
 	LeaveApplication findById(int id);
-
+	
+	List<LeaveApplication> findAllByUserAndStatusOrderByStartDateDesc(User user, LeaveStatus status);
 }

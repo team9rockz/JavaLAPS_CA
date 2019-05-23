@@ -9,12 +9,17 @@ import org.springframework.stereotype.Service;
 import sg.edu.nus.javalapsteam9.enums.LeaveStatus;
 import sg.edu.nus.javalapsteam9.enums.LeaveType;
 import sg.edu.nus.javalapsteam9.model.LeaveApplication;
+import sg.edu.nus.javalapsteam9.model.User;
 import sg.edu.nus.javalapsteam9.repo.LeaveApplicationRepository;
 import sg.edu.nus.javalapsteam9.repo.PublicHolidayRepository;
+import sg.edu.nus.javalapsteam9.repo.UserRepository;
 
 @Service
 public class ManagerService {
 
+	@Autowired
+	private UserRepository userRepo;
+	
 	@Autowired
 	private LeaveApplicationRepository leaveRepo;
 
@@ -63,4 +68,21 @@ public class ManagerService {
 			
 		leaveRepo.save(leave);
 	}
+	
+	public List<List<LeaveApplication>> getSubLeaveHistory(){
+		List<List<LeaveApplication>> list = new ArrayList<List<LeaveApplication>>();
+		List<User> subordinates = getSub();						
+		for (User user : subordinates) {
+			List<LeaveApplication> leaves = leaveRepo.findAllByUserAndStatusOrderByStartDateDesc(user, LeaveStatus.APPROVED); 
+			list.add(leaves);
+			
+		}		
+		return list;
+	}
+	
+	public List<User> getSub(){
+		List<User> subordinates = userRepo.findAllByReportTo(1);	
+		return subordinates;
+	}
+
 }
