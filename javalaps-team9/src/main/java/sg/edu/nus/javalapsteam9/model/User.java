@@ -53,6 +53,7 @@ public class User implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private Scheme scheme;
 	
+	@NotNull(message = "Value or format incorrect")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
 	private Date joinDate;

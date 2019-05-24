@@ -13,29 +13,31 @@
 				<div class="form-group">
 					<label class="col-sm-2 control-label">User Id:</label>
 					<div class="col-sm-10">
-						<input type="text" class="form-control" th:field="*{userId}" />
-						<span th:if="${#fields.hasErrors('userId')}" th:errors="*{userId}"></span>
+						<input type="text" class="form-control" th:field="*{userId}" /> <span
+							th:if="${#fields.hasErrors('userId')}" th:errors="*{userId}"></span>
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-2 control-label">First Name:</label>
 					<div class="col-sm-10">
 						<input type="text" class="form-control" th:field="*{firstName}" />
-						<span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></span>
+						<span th:if="${#fields.hasErrors('firstName')}"
+							th:errors="*{firstName}"></span>
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-2 control-label">Last Name:</label>
 					<div class="col-sm-10">
 						<input type="text" class="form-control" th:field="*{lastName}" />
-						<span th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></span>
+						<span th:if="${#fields.hasErrors('lastName')}"
+							th:errors="*{lastName}"></span>
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-2 control-label">Email:</label>
 					<div class="col-sm-10">
-						<input type="text" class="form-control" th:field="*{email}" />
-						<span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+						<input type="text" class="form-control" th:field="*{email}" /> <span
+							th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
 					</div>
 				</div>
 				<div class="form-group">
@@ -55,24 +57,23 @@
 							<option
 								th:each="role : ${T(sg.edu.nus.javalapsteam9.enums.Roles).values()}"
 								th:value="${role}" th:text="${role.role}"></option>
-						</select>
-						<span th:if="${#fields.hasErrors('role')}" th:errors="*{role}"></span>
+						</select> <span th:if="${#fields.hasErrors('role')}" th:errors="*{role}"></span>
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-2 control-label">Join Date:</label>
 					<div class="col-sm-10">
-						<input type="date" th:value="${joinDate}"
-						th:field="*{joinDate}"/>
+						<input type="date" th:value="${joinDate}" th:field="*{joinDate}" />
+						<span th:if="${#fields.hasErrors('joinDate')}"
+							th:errors="*{joinDate}">Join Date Error</span>
 					</div>
 				</div>
 				<div class="form-group">
 					<label class="col-sm-2 control-label">Reports To:</label>
 					<div class="col-sm-10">
 						<select th:field="*{reportTo}">
-							<option
-								th:each="m : ${managers}"
-								th:value="${m.id}" th:text="${m.firstName} + ' ' + ${m.lastName}"></option>
+							<option th:each="m : ${managers}" th:value="${m.id}"
+								th:text="${m.firstName} + ' ' + ${m.lastName}"></option>
 						</select>
 					</div>
 				</div>
