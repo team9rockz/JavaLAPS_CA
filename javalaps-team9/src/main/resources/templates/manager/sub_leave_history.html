@@ -2,7 +2,7 @@
 <html xmlns:th = "http://thymeLeaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Subordinate Leave History</title>
 </head>
 <body>
 
@@ -21,11 +21,12 @@
 			</tr>
 			
 			<tr th:each="leave : ${subLeave}">					
-				<td th:text = "${leave.id}">NA</td>
-				<td th:text = "${leave.leaveType}">NA</td>
-				<td th:text ="${leave.startDate}">NA</td>
-				<td th:text = "${leave.endDate}">NA</td>
-				<td th:text = "${leave.reason}">NA</td>
+				<td><a th:href="@{'/manager/sub_leave_history/view/' + ${leave.id}}"><span
+								th:text="${leave.id}"></span></a></td>
+				<td th:text = "${leave.leaveType}"></td>
+				<td th:text ="${leave.startDate}"></td>
+				<td th:text = "${leave.endDate}"></td>
+				<td th:text = "${leave.reason}"></td>
 			</tr>
 			
 			<tr >

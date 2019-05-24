@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head th:replace="fragments/header :: header-css">
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+	<div class="container">
+		<table>
+			<tbody th:object="${form}">
+				<tr>
+					<td>Start Date :</td>
+					<td th:text="${form.startDate}"></td>
+				</tr>
+				<tr>
+					<td>End Date :</td>
+					<td th:text="${form.endDate}"></td>
+				</tr>
+				<tr>
+					<td>Leave Type :</td>
+					<td th:text="${form.leaveType}"></td>
+				</tr>
+				<tr>
+					<td>Reason :</td>
+					<td th:text="${form.reason}"></td>
+				</tr>
+				<tr>
+					<td>Work Dissemination :</td>
+					<td th:text="${form.workDissemination}"></td>
+				</tr>
+				<tr>
+					<td>Overseas Trip :</td>
+					<td th:text="${form.overseasTrip} ? 'Yes' : 'No'"></td>
+				</tr>
+				<tr>
+					<td>Contact Details :</td>
+					<td th:text="${form.contactDetails}"></td>
+				</tr>
+				<tr
+					th:if="${#strings.equalsIgnoreCase(form.status.status, 'APPLIED')} or ${#strings.equalsIgnoreCase(form.status.status, 'UPDATED')}">
+					<td>
+						<form th:action="@{'/employee/leave/edit'}" method="post">
+							<input type="hidden" th:value="${form.id}" name="id"> <input
+								type="submit" value="Update">
+						</form>
+					</td>
+					<td>
+						<form th:action="@{'/employee/leave/delete'}" method="post">
+							<input type="hidden" th:value="${form.id}" name="id"> <input
+								type="submit" value="Delete">
+						</form>
+					</td>
+				</tr>
+				
+			</tbody>
+		</table>
+		<a th:href="@{'/manager/sub_leave_history'}">Go Back</a>
+	</div>
+	<div th:replace="fragments/footer :: footer"></div>
+
+</body>
+</html>

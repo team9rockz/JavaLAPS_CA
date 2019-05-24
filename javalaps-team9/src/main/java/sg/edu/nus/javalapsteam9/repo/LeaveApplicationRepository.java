@@ -20,7 +20,7 @@ public interface LeaveApplicationRepository extends JpaRepository<LeaveApplicati
 	
 	LeaveApplication findById(int id);
 	
-	List<LeaveApplication> findAllByUserAndStatusOrderByStartDateDesc(User user, LeaveStatus status);
+	List<LeaveApplication> findAllByUserAndStatusOrderByStartDate(User user, LeaveStatus status);
 
 	@Query(value="SELECT * from Leave_Application l, User u WHERE l.staff_id = u.id AND u.id != u.report_to AND u.report_to = ? AND l.status in ('APPLIED','UPDATED') ORDER BY l.applied_date",nativeQuery=true)
 	List<LeaveApplication> findSubordinatesOutstandingLeavesOrderByAppliedDate(int managerid);

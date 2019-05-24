@@ -75,4 +75,14 @@ public class ManagerController {
 		 model.addAttribute("subordinates",subordinates); 
 		 return "manager/sub_leave_history";
 	 }
+	 
+	 @GetMapping("/sub_leave_history/view/{leaveid}")
+	 public String viewLeaveId(Model model, @PathVariable("leaveid") Integer leaveId) {
+		 	LeaveApplication leave = managerService.findLeaveById(leaveId);
+			model.addAttribute("form", leave);
+			
+			return "manager/view_leave";
+			
+			
+	 }
 }

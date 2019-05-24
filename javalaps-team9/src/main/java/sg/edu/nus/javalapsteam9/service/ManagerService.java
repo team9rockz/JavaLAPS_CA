@@ -32,7 +32,7 @@ public class ManagerService {
 //		List<LeaveApplication> appliedLeaves = leaveRepo.findByStatus(LeaveStatus.APPLIED);
 //		List<LeaveApplication> updatedLeaves = leaveRepo.findByStatus(LeaveStatus.UPDATED);
 		List<LeaveApplication> outstandingLeaves = new ArrayList<LeaveApplication>();
-		outstandingLeaves = leaveRepo.findSubordinatesOutstandingLeavesOrderByAppliedDate(2);
+		outstandingLeaves = leaveRepo.findSubordinatesOutstandingLeavesOrderByAppliedDate(1);
 //		outstandingLeaves.addAll(appliedLeaves);
 //		outstandingLeaves.addAll(updatedLeaves);
 //		
@@ -76,7 +76,7 @@ public class ManagerService {
 		List<List<LeaveApplication>> list = new ArrayList<List<LeaveApplication>>();
 		List<User> subordinates = getSub();						
 		for (User user : subordinates) {
-			List<LeaveApplication> leaves = leaveRepo.findAllByUserAndStatusOrderByStartDateDesc(user, LeaveStatus.APPROVED); 
+			List<LeaveApplication> leaves = leaveRepo.findAllByUserAndStatusOrderByStartDate(user, LeaveStatus.APPROVED); 
 			list.add(leaves);
 			
 		}		
@@ -87,5 +87,7 @@ public class ManagerService {
 		List<User> subordinates = userRepo.findAllByReportTo(1);	
 		return subordinates;
 	}
+	
+
 
 }
