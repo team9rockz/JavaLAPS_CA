@@ -2,6 +2,7 @@ package sg.edu.nus.javalapsteam9.service;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -103,6 +104,7 @@ public class AdminService {
 	
 	public List<PublicHoliday> getAllPublicHolidays(){	
 		List<PublicHoliday> publicHolidays = holidayRepo.findAll();
+		publicHolidays.sort(Comparator.comparing(PublicHoliday::getStartDate));
 		return publicHolidays;
 	}
 	
