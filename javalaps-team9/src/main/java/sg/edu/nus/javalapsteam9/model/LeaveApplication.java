@@ -1,3 +1,4 @@
+
 package sg.edu.nus.javalapsteam9.model;
 
 import java.io.Serializable;
@@ -25,7 +26,7 @@ import sg.edu.nus.javalapsteam9.util.Util;
 import sg.edu.nus.javalapsteam9.validation.LeaveTypeConstraint;
 
 @Entity
-public class LeaveApplication implements Serializable, Comparable <LeaveApplication>{
+public class LeaveApplication implements Serializable, Comparable<LeaveApplication> {
 
 	private static final long serialVersionUID = -2833426574597193027L;
 
@@ -37,7 +38,7 @@ public class LeaveApplication implements Serializable, Comparable <LeaveApplicat
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
 	private Date startDate;
-	
+
 	@NotNull
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
@@ -46,26 +47,26 @@ public class LeaveApplication implements Serializable, Comparable <LeaveApplicat
 	@LeaveTypeConstraint
 	@Enumerated(EnumType.STRING)
 	private LeaveType leaveType;
-	
+
 	@Temporal(TemporalType.DATE)
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date appliedDate;
-	
+
 	@NotEmpty
 	private String reason;
-	
+
 	@NotEmpty
 	private String workDissemination;
-	
+
 	private int leavePeriod;
-	
+
 	private String contactDetails;
-	
+
 	@Enumerated(EnumType.STRING)
 	private LeaveStatus status;
-	
+
 	private String comment;
-	
+
 	private boolean overseasTrip;
 
 	@ManyToOne
@@ -74,11 +75,29 @@ public class LeaveApplication implements Serializable, Comparable <LeaveApplicat
 
 	@Transient
 	private boolean expired;
-	
+
 	public LeaveApplication() {
 		super();
 		this.status = LeaveStatus.APPLIED;
 		this.appliedDate = Util.now();
+	}
+
+	public LeaveApplication(@NotNull Date startDate, @NotNull Date endDate, LeaveType leaveType, Date appliedDate,
+			@NotEmpty String reason, @NotEmpty String workDissemination, int leavePeriod, String contactDetails,
+			LeaveStatus status, String comment, boolean overseasTrip, User user) {
+		super();
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.leaveType = leaveType;
+		this.appliedDate = appliedDate;
+		this.reason = reason;
+		this.workDissemination = workDissemination;
+		this.leavePeriod = leavePeriod;
+		this.contactDetails = contactDetails;
+		this.status = status;
+		this.comment = comment;
+		this.overseasTrip = overseasTrip;
+		this.user = user;
 	}
 
 	public Integer getId() {
@@ -184,7 +203,7 @@ public class LeaveApplication implements Serializable, Comparable <LeaveApplicat
 	public void setLeavePeriod(int leavePeriod) {
 		this.leavePeriod = leavePeriod;
 	}
-	
+
 	public boolean isExpired() {
 		return expired;
 	}
@@ -222,5 +241,5 @@ public class LeaveApplication implements Serializable, Comparable <LeaveApplicat
 	public int compareTo(LeaveApplication o) {
 		return this.getAppliedDate().compareTo(o.getAppliedDate());
 	}
-	
+
 }

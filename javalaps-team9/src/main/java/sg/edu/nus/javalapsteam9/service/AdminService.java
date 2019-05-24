@@ -12,8 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import sg.edu.nus.javalapsteam9.enums.Roles;
+import sg.edu.nus.javalapsteam9.model.LeaveApplication;
 import sg.edu.nus.javalapsteam9.model.PublicHoliday;
 import sg.edu.nus.javalapsteam9.model.User;
+import sg.edu.nus.javalapsteam9.repo.LeaveApplicationRepository;
 import sg.edu.nus.javalapsteam9.repo.PublicHolidayRepository;
 import sg.edu.nus.javalapsteam9.repo.UserRepository;
 import sg.edu.nus.javalapsteam9.util.Util;
@@ -26,6 +28,9 @@ public class AdminService {
 
 	@Autowired
 	private PublicHolidayRepository holidayRepo;
+	
+	@Autowired
+	private LeaveApplicationRepository leaveRepo;
 	
 	public User findUserById(int id) {
 
@@ -125,5 +130,8 @@ public class AdminService {
 	public boolean isValidEndDate(Date startDate, Date endDate) {
 		return Util.isValidEndDate(startDate, endDate);
 	}
-
+	
+	public void saveLeaveRecord(LeaveApplication lapp) {
+		leaveRepo.save(lapp);
+	}
 }
