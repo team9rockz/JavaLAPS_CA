@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://thymeleaf.org">
-<head>
+<head th:replace="fragments/header :: header-css">
 <meta charset="UTF-8">
 <title>Details | User</title>
 </head>
 <body>
+	<div th:replace="fragments/logged_header :: logged-header"></div>
 	<div class="container">
 		<table>
 			<tbody th:object="${user}">
@@ -52,7 +53,6 @@
 				</tr>
 			</tbody>
 		</table>
-		<a th:href="@{'/admin/home'}">Go Back</a>
 	</div>
 </body>
 </html>

@@ -5,6 +5,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<div th:replace="fragments/logged_header :: logged-header"></div>
 	<div class="container">
 		<table>
 			<tbody th:object="${form}">
@@ -37,7 +38,7 @@
 					<td th:text="${form.contactDetails}"></td>
 				</tr>
 				<tr
-					th:if="${#strings.equalsIgnoreCase(form.status.status, 'APPLIED')} or ${#strings.equalsIgnoreCase(form.status.status, 'UPDATED')}">
+					th:if="${#strings.equalsIgnoreCase(form.status.status, 'APPLIED')} or ${#strings.equalsIgnoreCase(form.status.status, 'UPDATED')} or ${expired == true}">
 					<td>
 						<form th:action="@{'/employee/leave/edit'}" method="post">
 							<input type="hidden" th:value="${form.id}" name="id"> <input
@@ -52,7 +53,7 @@
 					</td>
 				</tr>
 				<tr
-					th:if="${#strings.equalsIgnoreCase(form.status.status, 'APPROVED')}">
+					th:if="${#strings.equalsIgnoreCase(form.status.status, 'APPROVED')} and ${expired == false}">
 					<td>
 						<form th:action="@{'/employee/leave/cancel'}" method="post">
 							<input type="hidden" th:value="${form.id}" name="id"> <input
@@ -62,7 +63,6 @@
 				</tr>
 			</tbody>
 		</table>
-		<a th:href="@{'/employee/home'}">Go Back</a>
 	</div>
 	<div th:replace="fragments/footer :: footer"></div>
 

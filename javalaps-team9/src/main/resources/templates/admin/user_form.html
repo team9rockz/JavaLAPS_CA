@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
+<head th:replace="fragments/header :: header-css">
 <meta charset="UTF-8">
 <title>User Form</title>
 </head>
 <body>
+	<div th:replace="fragments/logged_header :: logged-header"></div>
 	<div class="container">
 		<h2>User Form</h2>
 		<div>

@@ -14,6 +14,7 @@ import sg.edu.nus.javalapsteam9.model.User;
 import sg.edu.nus.javalapsteam9.repo.LeaveApplicationRepository;
 import sg.edu.nus.javalapsteam9.repo.PublicHolidayRepository;
 import sg.edu.nus.javalapsteam9.repo.UserRepository;
+import sg.edu.nus.javalapsteam9.util.SecurityUtil;
 
 @Service
 public class ManagerService {
@@ -32,7 +33,8 @@ public class ManagerService {
 //		List<LeaveApplication> appliedLeaves = leaveRepo.findByStatus(LeaveStatus.APPLIED);
 //		List<LeaveApplication> updatedLeaves = leaveRepo.findByStatus(LeaveStatus.UPDATED);
 		List<LeaveApplication> outstandingLeaves = new ArrayList<LeaveApplication>();
-		outstandingLeaves = leaveRepo.findSubordinatesOutstandingLeavesOrderByAppliedDate(1);
+		outstandingLeaves = leaveRepo
+				.findSubordinatesOutstandingLeavesOrderByAppliedDate(SecurityUtil.getCurrentLoggedUserId());
 //		outstandingLeaves.addAll(appliedLeaves);
 //		outstandingLeaves.addAll(updatedLeaves);
 //		
@@ -84,7 +86,7 @@ public class ManagerService {
 	}
 	
 	public List<User> getSub(){
-		List<User> subordinates = userRepo.findAllByReportTo(1);	
+		List<User> subordinates = userRepo.findAllByReportTo(SecurityUtil.getCurrentLoggedUserId());	
 		return subordinates;
 	}
 	

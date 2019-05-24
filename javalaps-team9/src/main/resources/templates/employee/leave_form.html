@@ -5,6 +5,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<div th:replace="fragments/logged_header :: logged-header"></div>
 	<div class="container">
 		<form th:action="@{/employee/leave/create}" method="POST" th:object="${form}">
 			<table class="leaveformtab">
@@ -84,9 +85,6 @@
 			<br/>
 			
 		</form>
-		<div>
-			<a th:href="@{/employee/home}">Go To Home</a>
-		</div>
 	</div>
 	<div th:replace="fragments/footer :: footer"></div>
 

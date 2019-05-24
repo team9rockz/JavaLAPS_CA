@@ -1,12 +1,30 @@
 <!DOCTYPE html>
 <html xmlns:th="http://thymeleaf.org">
-<head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<head th:replace="fragments/header :: header-css">
 </head>
 <body>
-<div th:fragment="logged-header">
-<!-- 	<nav class="navbar navbar-inverse">
+<div th:fragment="logged-header" class="container-fluid">
+		<nav
+			class="navbar navbar-expand-sm bg-dark navbar-dark justify-content-end">
+			<h2 class="navbar-brand">LAPS</h2>
+			<a class="btn btn-success ml-auto mr-1" th:href="@{${homeurl}}"> Home </a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarSupportedContent">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse flex-grow-0"
+				id="navbarSupportedContent">
+				<ul class="navbar-nav text-right">
+					<li>
+						<form th:action="@{'/logout'}" method="post">
+							<input class="btn btn-danger" type="submit" value="Sign Out" />
+						</form>
+					</li>
+				</ul>
+			</div>
+		</nav>
+
+		<!-- 	<nav class="navbar navbar-inverse">
 		<div class="container-fluid">
 			<div class="navbar-header">
 				<a class="navbar-brand" th:href="@{${homepath}}">LAPS</a>
@@ -26,7 +44,7 @@
 <!-- 		</div>
 	</nav> -->
 	
-<nav class="navbar navbar-inverse">
+<!-- <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
       <a class="navbar-brand" href="#">WebSiteName</a>
@@ -38,7 +56,7 @@
       <li><a href="#">Page 3</a></li>
     </ul>
   </div>
-</nav>	
+</nav> -->
 </div>
 </body>
 </html>

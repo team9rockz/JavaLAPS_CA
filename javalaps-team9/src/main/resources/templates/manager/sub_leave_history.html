@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th = "http://thymeLeaf.org">
-<head>
+<head th:replace="fragments/header :: header-css">
 <meta charset="UTF-8">
 <title>Subordinate Leave History</title>
 </head>
 <body>
 
+	<div th:replace="fragments/logged_header :: logged-header"></div>
 <div th:each="subordinate,iter1: ${subordinates}">
 
 	<h3 th:text="${subordinate.firstName + ' ' + subordinate.lastName}"></h3>

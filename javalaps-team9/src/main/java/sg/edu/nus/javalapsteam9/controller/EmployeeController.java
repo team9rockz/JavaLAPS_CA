@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import sg.edu.nus.javalapsteam9.model.LeaveApplication;
 import sg.edu.nus.javalapsteam9.model.User;
 import sg.edu.nus.javalapsteam9.service.StaffService;
-import sg.edu.nus.javalapsteam9.util.Util;
 import sg.edu.nus.javalapsteam9.validation.CustomFieldError;
 
 @Controller
@@ -36,14 +35,15 @@ public class EmployeeController {
 	@GetMapping("/")
 	public String defaultPage(Model model) {
 		LOG.info("default route");
-		model.addAttribute("homepath", HOME);
+		model.addAttribute("homeurl", HOME);
 		return "redirect:home";
 	}
 
 	@GetMapping("/home")
 	public String home(Model model) {
 		List<LeaveApplication> leaves = staffService.findAllLeavesByUserOrderByAppliedDate();
-		User user = staffService.findUserById(Util.TEST_EMP_ID);
+		User user = staffService.findUserById();
+		model.addAttribute("homeurl", HOME);
 		model.addAttribute("leaves", leaves);
 		model.addAttribute("name", user.getFirstName() + " " + user.getLastName());
 		model.addAttribute("annual_leave", user.getAnnualLeaveBalance());
@@ -53,6 +53,7 @@ public class EmployeeController {
 	
 	@GetMapping("/leaveform")
 	public String leaveForm(Model model) {
+		model.addAttribute("homeurl", HOME);
 		model.addAttribute("form", new LeaveApplication());
 		return "employee/leave_form";
 	}
@@ -108,7 +109,7 @@ public class EmployeeController {
 				
 				int days = staffService.calculateLeavesBetweenDates(leave.getStartDate(), leave.getEndDate());
 				if(!result.hasFieldErrors("leaveType")) {
-					User user = staffService.findUserById(Util.TEST_EMP_ID);
+					User user = staffService.findUserById();
 					switch(leave.getLeaveType()) {
 					case ANNUAL:
 						if(days > user.getAnnualLeaveBalance()) {
@@ -144,8 +145,9 @@ public class EmployeeController {
 	
 	@GetMapping("/leave/view/{leaveid}")
 	public String leaveForm(Model model, @PathVariable("leaveid") Integer leaveId) {
-		LeaveApplication leave = staffService.findLeaveById(leaveId);
+		LeaveApplication leave = staffService.findLeaveByIdToShow(leaveId);
 		model.addAttribute("form", leave);
+		model.addAttribute("homeurl", HOME);
 		return "employee/view";
 	}
 
@@ -154,6 +156,7 @@ public class EmployeeController {
 
 		LeaveApplication leave = staffService.findLeaveById(leaveApp.getId());
 		model.addAttribute("form", leave);
+		model.addAttribute("homeurl", HOME);
 		
 		return "employee/edit";
 	}

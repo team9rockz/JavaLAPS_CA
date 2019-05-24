@@ -3,17 +3,11 @@
 <head th:replace="fragments/header :: header-css">
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
-<!-- <div th:replace="fragments/header :: header-css"/> -->
 </head>
 <body>
-<!-- 	<div th:replace="fragments/logged_header :: logged-header"></div> -->
+	<div th:replace="fragments/logged_header :: logged-header"></div>
 	<div class="container">
 		<p th:text="'Hello, ' + ${name}"></p>
-<!-- 		<h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1> -->
-<!-- 		<form th:action="@{/logout}" method="post">
-			<input type="submit" value="Sign Out" />
-		</form> -->
-		
 		<div>
 		<p>Leaves Available : </p>
 		<p>Annual Leaves : <span th:text="${annual_leave}"></span></p>

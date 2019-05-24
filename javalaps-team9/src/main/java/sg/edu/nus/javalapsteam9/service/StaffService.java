@@ -15,6 +15,7 @@ import sg.edu.nus.javalapsteam9.model.User;
 import sg.edu.nus.javalapsteam9.repo.LeaveApplicationRepository;
 import sg.edu.nus.javalapsteam9.repo.PublicHolidayRepository;
 import sg.edu.nus.javalapsteam9.repo.UserRepository;
+import sg.edu.nus.javalapsteam9.util.SecurityUtil;
 import sg.edu.nus.javalapsteam9.util.Util;
 
 @Service
@@ -32,7 +33,7 @@ public class StaffService {
 	public void createLeave(LeaveApplication leaveApplication) {
 		
 		int days = calculateLeavesBetweenDates(leaveApplication.getStartDate(), leaveApplication.getEndDate());
-		User user = findUserById(Util.TEST_EMP_ID);
+		User user = findUserById();
 		leaveApplication.setUser(user);
 		leaveApplication.setStartDate(Util.getUtcDate(leaveApplication.getStartDate()));
 		leaveApplication.setEndDate(Util.getUtcDate(leaveApplication.getEndDate()));
@@ -108,17 +109,24 @@ public class StaffService {
 	}
 	
 	public List<LeaveApplication> findAllLeavesByUserId() {
-		User user = findUserById(Util.TEST_EMP_ID);
+		User user = findUserById();
 		return leaveRepo.findAllByUser(user);
 	}
 	
 	public List<LeaveApplication> findAllLeavesByUserOrderByAppliedDate() {
-		User user = findUserById(Util.TEST_EMP_ID);
+		User user = findUserById();
 		return leaveRepo.findAllByUserOrderByAppliedDateDesc(user);
 	}
 	
 	public LeaveApplication findLeaveById(Integer id) {
 		return leaveRepo.findById(id).get();
+	}
+	
+	public LeaveApplication findLeaveByIdToShow(Integer id) {
+		LeaveApplication leave = findLeaveById(id);
+		int days = (int) Util.calculatePeriodBetweenDates(new Date(), Util.parseFromUtcDate(leave.getStartDate()));
+		leave.setExpired(days <= 0);
+		return leave;
 	}
 	
 	public void updateLeaveApplication(LeaveApplication leaveApplication) {
@@ -140,8 +148,8 @@ public class StaffService {
 		leaveRepo.save(leaveApp);
 	}
 	
-	public User findUserById(int empId) {
-		return userRepo.findById(empId).get();
+	public User findUserById() {
+		return userRepo.findById(SecurityUtil.getCurrentLoggedUserId()).get();
 	}
 	
 	public boolean isNotValidDates(Date startDate, Date endDate) {

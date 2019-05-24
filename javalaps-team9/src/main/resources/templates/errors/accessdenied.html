@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://thymeleaf.org">
-<head>
+<head th:replace="fragments/header :: header-css">
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
-<div th:replace="fragments/header :: header-css"/>
 </head>
 <body>
-	<div th:replace="fragments/header :: header"/>
+	<div th:replace="fragments/logged_header :: logged-header"></div>
 	<div class="container">
 	    <div class="starter-template">
 	        <h1>403 - Access is denied</h1>
@@ -14,6 +13,6 @@
 	                you do not have permission to access this page.</div>
 	    </div>
 	</div>
-	<div th:replace="fragments/footer :: footer"/>
+	<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>

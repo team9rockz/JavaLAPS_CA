@@ -24,6 +24,8 @@ import sg.edu.nus.javalapsteam9.validation.CustomFieldError;
 @RequestMapping("/manager")
 public class ManagerController {
 	
+	private static final String HOME = "/manager/home";
+	
 	@Autowired
 	private ManagerService managerService;
 	
@@ -34,6 +36,7 @@ public class ManagerController {
 		//Also, to show leaves for employees whose reportsTo = manager's staffId (not done yet)
 		List<LeaveApplication> leaves = managerService.findAllOutstandingLeaves();
 		model.addAttribute("leaves", leaves);
+		model.addAttribute("homeurl", HOME);
 		return "manager/home";
 	}
 	
@@ -42,6 +45,7 @@ public class ManagerController {
 		 
 		 LeaveApplication leave = managerService.findLeaveById(id);
 		 model.addAttribute("leave", leave); 
+		model.addAttribute("homeurl", HOME);
 		 return "manager/leave_details";
 	 }
 	 
@@ -72,6 +76,7 @@ public class ManagerController {
 		 List<List<LeaveApplication>> subLeaves = managerService.getSubLeaveHistory();	
 		 model.addAttribute("subLeaves", subLeaves);
 		 List<User> subordinates = managerService.getSub();
+		 model.addAttribute("homeurl", HOME);
 		 model.addAttribute("subordinates",subordinates); 
 		 return "manager/sub_leave_history";
 	 }
@@ -80,7 +85,7 @@ public class ManagerController {
 	 public String viewLeaveId(Model model, @PathVariable("leaveid") Integer leaveId) {
 		 	LeaveApplication leave = managerService.findLeaveById(leaveId);
 			model.addAttribute("form", leave);
-			
+			model.addAttribute("homeurl", HOME);
 			return "manager/view_leave";
 			
 			

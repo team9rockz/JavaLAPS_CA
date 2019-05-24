@@ -5,6 +5,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<div th:replace="fragments/logged_header :: logged-header"></div>
 	<div class="container">
 		<table>
 			<tbody th:object="${form}">
@@ -54,7 +55,6 @@
 				
 			</tbody>
 		</table>
-		<a th:href="@{'/manager/sub_leave_history'}">Go Back</a>
 	</div>
 	<div th:replace="fragments/footer :: footer"></div>
 

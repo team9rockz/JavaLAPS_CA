@@ -13,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -71,6 +72,9 @@ public class LeaveApplication implements Serializable, Comparable <LeaveApplicat
 	@JoinColumn(name = "staff_id")
 	private User user;
 
+	@Transient
+	private boolean expired;
+	
 	public LeaveApplication() {
 		super();
 		this.status = LeaveStatus.APPLIED;
@@ -179,6 +183,14 @@ public class LeaveApplication implements Serializable, Comparable <LeaveApplicat
 
 	public void setLeavePeriod(int leavePeriod) {
 		this.leavePeriod = leavePeriod;
+	}
+	
+	public boolean isExpired() {
+		return expired;
+	}
+
+	public void setExpired(boolean expired) {
+		this.expired = expired;
 	}
 
 	@Override

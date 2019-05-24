@@ -5,6 +5,7 @@
 <title>Details | Leave</title>
 </head>
 <body>
+	<div th:replace="fragments/logged_header :: logged-header"></div>
 	<div class="container">
 	<form  th:action="@{'/manager/reject'}" th:object="${leave}" method="post">
 		<table>
@@ -61,9 +62,6 @@
 			</tbody>
 		</table>
 	</form>
-		
-		<a th:href="@{'/manager/home'}">Go Back</a>
-		
 	</div>
 </body>
 </html>

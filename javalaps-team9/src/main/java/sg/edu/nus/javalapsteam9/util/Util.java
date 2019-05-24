@@ -12,7 +12,7 @@ import sg.edu.nus.javalapsteam9.model.PublicHoliday;
 
 public final class Util {
 	
-	public static final int TEST_EMP_ID = 4;
+//	public static final int TEST_EMP_ID = 4;
 	
 	public static Date now() {
 		return getInstance().getTime();

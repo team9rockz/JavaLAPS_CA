@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://thymeleaf.org">
-<head>
+<head th:replace="fragments/header :: header-css">
 <meta charset="ISO-8859-1">
 <title>Outstanding Leaves</title>
 </head>
 
 <body>
-		<div style="margin-top:10px">
+	<div th:replace="fragments/logged_header :: logged-header"></div>
+		<div class="container" style="margin-top:10px">
 			<table border="1" cellpadding="5">
-				
 				<tr>
 					<th>Leave ID</th>
 					<th>Status</th>

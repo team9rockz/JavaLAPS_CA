@@ -1,25 +1,25 @@
 <!DOCTYPE html>
 <html xmlns:th="http://thymeleaf.org">
-<head>
+<head th:replace="fragments/header :: header-css">
 <meta charset="UTF-8">
 <title>LAPS</title>
-<div th:replace="fragments/header :: header-css"></div>
 </head>
 <body>
-	<div th:replace="fragments/header :: header"></div>
-	<h1>Leave Application Processing System(LAPS)</h1>
-	<div class="container">
-		<div style="width: 25%; float:left">
-			<form th:action="@{/login}" method="post">
-				<input type="hidden" name="role" value="ADMIN">
-				<input type="submit" value="Admin Login">
-			</form>
-		</div>
-		<div>
-			<form th:action="@{/login}" method="post">
-				<input type="hidden" name="role" value="MANAGER">
-				<input type="submit" value="Employee Login">
-			</form>
+	<div class="container" style="margin-top:10%">
+		<h1 align="center">Leave Application Processing System(LAPS)</h1>
+		<div style="margin-top: 10%; margin-left:25%">
+			<div style="float: left; margin-right:20px">
+				<form th:action="@{/login}" method="post">
+					<input type="hidden" name="role" value="ADMIN"> <input
+						type="submit" value="Admin Login">
+				</form>
+			</div>
+			<div>
+				<form th:action="@{/login}" method="post">
+					<input type="hidden" name="role" value="MANAGER"> <input
+						type="submit" value="Employee Login">
+				</form>
+			</div>
 		</div>
 	</div>
 	<div th:replace="fragments/footer :: footer"></div>

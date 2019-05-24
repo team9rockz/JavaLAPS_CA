@@ -1,6 +1,5 @@
 package sg.edu.nus.javalapsteam9.controller;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +30,8 @@ public class AdminController {
 	@Autowired
 	private AdminService adminService;
 
+	private static final String HOME = "/admin/home";
+	
 	@GetMapping("/home")
 	public String home(Model model) {
 		
@@ -38,14 +39,17 @@ public class AdminController {
 		List<PublicHoliday> publicHolidays=new ArrayList<PublicHoliday>();
 		users = adminService.getAllUsers();
 		publicHolidays=adminService.getAllPublicHolidays();
+		model.addAttribute("homeurl", HOME);
 		model.addAttribute("users", users);
 		model.addAttribute("publicHolidays", publicHolidays);
 		return "admin/home";
+		
 	}
 	
 	@RequestMapping(path = "/add", method = RequestMethod.GET)
 	public String addUser(Model model) {
 		
+		model.addAttribute("homeurl", HOME);
 		model.addAttribute("user", new User());
 		model.addAttribute("managers", adminService.getAllManagers());
 		return "admin/user_form";
@@ -89,6 +93,7 @@ public class AdminController {
     public String userDetail(Model model, @PathVariable("id") Integer id) {
     	
     	User user = adminService.findUserById(id);
+		model.addAttribute("homeurl", HOME);
     	model.addAttribute("user", user);
     	return "admin/user_detail";
     }
@@ -97,6 +102,7 @@ public class AdminController {
     public String editUserDetail(Model model, @PathVariable("id") int id) {
     	
     	User user = adminService.findUserById(id);
+		model.addAttribute("homeurl", HOME);
     	model.addAttribute("user", user);
     	model.addAttribute("managers", adminService.getAllManagers());
     	return "admin/user_edit";
@@ -126,6 +132,7 @@ public class AdminController {
     @RequestMapping(path = "/addPublicHoliday", method = RequestMethod.GET)
 	public String addPublicHoliday(Model model) {
 		
+		model.addAttribute("homeurl", HOME);
 		model.addAttribute("publicHoliday", new PublicHoliday());
 		return "admin/publicHoliday_form";
 	}
@@ -144,6 +151,7 @@ public class AdminController {
     public String viewDetail(Model model, @PathVariable("name") String name) {
     	
     	PublicHoliday publicHoliday = adminService.findPublicHolidayByName(name);
+		model.addAttribute("homeurl", HOME);
     	model.addAttribute("publicHoliday", publicHoliday);
     	return "admin/publicHoliday_detail";
     }
