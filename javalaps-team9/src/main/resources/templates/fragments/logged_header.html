@@ -3,10 +3,18 @@
 <head th:replace="fragments/header :: header-css">
 </head>
 <body>
-<div th:fragment="logged-header" class="container-fluid">
+<div th:fragment="logged-header" class="container-fluid" style="padding: 0 0">
 		<nav
 			class="navbar navbar-expand-sm bg-dark navbar-dark justify-content-end">
 			<h2 class="navbar-brand">LAPS</h2>
+			<div class="collapse navbar-collapse" id="navbarNav">
+    			<ul class="navbar-nav">
+      				<li class="nav-item active">
+        				<a class="nav-link" th:href="@{/manager/movementregister}">Movement Register <span class="sr-only">(current)</span></a>
+      				</li>
+      	
+			    </ul>
+			  </div>
 			<a class="btn btn-success ml-auto mr-1" th:href="@{${homeurl}}"> Home </a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#navbarSupportedContent">
