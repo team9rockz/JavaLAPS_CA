@@ -31,8 +31,8 @@ public class CustomSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable().authorizeRequests()
 				.antMatchers("/", "/index", "/home", "/welcome", "/login", "/css/**", "/js/**").permitAll()
-				.antMatchers("/admin/**").hasAuthority(Roles.ADMIN.getRole()).antMatchers("/manager/**")
-				.hasAuthority(Roles.MANAGER.getRole()).antMatchers("/employee/**").hasAuthority(Roles.STAFF.getRole())
+				.antMatchers("/admin/**", "/movement/**").hasAuthority(Roles.ADMIN.getRole()).antMatchers("/manager/**","/movement/**")
+				.hasAuthority(Roles.MANAGER.getRole()).antMatchers("/employee/**","/movement/**").hasAuthority(Roles.STAFF.getRole())
 				.anyRequest().authenticated().and().formLogin().loginPage("/signin").permitAll()
 				.successHandler(successHandler).failureHandler(failureHandler).failureUrl("/").and().logout()
 				.logoutUrl("/logout").logoutSuccessHandler(logoutSuccessHandler).and().exceptionHandling()

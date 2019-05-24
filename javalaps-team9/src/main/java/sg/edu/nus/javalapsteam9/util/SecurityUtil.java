@@ -20,5 +20,10 @@ public final class SecurityUtil {
 		if(ctx != null)
 			ctx.setAuthentication(null);
 	}
+	
+	public static String getCurrentLoggedUserRole() {
+		return SecurityUtil.getCurrentLoggedUser().getRole();
+	}
+
 
 }

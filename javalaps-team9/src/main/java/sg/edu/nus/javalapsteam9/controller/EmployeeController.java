@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import sg.edu.nus.javalapsteam9.model.LeaveApplication;
 import sg.edu.nus.javalapsteam9.model.User;
 import sg.edu.nus.javalapsteam9.service.StaffService;
+import sg.edu.nus.javalapsteam9.util.SecurityUtil;
 import sg.edu.nus.javalapsteam9.validation.CustomFieldError;
 
 @Controller
@@ -48,6 +49,7 @@ public class EmployeeController {
 		model.addAttribute("name", user.getFirstName() + " " + user.getLastName());
 		model.addAttribute("annual_leave", user.getAnnualLeaveBalance());
 		model.addAttribute("medical_leave", user.getMedicalLeaveBalance());
+		model.addAttribute("role", SecurityUtil.getCurrentLoggedUserRole());
 		return "employee/home";
 	}
 	
@@ -55,6 +57,7 @@ public class EmployeeController {
 	public String leaveForm(Model model) {
 		model.addAttribute("homeurl", HOME);
 		model.addAttribute("form", new LeaveApplication());
+		model.addAttribute("role", SecurityUtil.getCurrentLoggedUserRole());
 		return "employee/leave_form";
 	}
 
@@ -69,6 +72,7 @@ public class EmployeeController {
 		}
 		
 		staffService.createLeave(leave);
+		model.addAttribute("role", SecurityUtil.getCurrentLoggedUserRole());
 		
 		return "redirect:/employee/home";
 	}
@@ -149,6 +153,7 @@ public class EmployeeController {
 		LeaveApplication leave = staffService.findLeaveByIdToShow(leaveId);
 		model.addAttribute("form", leave);
 		model.addAttribute("homeurl", HOME);
+		model.addAttribute("role", SecurityUtil.getCurrentLoggedUserRole());
 		return "employee/view";
 	}
 
@@ -158,7 +163,7 @@ public class EmployeeController {
 		LeaveApplication leave = staffService.findLeaveById(leaveApp.getId());
 		model.addAttribute("form", leave);
 		model.addAttribute("homeurl", HOME);
-		
+		model.addAttribute("role", SecurityUtil.getCurrentLoggedUserRole());
 		return "employee/edit";
 	}
 
@@ -173,7 +178,7 @@ public class EmployeeController {
 		}
 		
 		staffService.updateLeaveApplication(leave);
-		
+		model.addAttribute("role", SecurityUtil.getCurrentLoggedUserRole());
 		return "redirect:/employee/home";
 	}
 

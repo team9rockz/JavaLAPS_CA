@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import sg.edu.nus.javalapsteam9.model.LeaveApplication;
 import sg.edu.nus.javalapsteam9.model.User;
 import sg.edu.nus.javalapsteam9.service.ManagerService;
+import sg.edu.nus.javalapsteam9.util.SecurityUtil;
 import sg.edu.nus.javalapsteam9.validation.CustomFieldError;
 
 @Controller
@@ -40,6 +41,7 @@ public class ManagerController {
 		List<LeaveApplication> leaves = managerService.findAllOutstandingLeaves();
 		model.addAttribute("leaves", leaves);
 		model.addAttribute("homeurl", HOME);
+		model.addAttribute("role", SecurityUtil.getCurrentLoggedUserRole());
 		return "manager/home";
 	}
 
@@ -49,6 +51,7 @@ public class ManagerController {
 		LeaveApplication leave = managerService.findLeaveById(id);
 		model.addAttribute("leave", leave);
 		model.addAttribute("homeurl", HOME);
+		model.addAttribute("role", SecurityUtil.getCurrentLoggedUserRole());
 		return "manager/leave_details";
 	}
 
@@ -83,6 +86,7 @@ public class ManagerController {
 		List<User> subordinates = managerService.getSub();
 		model.addAttribute("homeurl", HOME);
 		model.addAttribute("subordinates", subordinates);
+		model.addAttribute("role", SecurityUtil.getCurrentLoggedUserRole());
 		return "manager/sub_leave_history";
 	}
 
@@ -91,6 +95,7 @@ public class ManagerController {
 		LeaveApplication leave = managerService.findLeaveById(leaveId);
 		model.addAttribute("form", leave);
 		model.addAttribute("homeurl", HOME);
+		model.addAttribute("role", SecurityUtil.getCurrentLoggedUserRole());
 		return "manager/view_leave";
 	}
 
