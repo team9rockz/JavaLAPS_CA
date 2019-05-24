@@ -62,6 +62,7 @@ public class AdminController {
 			CustomFieldError cd = new CustomFieldError("user", "userId", user.getUserId(), "User ID already exists");
 			result.addError(cd);
 		}
+		model.addAttribute("homeurl", HOME);
     	
     	validateEmployeeForm(user, result);
     	
@@ -113,6 +114,7 @@ public class AdminController {
     	
     	validateEmployeeForm(user, result);
     	
+		model.addAttribute("homeurl", HOME);
 		if(result.hasErrors()) {
 			
 			model.addAttribute("managers", adminService.getAllManagers());
@@ -140,6 +142,7 @@ public class AdminController {
     @RequestMapping(path = "/createPublicHoliday", method = RequestMethod.POST)
     public String savePublicHoliday(Model model, @Valid @ModelAttribute("publicHoliday") PublicHoliday publicHoliday, BindingResult result) {
     	validate(publicHoliday,result);
+		model.addAttribute("homeurl", HOME);
     	if(result.hasErrors()) {
     		return "admin/publicHoliday_form";
     	}

@@ -60,8 +60,9 @@ public class ManagerController {
 	}
 
 	@PostMapping("/reject")
-	public String rejectLeave(@Valid @ModelAttribute("leave") LeaveApplication leave, BindingResult result) {
+	public String rejectLeave(@Valid @ModelAttribute("leave") LeaveApplication leave, BindingResult result, Model model) {
 
+		model.addAttribute("homeurl", HOME);
 		if (leave.getComment() == null || leave.getComment().isEmpty()) {
 			CustomFieldError err = new CustomFieldError("leave", "comment", "Please provide comments for rejection");
 			result.addError(err);

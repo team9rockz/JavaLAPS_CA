@@ -63,6 +63,7 @@ public class EmployeeController {
 		
 		validateForm(leave, result);
 		
+		model.addAttribute("homeurl", HOME);
 		if(result.hasErrors()) {
 			return "employee/leave_form";
 		}
@@ -166,6 +167,7 @@ public class EmployeeController {
 		
 		validateForm(leave, result);
 		
+		model.addAttribute("homeurl", HOME);
 		if(result.hasErrors()) {
 			return "employee/edit";
 		}
