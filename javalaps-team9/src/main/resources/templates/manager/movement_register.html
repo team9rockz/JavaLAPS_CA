@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head th:replace="fragments/header :: header-css">
+<meta charset="UTF-8">
+<title>Details | Leave</title>
+</head>
+<body>
+	<h1>Movement Register by Month</h1>
+	<form th:action="@{'/manager/movementregister/month'}">
+		<label>Select Month:</label> <select name="month"
+			onchange="this.form.submit()">
+			<option value="default" selected>-</option>
+			<option th:each="month: ${months}" th:value="${month}"
+				th:text="${month}"></option>
+		</select>
+	</form>
+
+	<div style="margin-top: 10px">
+		<table border="1" cellpadding="5">
+			<tr>
+				<th>Leave ID</th>
+				<th>Start Date</th>
+				<th>End Date</th>
+				<th>Leave Type</th>
+				<th>Applied On</th>
+				<th>Staff Name</th>
+			</tr>
+			<tr th:each="movement : ${movements}">
+				<td th:text="${movement.id}"></td>
+				<td th:text="${movement.startDate}"></td>
+				<td th:text="${movement.endDate}"></td>
+				<td th:text="${movement.leaveType}"></td>
+				<td th:text="${movement.appliedDate}"></td>
+				<td
+					th:text="${movement.user.firstName + ' ' + movement.user.lastName}"></td>
+			</tr>
+		</table>
+	</div>
+	<p th:text="'Displaying records for: ' +  ${selectedMonth}"></p>
+</body>
+</html>
+
+
