@@ -38,7 +38,7 @@
 					<td th:text="${form.contactDetails}"></td>
 				</tr>
 				<tr
-					th:if="${#strings.equalsIgnoreCase(form.status.status, 'APPLIED')} or ${#strings.equalsIgnoreCase(form.status.status, 'UPDATED')} or ${expired == true}">
+					th:if="${#strings.equalsIgnoreCase(form.status.status, 'APPLIED')} or ${#strings.equalsIgnoreCase(form.status.status, 'UPDATED')} or (${expired} == true)">
 					<td>
 						<form th:action="@{'/employee/leave/edit'}" method="post">
 							<input type="hidden" th:value="${form.id}" name="id"> <input
@@ -53,7 +53,7 @@
 					</td>
 				</tr>
 				<tr
-					th:if="${#strings.equalsIgnoreCase(form.status.status, 'APPROVED')} and ${expired == false}">
+					th:if="${#strings.equalsIgnoreCase(form.status.status, 'APPROVED')} and (not ${expired})">
 					<td>
 						<form th:action="@{'/employee/leave/cancel'}" method="post">
 							<input type="hidden" th:value="${form.id}" name="id"> <input
