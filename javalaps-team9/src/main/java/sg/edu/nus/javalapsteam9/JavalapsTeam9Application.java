@@ -34,32 +34,32 @@ public class JavalapsTeam9Application implements CommandLineRunner {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
 		//Generate employees for testing
-		User manager1 = new User(1, "manager1", "Cher", "Wah", "12345", "cherweh@gmail.com", Roles.MANAGER,
+		User manager1 = new User(1, "manager1", "Cher", "Wah", "12345", "lapsproj@gmail.com", Roles.MANAGER,
 				Scheme.PROFESSIONAL, format.parse("2019-01-02"), 18, 60, 2);
 		adminService.saveUser(manager1);
-		User manager2 = new User(2, "manager2", "Marcus", "Foo", "12345", "marcusfoo@gmail.com", Roles.MANAGER,
+		User manager2 = new User(2, "manager2", "Marcus", "Foo", "12345", "lapsproj@gmail.com", Roles.MANAGER,
 				Scheme.PROFESSIONAL, format.parse("2019-01-02"), 18, 60, 2);
 		adminService.saveUser(manager2);
-		User manager3 = new User(3, "manager3", "Peter", "Lee", "12345", "peterlee@gmail.com", Roles.MANAGER,
+		User manager3 = new User(3, "manager3", "Peter", "Lee", "12345", "lapsproj@gmail.com", Roles.MANAGER,
 				Scheme.PROFESSIONAL, format.parse("2019-01-02"), 18, 60, 2);
 		adminService.saveUser(manager3);
-		User admin = new User(4, "admin1", "Suria", "R Asai", "12345", "suria@gmail.com", Roles.ADMIN,
+		User admin = new User(4, "admin1", "Suria", "R Asai", "12345", "lapsproj@gmail.com", Roles.ADMIN,
 				Scheme.ADMINISTRATIVE, format.parse("2019-01-02"), 14, 60, 1);
 		adminService.saveUser(admin);
-		User employee1 = new User(5, "emp1", "Dickson", "Lee", "12345", "dicksonlee@gmail.com", Roles.STAFF,
+		User employee1 = new User(5, "emp1", "Dickson", "Lee", "12345", "lapsproj@gmail.com", Roles.STAFF,
 				Scheme.PROFESSIONAL, format.parse("2019-01-02"), 18, 60, 1);
 		adminService.saveUser(employee1);
-		User employee2 = new User(6, "emp2", "Howard", "Teo", "12345", "howardteo@gmail.com", Roles.STAFF,
+		User employee2 = new User(6, "emp2", "Howard", "Teo", "12345", "lapsproj@gmail.com", Roles.STAFF,
 				Scheme.PROFESSIONAL, format.parse("2019-01-02"), 18, 60, 1);
 		adminService.saveUser(employee2);
-		User employee3 = new User(7, "emp3", "Jane", "Kok", "12345", "janekok@gmail.com", Roles.STAFF,
+		User employee3 = new User(7, "emp3", "Jane", "Kok", "12345", "lapsproj@gmail.com", Roles.STAFF,
 				Scheme.PROFESSIONAL, format.parse("2019-01-02"), 18, 60, 3);
 		adminService.saveUser(employee3);
-		User employee4 = new User(8, "emp4", "Celine", "Chow", "12345", "celinechow@gmail.com", Roles.STAFF,
-				Scheme.PROFESSIONAL, format.parse("2019-01-02"), 18, 60, 3);
+		User employee4 = new User(8, "emp4", "Celine", "Chow", "12345", "lapsproj@gmail.com", Roles.STAFF,
+				Scheme.PROFESSIONAL, format.parse("2019-01-02"), 18, 60, 9);
 		adminService.saveUser(employee4);
-		User employee5 = new User(9, "emp5", "Seetoh", "YQ", "12345", "seetohyq@gmail.com", Roles.STAFF,
-				Scheme.PROFESSIONAL, format.parse("2019-01-02"), 18, 60, 3);
+		User employee5 = new User(9, "emp5", "Seetoh", "YQ", "12345", "lapsproj@gmail.com", Roles.MANAGER,
+				Scheme.PROFESSIONAL, format.parse("2019-01-02"), 18, 60, 9);
 		adminService.saveUser(employee5);
 
 		//Generate leave applications for testing

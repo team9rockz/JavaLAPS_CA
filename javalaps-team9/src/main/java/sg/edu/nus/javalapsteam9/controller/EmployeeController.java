@@ -18,7 +18,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import sg.edu.nus.javalapsteam9.model.LeaveApplication;
 import sg.edu.nus.javalapsteam9.model.User;
+import sg.edu.nus.javalapsteam9.service.EmailService;
 import sg.edu.nus.javalapsteam9.service.StaffService;
+import sg.edu.nus.javalapsteam9.util.EmailUtil;
 import sg.edu.nus.javalapsteam9.util.SecurityUtil;
 import sg.edu.nus.javalapsteam9.validation.CustomFieldError;
 
@@ -32,6 +34,9 @@ public class EmployeeController {
 	
 	@Autowired
 	private StaffService staffService;
+	
+	@Autowired
+	private EmailService emailService;
 	
 	@GetMapping("/")
 	public String defaultPage(Model model) {
@@ -73,6 +78,16 @@ public class EmployeeController {
 		
 		staffService.createLeave(leave);
 		model.addAttribute("role", SecurityUtil.getCurrentLoggedUserRole());
+		sendEmail(leave);
+		
+		return "redirect:/employee/home";
+	}
+	
+	public String sendEmail(LeaveApplication leave) {
+		
+		//String managerId = Integer.toString(leave.getUser().getReportTo());
+		String directLink = "Process it here: http://localhost:8080/laps/manager/details/" + leave.getId().toString();
+		emailService.sendSimpleMessage("lapsproj@gmail.com","New leave application for processing",directLink);
 		
 		return "redirect:/employee/home";
 	}

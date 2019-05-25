@@ -195,5 +195,10 @@ public class StaffService {
 			return true;
 		return Util.isPublicHoliday(ldate, holidayRepo.findAll());
 	}
+	
+	public User findManagerById(String userId) {
+		return userRepo.findByUserId(userId);
+	}
+	
 
 }
