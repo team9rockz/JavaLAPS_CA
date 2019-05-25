@@ -52,12 +52,15 @@ public class JavalapsTeam9Application implements CommandLineRunner {
 		User employee2 = new User(6, "emp2", "Howard", "Teo", "12345", "howardteo@gmail.com", Roles.STAFF,
 				Scheme.PROFESSIONAL, format.parse("2019-01-02"), 18, 60, 1);
 		adminService.saveUser(employee2);
-		User employee3 = new User(7, "emp3", "Jane", "Tan", "12345", "janetan@gmail.com", Roles.STAFF,
+		User employee3 = new User(7, "emp3", "Jane", "Kok", "12345", "janekok@gmail.com", Roles.STAFF,
 				Scheme.PROFESSIONAL, format.parse("2019-01-02"), 18, 60, 3);
 		adminService.saveUser(employee3);
-		User employee4 = new User(8, "emp4", "Celine", "Chee", "12345", "celinechee@gmail.com", Roles.STAFF,
+		User employee4 = new User(8, "emp4", "Celine", "Chow", "12345", "celinechow@gmail.com", Roles.STAFF,
 				Scheme.PROFESSIONAL, format.parse("2019-01-02"), 18, 60, 3);
 		adminService.saveUser(employee4);
+		User employee5 = new User(9, "emp5", "Seetoh", "YQ", "12345", "seetohyq@gmail.com", Roles.STAFF,
+				Scheme.PROFESSIONAL, format.parse("2019-01-02"), 18, 60, 3);
+		adminService.saveUser(employee5);
 
 		//Generate leave applications for testing
 		LeaveApplication lap1 = new LeaveApplication(format.parse("2019-07-05"), format.parse("2019-07-12"),
