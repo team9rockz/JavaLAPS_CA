@@ -15,6 +15,16 @@ public class LeaveEntitlement implements Serializable {
 	
 	private int numberOfDays;
 
+	public LeaveEntitlement() {
+		super();
+	}
+
+	public LeaveEntitlement(LeaveEntitlementComposite compositeId, int numberOfDays) {
+		super();
+		this.compositeId = compositeId;
+		this.numberOfDays = numberOfDays;
+	}
+
 	public LeaveEntitlementComposite getCompositeId() {
 		return compositeId;
 	}

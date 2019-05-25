@@ -7,7 +7,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 
 import sg.edu.nus.javalapsteam9.enums.LeaveType;
-import sg.edu.nus.javalapsteam9.enums.Roles;
+import sg.edu.nus.javalapsteam9.enums.Scheme;
 
 @Embeddable
 public class LeaveEntitlementComposite implements Serializable {
@@ -15,17 +15,27 @@ public class LeaveEntitlementComposite implements Serializable {
 	private static final long serialVersionUID = -4629485007620259128L;
 
 	@Enumerated(EnumType.STRING)
-	private Roles role;
+	private Scheme scheme;
 	
 	@Enumerated(EnumType.STRING)
 	private LeaveType leaveType;
-
-	public Roles getRole() {
-		return role;
+	
+	public LeaveEntitlementComposite(Scheme scheme, LeaveType leaveType) {
+		super();
+		this.scheme = scheme;
+		this.leaveType = leaveType;
 	}
 
-	public void setRole(Roles role) {
-		this.role = role;
+	public Scheme getScheme() {
+		return scheme;
+	}
+
+	public void setScheme(Scheme scheme) {
+		this.scheme = scheme;
+	}
+
+	public LeaveEntitlementComposite() {
+		super();
 	}
 
 	public LeaveType getLeaveType() {
@@ -34,31 +44,6 @@ public class LeaveEntitlementComposite implements Serializable {
 
 	public void setLeaveType(LeaveType leaveType) {
 		this.leaveType = leaveType;
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((leaveType == null) ? 0 : leaveType.hashCode());
-		result = prime * result + ((role == null) ? 0 : role.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		LeaveEntitlementComposite other = (LeaveEntitlementComposite) obj;
-		if (leaveType != other.leaveType)
-			return false;
-		if (role != other.role)
-			return false;
-		return true;
 	}
 
 }

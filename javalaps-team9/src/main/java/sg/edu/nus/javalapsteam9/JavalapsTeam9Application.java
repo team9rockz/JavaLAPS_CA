@@ -14,6 +14,8 @@ import sg.edu.nus.javalapsteam9.enums.LeaveType;
 import sg.edu.nus.javalapsteam9.enums.Roles;
 import sg.edu.nus.javalapsteam9.enums.Scheme;
 import sg.edu.nus.javalapsteam9.model.LeaveApplication;
+import sg.edu.nus.javalapsteam9.model.LeaveEntitlement;
+import sg.edu.nus.javalapsteam9.model.LeaveEntitlementComposite;
 import sg.edu.nus.javalapsteam9.model.PublicHoliday;
 import sg.edu.nus.javalapsteam9.model.User;
 import sg.edu.nus.javalapsteam9.service.AdminService;
@@ -31,6 +33,18 @@ public class JavalapsTeam9Application implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
+		LeaveEntitlement leaveEntitlement1 = new LeaveEntitlement(new LeaveEntitlementComposite(Scheme.ADMINISTRATIVE, LeaveType.ANNUAL), 14);
+		adminService.createLeaveEntitleMent(leaveEntitlement1);
+
+		LeaveEntitlement leaveEntitlement2 = new LeaveEntitlement(new LeaveEntitlementComposite(Scheme.ADMINISTRATIVE, LeaveType.MEDICAL), 60);
+		adminService.createLeaveEntitleMent(leaveEntitlement2);
+
+		LeaveEntitlement leaveEntitlement3 = new LeaveEntitlement(new LeaveEntitlementComposite(Scheme.PROFESSIONAL, LeaveType.ANNUAL), 18);
+		adminService.createLeaveEntitleMent(leaveEntitlement3);
+
+		LeaveEntitlement leaveEntitlement4 = new LeaveEntitlement(new LeaveEntitlementComposite(Scheme.PROFESSIONAL, LeaveType.MEDICAL), 60);
+		adminService.createLeaveEntitleMent(leaveEntitlement4);
+		
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
 		//Generate employees for testing
