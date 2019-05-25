@@ -22,7 +22,7 @@ public final class SecurityUtil {
 	}
 	
 	public static String getCurrentLoggedUserRole() {
-		return SecurityUtil.getCurrentLoggedUser().getRole();
+		return SecurityUtil.getCurrentLoggedUser().getRole().toString();
 	}
 
 

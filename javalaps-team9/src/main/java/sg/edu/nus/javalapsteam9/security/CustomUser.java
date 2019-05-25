@@ -4,8 +4,13 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import sg.edu.nus.javalapsteam9.enums.Roles;
 
 public class CustomUser implements UserDetails {
 
@@ -18,6 +23,9 @@ public class CustomUser implements UserDetails {
 	private String password;
 	
 	private String email;
+	
+	@Enumerated(EnumType.STRING)
+	private Roles role;
 	
 	private boolean accountNonExpired;
 	
@@ -86,6 +94,14 @@ public class CustomUser implements UserDetails {
 	
 	public String getEmail() {
 		return email;
+	}
+
+	public Roles getRole() {
+		return role;
+	}
+
+	public void setRole(Roles role) {
+		this.role = role;
 	}
 
 }
