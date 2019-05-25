@@ -1,7 +1,6 @@
 package sg.edu.nus.javalapsteam9.service;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,15 +29,9 @@ public class ManagerService {
 
 	public List<LeaveApplication> findAllOutstandingLeaves() {
 
-//		List<LeaveApplication> appliedLeaves = leaveRepo.findByStatus(LeaveStatus.APPLIED);
-//		List<LeaveApplication> updatedLeaves = leaveRepo.findByStatus(LeaveStatus.UPDATED);
 		List<LeaveApplication> outstandingLeaves = new ArrayList<LeaveApplication>();
 		outstandingLeaves = leaveRepo
 				.findSubordinatesOutstandingLeavesOrderByAppliedDate(SecurityUtil.getCurrentLoggedUserId());
-//		outstandingLeaves.addAll(appliedLeaves);
-//		outstandingLeaves.addAll(updatedLeaves);
-//		
-//		Collections.sort(outstandingLeaves);
 		return outstandingLeaves;
 	}
 

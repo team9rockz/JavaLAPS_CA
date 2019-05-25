@@ -199,5 +199,9 @@ public class StaffService {
 	public User findManagerById(int userId) {
 		return userRepo.findById(userId).get();
 	}
+	
+	public User findStaffByLeaveId(int leaveId) {
+		return userRepo.findById(userRepo.findStaffIdByLeaveId(leaveId)).get();
+	}
 
 }

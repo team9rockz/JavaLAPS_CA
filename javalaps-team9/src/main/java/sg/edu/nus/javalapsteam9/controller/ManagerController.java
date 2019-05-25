@@ -19,7 +19,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import sg.edu.nus.javalapsteam9.model.LeaveApplication;
 import sg.edu.nus.javalapsteam9.model.User;
+import sg.edu.nus.javalapsteam9.service.EmailService;
 import sg.edu.nus.javalapsteam9.service.ManagerService;
+import sg.edu.nus.javalapsteam9.service.StaffService;
 import sg.edu.nus.javalapsteam9.util.SecurityUtil;
 import sg.edu.nus.javalapsteam9.validation.CustomFieldError;
 
@@ -31,7 +33,13 @@ public class ManagerController {
 
 	@Autowired
 	private ManagerService managerService;
-
+	
+	@Autowired
+	private EmailService emailService;
+	
+	@Autowired
+	private StaffService staffService;
+	
 	@GetMapping("/home")
 	public String outstandingLeaves(Model model) {
 
@@ -56,9 +64,21 @@ public class ManagerController {
 	}
 
 	@GetMapping("/approve/{id}")
-	public String approveLeave(@PathVariable("id") Integer id,
-			@RequestParam(name = "comment", required = false) String comment) {
+	public String approveLeave(@PathVariable("id") Integer id, @RequestParam(name = "comment", required = false) String comment) {
+		
 		managerService.approveLeave(id, comment);
+		LeaveApplication leave = managerService.findLeaveById(id);
+		sendApprovalEmail(leave);
+		
+		return "redirect:/manager/home";
+	}
+	
+	@PostMapping("/approve")
+	public String approveLeaveTry(LeaveApplication leave) {
+		
+		managerService.approveLeave(leave.getId(), leave.getComment());
+		sendApprovalEmail(leave);
+		
 		return "redirect:/manager/home";
 	}
 
@@ -76,6 +96,8 @@ public class ManagerController {
 		}
 
 		managerService.rejectLeave(leave.getId(), leave.getComment());
+		sendRejectionEmail(leave);
+		
 		return "redirect:/manager/home";
 	}
 
@@ -166,5 +188,30 @@ public class ManagerController {
 
 		return "manager/movement_register";
 	}
+	
+	public String sendApprovalEmail(LeaveApplication leave) {
+		
+		User staff = staffService.findStaffByLeaveId(leave.getId());
+		String comments = leave.getComment();
+		
+		if (comments == "") {
+			comments = "Your leave application (id: " + leave.getId() + ") has been approved. \n\nManager's comments: N/A ";
+		}
+		else {
+			 comments = "Your leave application has been approved. \n\nManager's comments: " + leave.getComment();
+		}
+		
+		emailService.sendSimpleMessage(staff.getEmail(),"Your leave application (id: " + leave.getId() + ") has been processed.",comments);
+		
+		return "redirect:/manager/home";
+	}
 
+	public String sendRejectionEmail(LeaveApplication leave) {
+		
+		User staff = staffService.findStaffByLeaveId(leave.getId());
+		String comments = "Your leave application (id: " + leave.getId() + ") has been rejected. \n\nManager's comments: " + leave.getComment();
+		emailService.sendSimpleMessage(staff.getEmail(),"Your leave application (id: " + leave.getId() + ") has been processed",comments);
+		
+		return "redirect:/manager/home";
+	}
 }

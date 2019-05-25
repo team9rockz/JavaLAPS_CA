@@ -7,7 +7,7 @@
 <body>
 	<div th:replace="fragments/logged_header :: logged-header"></div>
 	<div class="container">
-	<form  th:action="@{'/manager/reject'}" th:object="${leave}" method="post">
+	<form th:object="${leave}" method="post">
 		<table>
 			<tbody>
 				<tr>
@@ -51,11 +51,11 @@
 				</tr>
 				<tr>
 					<td>
-						<a class="btn btn-success" th:href="@{'/manager/approve/'+ ${leave.Id}}">Approve</a>
+						<input class="btn btn-success" formaction="/laps/manager/approve" type="submit" value="Approve">
 					</td>
 					<td>
 						<input type="hidden" th:field="*{id}" th:value="${id}">
-						<input class="btn btn-danger" type="submit" value="Reject">
+						<input class="btn btn-danger" formaction="/laps/manager/reject" type="submit" value="Reject">
 					</td>
 				</tr>
 				
