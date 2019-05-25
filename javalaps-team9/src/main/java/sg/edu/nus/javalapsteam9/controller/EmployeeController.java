@@ -85,9 +85,9 @@ public class EmployeeController {
 	
 	public String sendEmail(LeaveApplication leave) {
 		
-		//String managerId = Integer.toString(leave.getUser().getReportTo());
+		int managerId = leave.getUser().getReportTo();
 		String directLink = "Process it here: http://localhost:8080/laps/manager/details/" + leave.getId().toString();
-		emailService.sendSimpleMessage("lapsproj@gmail.com","New leave application for processing",directLink);
+		emailService.sendSimpleMessage(staffService.findManagerById(managerId).getEmail(),"New leave application for processing",directLink);
 		
 		return "redirect:/employee/home";
 	}
