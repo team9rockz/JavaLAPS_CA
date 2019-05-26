@@ -17,7 +17,7 @@
 		<a th:href="@{/employee/leaveform}" class="btn btn-primary">New Application</a>
 		
 		<div style="margin-top:10px">
-			<table border="1" cellpadding="5">
+	        <table id="leave_tbl" class="table table-hover table-striped cell-border">
 				<thead>
 					<tr>
 						<th>ID</th>
@@ -44,5 +44,13 @@
 		</div>
 	</div>
 	<div th:replace="fragments/footer :: footer"></div>
+	<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+	<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready( function () {
+		    $('#leave_tbl').DataTable();
+		} );
+	</script>
+	
 </body>
 </html>
