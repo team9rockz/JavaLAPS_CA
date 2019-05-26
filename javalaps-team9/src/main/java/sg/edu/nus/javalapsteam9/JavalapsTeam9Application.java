@@ -75,6 +75,24 @@ public class JavalapsTeam9Application implements CommandLineRunner {
 		User employee5 = new User(9, "emp5", "Seetoh", "YQ", "12345", "team9rockz@gmail.com", Roles.MANAGER,
 				Scheme.PROFESSIONAL, format.parse("2019-01-02"), 18, 60, 9);
 		adminService.saveUser(employee5);
+		User employee6 = new User(10, "emp3", "Jane", "Kok", "12345", "team9rockz@gmail.com", Roles.STAFF,
+				Scheme.PROFESSIONAL, format.parse("2019-01-02"), 18, 60, 3);
+		adminService.saveUser(employee6);
+		User employee7 = new User(11, "emp4", "Celine", "Chow", "12345", "team9rockz@gmail.com", Roles.STAFF,
+				Scheme.PROFESSIONAL, format.parse("2019-01-02"), 18, 60, 9);
+		adminService.saveUser(employee7);
+		User employee8 = new User(12, "emp5", "Seetoh", "YQ", "12345", "team9rockz@gmail.com", Roles.MANAGER,
+				Scheme.PROFESSIONAL, format.parse("2019-01-02"), 18, 60, 9);
+		adminService.saveUser(employee8);
+		User employee9 = new User(13, "emp3", "Jane", "Kok", "12345", "team9rockz@gmail.com", Roles.STAFF,
+				Scheme.PROFESSIONAL, format.parse("2019-01-02"), 18, 60, 3);
+		adminService.saveUser(employee9);
+		User employee10 = new User(14, "emp4", "Celine", "Chow", "12345", "team9rockz@gmail.com", Roles.STAFF,
+				Scheme.PROFESSIONAL, format.parse("2019-01-02"), 18, 60, 9);
+		adminService.saveUser(employee10);
+		User employee11 = new User(15, "emp5", "Seetoh", "YQ", "12345", "team9rockz@gmail.com", Roles.MANAGER,
+				Scheme.PROFESSIONAL, format.parse("2019-01-02"), 18, 60, 9);
+		adminService.saveUser(employee11);
 
 		//Generate leave applications for testing
 		LeaveApplication lap1 = new LeaveApplication(format.parse("2019-07-05"), format.parse("2019-07-12"),

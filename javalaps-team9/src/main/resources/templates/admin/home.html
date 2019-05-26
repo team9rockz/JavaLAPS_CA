@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://thymeleaf.org">
 <head th:replace="fragments/header :: header-css">
-	<title>Home | Admin</title>
 </head>
 <body>
 	<div th:replace="fragments/logged_header :: logged-header"></div>
@@ -10,10 +9,10 @@
 		
 		<a th:href="@{/admin/add}" class="btn btn-primary">Add User</a>
 		<a th:href="@{/admin/addPublicHoliday}" class="btn btn-primary">Add Holiday</a>
-	
+  
 	    <div style="margin-top:10px">
 	        <h2>All Users</h2>
-	        <table border="1" cellpadding="5">
+	        <table id="user_tbl" class="table table-hover table-striped cell-border">
 				<thead>
 		            <tr>
 		            	<th>Id</th>
@@ -23,7 +22,7 @@
 		                <th>Role</th>
 		                <th>AnnualLeaveBalance</th>
 		                <th>MedicalLeaveBalance</th>
-		                <th>Report to</th>
+		                <th>ReportTo</th>
 		            </tr>
 		        </thead>
 		        <tbody>
@@ -43,9 +42,11 @@
 	        </table>
 	    </div>
 	    
-	    <div style="margin-top:10px">
+	    <hr>
+	    
+	    <div style="margin-top:10px; width: 50%;">
 	        <h2>All Public Holidays</h2>
-	        <table border="1" cellpadding="5">
+	        <table id="holiday_tbl" class="table table-hover table-striped cell-border">
 				<thead>
 		            <tr>
 		            	<th>Name</th>
@@ -65,5 +66,17 @@
 	        </table>
 	    </div>
 	</div>
+	
+	<div th:replace="fragments/footer :: footer"/></div>
+	
+	<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+	<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready( function () {
+		    $('#user_tbl').DataTable();
+		    $('#holiday_tbl').DataTable();
+		} );
+	</script>
+	
 </body>
 </html>
