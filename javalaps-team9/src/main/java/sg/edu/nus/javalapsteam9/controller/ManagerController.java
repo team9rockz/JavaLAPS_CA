@@ -193,12 +193,12 @@ public class ManagerController {
 		
 		User staff = staffService.findStaffByLeaveId(leave.getId());
 		String comments = leave.getComment();
-		
+
 		if (comments == "") {
-			comments = "Your leave application (id: " + leave.getId() + ") has been approved. \n\nManager's comments: N/A ";
+			comments = "Your leave application (id: " + leave.getId() + ") has been approved. \n\nManager's comments: N/A\n\nClick here to view: http://localhost:8080/laps/employee/leave/view/" + leave.getId();
 		}
 		else {
-			 comments = "Your leave application has been approved. \n\nManager's comments: " + leave.getComment();
+			 comments = "Your leave application has been approved. \n\nManager's comments: " + leave.getComment() + "\n\nClick here to view: http://localhost:8080/laps/employee/leave/view/" + leave.getId();
 		}
 		
 		emailService.sendSimpleMessage(staff.getEmail(),"Your leave application (id: " + leave.getId() + ") has been processed.",comments);
@@ -209,7 +209,7 @@ public class ManagerController {
 	public String sendRejectionEmail(LeaveApplication leave) {
 		
 		User staff = staffService.findStaffByLeaveId(leave.getId());
-		String comments = "Your leave application (id: " + leave.getId() + ") has been rejected. \n\nManager's comments: " + leave.getComment();
+		String comments = "Your leave application (id: " + leave.getId() + ") has been rejected. \n\nManager's comments: " + leave.getComment()+ "\n\nClick here to view: http://localhost:8080/laps/employee/leave/view/" + leave.getId();
 		emailService.sendSimpleMessage(staff.getEmail(),"Your leave application (id: " + leave.getId() + ") has been processed",comments);
 		
 		return "redirect:/manager/home";

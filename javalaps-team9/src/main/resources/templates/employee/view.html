@@ -10,32 +10,41 @@
 		<table>
 			<tbody th:object="${form}">
 				<tr>
-					<td>Start Date :</td>
+					<td>Start Date: </td>
 					<td th:text="${form.startDate}"></td>
 				</tr>
 				<tr>
-					<td>End Date :</td>
+					<td>End Date: </td>
 					<td th:text="${form.endDate}"></td>
 				</tr>
 				<tr>
-					<td>Leave Type :</td>
+					<td>Leave Type: </td>
 					<td th:text="${form.leaveType}"></td>
 				</tr>
 				<tr>
-					<td>Reason :</td>
+					<td>Reason: </td>
 					<td th:text="${form.reason}"></td>
 				</tr>
 				<tr>
-					<td>Work Dissemination :</td>
+					<td>Work Dissemination: </td>
 					<td th:text="${form.workDissemination}"></td>
 				</tr>
 				<tr>
-					<td>Overseas Trip :</td>
+					<td>Overseas Trip: </td>
 					<td th:text="${form.overseasTrip} ? 'Yes' : 'No'"></td>
 				</tr>
 				<tr>
-					<td>Contact Details :</td>
+					<td>Contact Details: </td>
 					<td th:text="${form.contactDetails}"></td>
+				</tr>
+				<tr>
+					<td>Application Status: </td>
+					<td th:text="${form.status}"></td>
+				</tr>
+				
+				<tr>
+					<td>Manager's comments: </td>
+					<td th:text="${form.comment}"></td>
 				</tr>
 				<tr
 					th:if="${#strings.equalsIgnoreCase(form.status.status, 'APPLIED')} or ${#strings.equalsIgnoreCase(form.status.status, 'UPDATED')} or (${expired} == true)">
