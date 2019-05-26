@@ -14,14 +14,17 @@ public class DefaultController {
 	
 	private static final Logger LOG = LogManager.getLogger(DefaultController.class);
 	
-	private static final String LANDING_PAGE = "index";
+	private static final String LANDING_PAGE = "login";
 
 	@RequestMapping("/")
-	public String defaultRoute() { return LANDING_PAGE; }
-
+	public String defaultRoute() {
+		return LANDING_PAGE;
+	}
 	
 	@RequestMapping("/index")
-	public String index() { return LANDING_PAGE; }
+	public String index() {
+		return LANDING_PAGE;
+	}
 	
 	@PostMapping("/login")
 	public String loginRoute(Roles role) {

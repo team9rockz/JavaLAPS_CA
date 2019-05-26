@@ -6,6 +6,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import sg.edu.nus.javalapsteam9.enums.Roles;
 
@@ -16,11 +17,13 @@ public class CustomSecurityConfig extends WebSecurityConfigurerAdapter {
 	  
 	  @Autowired private CustomAuthenticationProvider authProvider;
 	  
-	  @Autowired private CustomAuthenticationSuccessHandler successHandler;
+	  @Autowired private RefererRedirectionAuthenticationSuccessHandler successHandler;
 	  
 	  @Autowired private CustomAuthenticationFailureHandler failureHandler;
 	  
 	  @Autowired private CustomLogoutSuccessHandler logoutSuccessHandler;
+	  
+	  @Autowired private CustomFilter filter;
 	  
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -33,7 +36,7 @@ public class CustomSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/", "/index", "/home", "/welcome", "/login", "/css/**", "/js/**").permitAll()
 				.antMatchers("/admin/**", "/movement/**").hasAuthority(Roles.ADMIN.getRole()).antMatchers("/manager/**","/movement/**")
 				.hasAuthority(Roles.MANAGER.getRole()).antMatchers("/employee/**","/movement/**").hasAuthority(Roles.STAFF.getRole())
-				.anyRequest().authenticated().and().formLogin().loginPage("/signin").permitAll()
+				.anyRequest().authenticated().and().addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class).formLogin().loginPage("/signin").permitAll()
 				.successHandler(successHandler).failureHandler(failureHandler).failureUrl("/").and().logout()
 				.logoutUrl("/logout").logoutSuccessHandler(logoutSuccessHandler).and().exceptionHandling()
 				.accessDeniedHandler(accessDeniedHandler);
