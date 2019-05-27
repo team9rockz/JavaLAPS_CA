@@ -129,15 +129,20 @@ public class EmployeeController {
 				int days = staffService.calculateLeavesBetweenDates(leave.getStartDate(), leave.getEndDate());
 				if(!result.hasFieldErrors("leaveType")) {
 					User user = staffService.findUserById();
+					LeaveApplication old = null;
+					if(leave.getId() != null) {
+						old = staffService.findLeaveById(leave.getId());
+					}
 					switch(leave.getLeaveType()) {
 					case ANNUAL:
-						if(days > user.getAnnualLeaveBalance()) {
+						
+						if((old == null || old.getLeaveType() != leave.getLeaveType()) && days > user.getAnnualLeaveBalance()) {
 							CustomFieldError cd = new CustomFieldError("form", "leaveType", leave.getLeaveType(), "no leaves available");
 							result.addError(cd);
 						}
 						break;
 					case MEDICAL:
-						if(days > user.getMedicalLeaveBalance()) {
+						if((old == null || old.getLeaveType() != leave.getLeaveType()) && days > user.getMedicalLeaveBalance()) {
 							CustomFieldError cd = new CustomFieldError("form", "leaveType", leave.getLeaveType(), "no leaves available");
 							result.addError(cd);
 						}
