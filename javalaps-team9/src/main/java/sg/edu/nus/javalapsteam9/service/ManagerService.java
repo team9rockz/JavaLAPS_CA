@@ -26,6 +26,9 @@ public class ManagerService {
 
 	@Autowired
 	private PublicHolidayRepository holidayRepo;
+	
+	@Autowired
+	private StaffService staffService;
 
 	public List<LeaveApplication> findAllOutstandingLeaves() {
 
@@ -53,13 +56,15 @@ public class ManagerService {
 		LeaveApplication leave = leaveRepo.findById(id);
 		leave.setStatus(LeaveStatus.REJECTED);
 		leave.setComment(comment);
+		
+		int days = staffService.calculateLeavesBetweenDates(leave.getStartDate(), leave.getEndDate());
 
-		// To return the number of leave days applied
+		// To 'refund' the number of leave days applied
 		if (leave.getLeaveType() == LeaveType.ANNUAL) {
-			int adjustedLeaveBalance = leave.getUser().getAnnualLeaveBalance() + leave.getLeavePeriod();
+			int adjustedLeaveBalance = leave.getUser().getAnnualLeaveBalance() + days;
 			leave.getUser().setAnnualLeaveBalance(adjustedLeaveBalance);
 		} else if (leave.getLeaveType() == LeaveType.MEDICAL) {
-			int adjustedLeaveBalance = leave.getUser().getMedicalLeaveBalance() + leave.getLeavePeriod();
+			int adjustedLeaveBalance = leave.getUser().getMedicalLeaveBalance() + days;
 			leave.getUser().setMedicalLeaveBalance(adjustedLeaveBalance);
 		}
 

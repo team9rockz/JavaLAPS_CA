@@ -16,7 +16,7 @@ public interface LeaveApplicationRepository
 
 	List<LeaveApplication> findAllByUser(User user);
 
-	List<LeaveApplication> findAllByUserAndStatusNot(User user, LeaveStatus status);
+	List<LeaveApplication> findAllByUserAndStatusNotIn(User user, List<LeaveStatus> status);
 
 	List<LeaveApplication> findAllByUserOrderByAppliedDateDesc(User user);
 
