@@ -8,6 +8,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Component;
 
+import sg.edu.nus.javalapsteam9.util.BCryptUtil;
+
 @Component
 public class CustomAuthenticationProvider implements AuthenticationProvider {
 	
@@ -32,7 +34,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
 		String password = (String) authentication.getCredentials();
 
-		if (!user.getPassword().equalsIgnoreCase(password)) {
+		if (!BCryptUtil.isValidPassword(password, user.getPassword())) {
 			throw new BadCredentialsException("Incorrect Password");
 		}
 

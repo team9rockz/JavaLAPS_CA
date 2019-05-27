@@ -19,6 +19,7 @@ import sg.edu.nus.javalapsteam9.model.LeaveEntitlementComposite;
 import sg.edu.nus.javalapsteam9.model.PublicHoliday;
 import sg.edu.nus.javalapsteam9.model.User;
 import sg.edu.nus.javalapsteam9.service.AdminService;
+import sg.edu.nus.javalapsteam9.util.BCryptUtil;
 
 @SpringBootApplication
 public class JavalapsTeam9Application implements CommandLineRunner {
@@ -46,33 +47,33 @@ public class JavalapsTeam9Application implements CommandLineRunner {
 		adminService.createLeaveEntitleMent(leaveEntitlement4);
 		
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-
+		
 		//Generate employees for testing
-		User manager1 = new User(1, "manager1", "Cher", "Wah", "12345", "team9rockz@gmail.com", Roles.MANAGER,
+		User manager1 = new User(1, "manager1", "Cher", "Wah", BCryptUtil.hashPassword("12345"), "team9rockz@gmail.com", Roles.MANAGER,
 				Scheme.PROFESSIONAL, format.parse("2019-01-02"), 18, 60, 2);
 		adminService.saveUser(manager1);
-		User manager2 = new User(2, "manager2", "Marcus", "Foo", "12345", "team9rockz@gmail.com", Roles.MANAGER,
+		User manager2 = new User(2, "manager2", "Marcus", "Foo", BCryptUtil.hashPassword("12345"), "team9rockz@gmail.com", Roles.MANAGER,
 				Scheme.PROFESSIONAL, format.parse("2019-01-02"), 18, 60, 2);
 		adminService.saveUser(manager2);
-		User manager3 = new User(3, "manager3", "Peter", "Lee", "12345", "team9rockz@gmail.com", Roles.MANAGER,
+		User manager3 = new User(3, "manager3", "Peter", "Lee", BCryptUtil.hashPassword("12345"), "team9rockz@gmail.com", Roles.MANAGER,
 				Scheme.PROFESSIONAL, format.parse("2019-01-02"), 18, 60, 2);
 		adminService.saveUser(manager3);
-		User admin = new User(4, "admin1", "Suria", "R Asai", "12345", "team9rockz@gmail.com", Roles.ADMIN,
+		User admin = new User(4, "admin1", "Suria", "R Asai", BCryptUtil.hashPassword("12345"), "team9rockz@gmail.com", Roles.ADMIN,
 				Scheme.ADMINISTRATIVE, format.parse("2019-01-02"), 14, 60, 1);
 		adminService.saveUser(admin);
-		User employee1 = new User(5, "emp1", "Dickson", "Lee", "12345", "team9rockz@gmail.com", Roles.STAFF,
+		User employee1 = new User(5, "emp1", "Dickson", "Lee", BCryptUtil.hashPassword("12345"), "team9rockz@gmail.com", Roles.STAFF,
 				Scheme.PROFESSIONAL, format.parse("2019-01-02"), 18, 60, 1);
 		adminService.saveUser(employee1);
-		User employee2 = new User(6, "emp2", "Howard", "Teo", "12345", "team9rockz@gmail.com", Roles.STAFF,
+		User employee2 = new User(6, "emp2", "Howard", "Teo", BCryptUtil.hashPassword("12345"), "team9rockz@gmail.com", Roles.STAFF,
 				Scheme.PROFESSIONAL, format.parse("2019-01-02"), 18, 60, 1);
 		adminService.saveUser(employee2);
-		User employee3 = new User(7, "emp3", "Jane", "Kok", "12345", "team9rockz@gmail.com", Roles.STAFF,
+		User employee3 = new User(7, "emp3", "Jane", "Kok", BCryptUtil.hashPassword("12345"), "team9rockz@gmail.com", Roles.STAFF,
 				Scheme.PROFESSIONAL, format.parse("2019-01-02"), 18, 60, 3);
 		adminService.saveUser(employee3);
-		User employee4 = new User(8, "emp4", "Celine", "Chow", "12345", "team9rockz@gmail.com", Roles.STAFF,
+		User employee4 = new User(8, "emp4", "Celine", "Chow", BCryptUtil.hashPassword("12345"), "team9rockz@gmail.com", Roles.STAFF,
 				Scheme.PROFESSIONAL, format.parse("2019-01-02"), 18, 60, 9);
 		adminService.saveUser(employee4);
-		User employee5 = new User(9, "emp5", "Seetoh", "YQ", "12345", "team9rockz@gmail.com", Roles.MANAGER,
+		User employee5 = new User(9, "emp5", "Seetoh", "YQ", BCryptUtil.hashPassword("12345"), "team9rockz@gmail.com", Roles.MANAGER,
 				Scheme.PROFESSIONAL, format.parse("2019-01-02"), 18, 60, 2);
 		adminService.saveUser(employee5);
 

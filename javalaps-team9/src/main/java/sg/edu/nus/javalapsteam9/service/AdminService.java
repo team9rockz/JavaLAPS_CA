@@ -22,6 +22,7 @@ import sg.edu.nus.javalapsteam9.repo.LeaveApplicationRepository;
 import sg.edu.nus.javalapsteam9.repo.LeaveEntitlementRepository;
 import sg.edu.nus.javalapsteam9.repo.PublicHolidayRepository;
 import sg.edu.nus.javalapsteam9.repo.UserRepository;
+import sg.edu.nus.javalapsteam9.util.BCryptUtil;
 import sg.edu.nus.javalapsteam9.util.Util;
 
 @Service
@@ -90,7 +91,7 @@ public class AdminService {
 						.getNumberOfDays();
 				user.setAnnualLeaveBalance(annualBalance);
 				user.setMedicalLeaveBalance(medicalLeaveBalance);
-				user.setPassword("12345");
+				user.setPassword(BCryptUtil.hashPassword("12345"));
 				
 			} catch (ParseException e) {
 				e.printStackTrace();
