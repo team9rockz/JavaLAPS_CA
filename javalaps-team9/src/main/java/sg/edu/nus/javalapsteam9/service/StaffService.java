@@ -167,6 +167,7 @@ public class StaffService {
 			for(int i=0; i<existingLeaves.size(); i++) {
 				if(existingLeaves.get(i).getId() == leaveId) {
 					existingLeaves.remove(i);
+					break;
 				}
 			}
 		}
