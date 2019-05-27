@@ -50,6 +50,7 @@ public class MovementController {
 				managerService.getLeavesByMonthYear(startMonthInNum, currentYear, endMonthInNum, currentYear));
 		model.addAttribute("selectedMonth", selectedMonth);
 		model.addAttribute("homeurl", Util.getHomeUrlByRole(SecurityUtil.getCurrentLoggedUserRole()));
+		model.addAttribute("role", SecurityUtil.getCurrentLoggedUserRole());
 
 		return "manager/movement_register";
 	}
@@ -88,6 +89,7 @@ public class MovementController {
 		model.addAttribute("movements",
 				managerService.getLeavesByMonthYear(startMonthInNum, currentYear, endMonthInNum, currentYear));
 		model.addAttribute("homeurl", Util.getHomeUrlByRole(SecurityUtil.getCurrentLoggedUserRole()));
+		model.addAttribute("role", SecurityUtil.getCurrentLoggedUserRole());
 
 		return "manager/movement_register";
 	}
