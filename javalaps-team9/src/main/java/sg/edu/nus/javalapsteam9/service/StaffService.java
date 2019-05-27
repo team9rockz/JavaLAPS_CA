@@ -119,6 +119,8 @@ public class StaffService {
 	}
 	
 	public List<LeaveApplication> findAllLeavesByUserOrderByAppliedDate() {
+//		User user = findUserById();
+//		return leaveRepo.findAllByUserOrderByAppliedDateDesc(user);
 		
 		return leaveRepo.findAllByUserOrderByAppliedDateDescQurery(SecurityUtil.getCurrentLoggedUserId());
 
