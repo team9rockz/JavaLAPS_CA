@@ -14,7 +14,7 @@
 					<td><label th:for="startDate">Start Date : </label></td>
 					<td><input type="date" th:value="${startDate}"
 						th:field="*{startDate}"></td>
-					<td><span th:if="${#fields.hasErrors('startDate')}"
+					<td><span class="error_text" th:if="${#fields.hasErrors('startDate')}"
 						th:errors="*{startDate}">Start Date Error</span></td>
 				</tr>
 
@@ -22,7 +22,7 @@
 					<td><label th:for="endDate">End Date : </label></td>
 					<td><input type="date" th:value="${endDate}"
 						th:field="*{endDate}"></td>
-					<td><span th:if="${#fields.hasErrors('endDate')}"
+					<td><span class="error_text" th:if="${#fields.hasErrors('endDate')}"
 						th:errors="*{endDate}">End Date Error</span></td>
 				</tr>
 
@@ -34,7 +34,7 @@
 								th:each="type : ${T(sg.edu.nus.javalapsteam9.enums.LeaveType).values()}"
 								th:value="${type}" th:text="${type.type}"></option>
 					</select>
-					<td><span th:if="${#fields.hasErrors('leaveType')}"
+					<td><span class="error_text" th:if="${#fields.hasErrors('leaveType')}"
 						th:errors="*{leaveType}">Leave Type Error</span></td>
 				</tr>
 
@@ -43,7 +43,7 @@
 					<td>
 						<textarea rows="3" cols="20" th:field="*{reason}" th:text="${reason}"></textarea>
 					</td>
-					<td><span th:if="${#fields.hasErrors('reason')}"
+					<td><span class="error_text" th:if="${#fields.hasErrors('reason')}"
 						th:errors="*{reason}">Reason Error</span></td>
 				</tr>
 
@@ -52,7 +52,7 @@
 					<td>
 						<textarea rows="3" cols="20" th:field="*{workDissemination}" th:text="${workDissemination}"></textarea>
 					</td>
-					<td><span th:if="${#fields.hasErrors('workDissemination')}"
+					<td><span class="error_text" th:if="${#fields.hasErrors('workDissemination')}"
 						th:errors="*{workDissemination}">Work Dissemination Error</span></td>
 				</tr>
 
@@ -67,7 +67,7 @@
 					<td>
 						<textarea rows="3" cols="20" th:field="*{contactDetails}" th:text="${contactDetails}"></textarea>
 					</td>
-					<td><span th:if="${#fields.hasErrors('contactDetails')}"
+					<td><span class="error_text" th:if="${#fields.hasErrors('contactDetails')}"
 						th:errors="*{contactDetails}">Contact Details Error</span></td>
 				</tr>
 				

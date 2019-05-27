@@ -46,7 +46,7 @@
 					<td>Comments : </td>
 					<td>
 					<textarea rows="3" cols="20" th:field="*{comment}" th:value="${comment}"></textarea> 
-					<span th:if="${#fields.hasErrors('comment')}" th:errors="*{comment}"></span>
+					<span class="error_text" th:if="${#fields.hasErrors('comment')}" th:errors="*{comment}"></span>
 					</td>
 				</tr>
 				<tr>

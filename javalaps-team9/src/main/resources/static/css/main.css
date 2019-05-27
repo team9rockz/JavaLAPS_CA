@@ -19,3 +19,7 @@ footer{
 	margin-bottom: 2px;
 	margin-right: 5px;
 }
+
+.error_text {
+	color: red;
+}
