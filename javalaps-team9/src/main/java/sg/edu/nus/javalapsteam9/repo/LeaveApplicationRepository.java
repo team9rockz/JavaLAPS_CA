@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 
 import sg.edu.nus.javalapsteam9.enums.LeaveStatus;
 import sg.edu.nus.javalapsteam9.model.LeaveApplication;
@@ -15,9 +16,12 @@ public interface LeaveApplicationRepository
 
 	List<LeaveApplication> findAllByUser(User user);
 
-	List<LeaveApplication> findAllByUserAndStatusNot(User user, LeaveStatus status);
+	List<LeaveApplication> findAllByUserAndStatusNotIn(User user, List<LeaveStatus> status);
 
 	List<LeaveApplication> findAllByUserOrderByAppliedDateDesc(User user);
+
+	@Query("Select la from LeaveApplication la WHERE la.user.id = :id AND YEAR(CURDATE())=YEAR(la.startDate)")
+	List<LeaveApplication> findAllByUserOrderByAppliedDateDescQurery(@Param("id") Integer id);
 
 	List<LeaveApplication> findByStatus(LeaveStatus status);
 

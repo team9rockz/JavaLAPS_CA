@@ -1,6 +1,7 @@
 package sg.edu.nus.javalapsteam9.service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -114,13 +115,17 @@ public class StaffService {
 	}
 	
 	public List<LeaveApplication> findAllLeavesExceptDelete() {
+		List<LeaveStatus> status = new ArrayList<>();
+		status.add(LeaveStatus.DELETED);
+		status.add(LeaveStatus.CANCELLED);
 		User user = findUserById();
-		return leaveRepo.findAllByUserAndStatusNot(user, LeaveStatus.DELETED);
+		return leaveRepo.findAllByUserAndStatusNotIn(user, status);
 	}
 	
 	public List<LeaveApplication> findAllLeavesByUserOrderByAppliedDate() {
-		User user = findUserById();
-		return leaveRepo.findAllByUserOrderByAppliedDateDesc(user);
+		
+		return leaveRepo.findAllByUserOrderByAppliedDateDescQurery(SecurityUtil.getCurrentLoggedUserId());
+
 	}
 	
 	public LeaveApplication findLeaveById(Integer id) {
