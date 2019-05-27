@@ -46,10 +46,7 @@
 					<td>Manager's comments: </td>
 					<td th:text="${form.comment}"></td>
 				</tr>
-				<tr>
-					<td>Status :</td>
-					<td th:text="${form.status}"></td>
-				</tr>
+				
 				<tr
 					th:if="${#strings.equalsIgnoreCase(form.status.status, 'APPLIED')} or ${#strings.equalsIgnoreCase(form.status.status, 'UPDATED')} or (${expired} == true)">
 					<td>

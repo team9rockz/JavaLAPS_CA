@@ -8,7 +8,7 @@
 	<div th:replace="fragments/logged_header :: logged-header"></div>
 	<div class="container">
 		<form th:action="@{/employee/leave/create}" method="POST" th:object="${form}">
-			<table class="leaveformtab">
+			<table class="leaveformtab" style="margin: auto auto; height: 220px; width: 370px;">
 				<tr>
 					<td><label th:for="startDate">Start Date : </label></td>
 					<td><input type="date" th:value="${startDate}"

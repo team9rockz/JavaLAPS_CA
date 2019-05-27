@@ -37,21 +37,11 @@
 					<td>Contact Details :</td>
 					<td th:text="${form.contactDetails}"></td>
 				</tr>
-				<tr
-					th:if="${#strings.equalsIgnoreCase(form.status.status, 'APPLIED')} or ${#strings.equalsIgnoreCase(form.status.status, 'UPDATED')}">
-					<td>
-						<form th:action="@{'/employee/leave/edit'}" method="post">
-							<input type="hidden" th:value="${form.id}" name="id"> <input
-								type="submit" value="Update">
-						</form>
-					</td>
-					<td>
-						<form th:action="@{'/employee/leave/delete'}" method="post">
-							<input type="hidden" th:value="${form.id}" name="id"> <input
-								type="submit" value="Delete">
-						</form>
-					</td>
+				<tr>
+					<td>Manager's comments: </td>
+					<td th:text="${form.comment}"></td>
 				</tr>
+				
 				
 			</tbody>
 		</table>
