@@ -135,14 +135,29 @@ public class EmployeeController {
 					}
 					switch(leave.getLeaveType()) {
 					case ANNUAL:
-						
-						if((old == null || old.getLeaveType() != leave.getLeaveType()) && days > user.getAnnualLeaveBalance()) {
+						if(old == null && days > user.getAnnualLeaveBalance()) {
+							CustomFieldError cd = new CustomFieldError("form", "leaveType", leave.getLeaveType(), "no leaves available");
+							result.addError(cd);
+						}
+						else if(old != null && old.getLeaveType() == leave.getLeaveType() && days > user.getAnnualLeaveBalance()) {
+							CustomFieldError cd = new CustomFieldError("form", "leaveType", leave.getLeaveType(), "no leaves available");
+							result.addError(cd);
+						}
+						else if((old != null && old.getLeaveType() != leave.getLeaveType()) || days > user.getAnnualLeaveBalance()) {
 							CustomFieldError cd = new CustomFieldError("form", "leaveType", leave.getLeaveType(), "no leaves available");
 							result.addError(cd);
 						}
 						break;
 					case MEDICAL:
-						if((old == null || old.getLeaveType() != leave.getLeaveType()) && days > user.getMedicalLeaveBalance()) {
+						if(old == null && days > user.getMedicalLeaveBalance()) {
+							CustomFieldError cd = new CustomFieldError("form", "leaveType", leave.getLeaveType(), "no leaves available");
+							result.addError(cd);
+						}
+						else if(old != null && old.getLeaveType() == leave.getLeaveType() && days > user.getMedicalLeaveBalance()) {
+							CustomFieldError cd = new CustomFieldError("form", "leaveType", leave.getLeaveType(), "no leaves available");
+							result.addError(cd);
+						}
+						else if((old != null && old.getLeaveType() != leave.getLeaveType()) || days > user.getMedicalLeaveBalance()) {
 							CustomFieldError cd = new CustomFieldError("form", "leaveType", leave.getLeaveType(), "no leaves available");
 							result.addError(cd);
 						}
