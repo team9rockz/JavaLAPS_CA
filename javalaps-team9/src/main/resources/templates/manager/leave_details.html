@@ -8,7 +8,7 @@
 	<div th:replace="fragments/logged_header :: logged-header"></div>
 	<div class="container">
 	<form th:object="${leave}" method="post">
-		<table>
+		<table style="margin: auto auto; height: 220px; width: 370px;">
 			<tbody>
 				<tr>
 					<td>Leave Id:</td>
@@ -63,5 +63,6 @@
 		</table>
 	</form>
 	</div>
+<div th:replace="fragments/footer :: footer"></div>	
 </body>
 </html>
