@@ -51,14 +51,14 @@
 					th:if="${#strings.equalsIgnoreCase(form.status.status, 'APPLIED')} or ${#strings.equalsIgnoreCase(form.status.status, 'UPDATED')} or (${expired} == true)">
 					<td>
 						<form th:action="@{'/employee/leave/edit'}" method="post">
-							<input type="hidden" th:value="${form.id}" name="id"> <input
+							<input type="hidden" th:value="${form.id}" name="id"> <input class="btn btn-primary"
 								type="submit" value="Update">
 						</form>
 					</td>
 					<td>
 						<form th:action="@{'/employee/leave/delete'}" method="post">
-							<input type="hidden" th:value="${form.id}" name="id"> <input
-								type="submit" value="Delete">
+							<input type="hidden" th:value="${form.id}" name="id"> <input class="btn btn-danger"
+								 type="submit" value="Delete">
 						</form>
 					</td>
 				</tr>
@@ -66,7 +66,7 @@
 					th:if="${#strings.equalsIgnoreCase(form.status.status, 'APPROVED')} and (not ${expired})">
 					<td>
 						<form th:action="@{'/employee/leave/cancel'}" method="post">
-							<input type="hidden" th:value="${form.id}" name="id"> <input
+							<input type="hidden" th:value="${form.id}" name="id"> <input class="btn btn-danger"
 								type="submit" value="Cancel">
 						</form>
 					</td>
