@@ -21,6 +21,7 @@ import sg.edu.nus.javalapsteam9.enums.Scheme;
 import sg.edu.nus.javalapsteam9.model.PublicHoliday;
 import sg.edu.nus.javalapsteam9.model.User;
 import sg.edu.nus.javalapsteam9.service.AdminService;
+import sg.edu.nus.javalapsteam9.service.StaffService;
 import sg.edu.nus.javalapsteam9.util.SecurityUtil;
 import sg.edu.nus.javalapsteam9.validation.CustomFieldError;
 
@@ -30,6 +31,9 @@ public class AdminController {
 	
 	@Autowired
 	private AdminService adminService;
+	
+	@Autowired
+	private StaffService staffService;
 
 	private static final String HOME = "/admin/home";
 	
@@ -43,6 +47,8 @@ public class AdminController {
 		model.addAttribute("homeurl", HOME);
 		model.addAttribute("users", users);
 		model.addAttribute("publicHolidays", publicHolidays);
+		User user = staffService.findUserById();
+		model.addAttribute("name", user.getFirstName() + " " + user.getLastName());
 		model.addAttribute("role", SecurityUtil.getCurrentLoggedUserRole());
 		return "admin/home";
 		

@@ -4,9 +4,10 @@
 </head>
 <body>
 	<div th:replace="fragments/logged_header :: logged-header"></div>
-	<h1>Admin Home</h1>
+	
 	<div class="container">
-		
+		<h3 th:text="'Hello, ' + ${name}"></h3>
+		<h1>Admin Home</h1>	
 		<a th:href="@{/admin/add}" class="btn btn-primary">Add User</a>
 		
   

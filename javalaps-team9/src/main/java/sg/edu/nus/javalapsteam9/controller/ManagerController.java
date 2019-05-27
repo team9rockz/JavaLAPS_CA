@@ -46,6 +46,8 @@ public class ManagerController {
 		List<LeaveApplication> leaves = managerService.findAllOutstandingLeaves();
 		model.addAttribute("leaves", leaves);
 		model.addAttribute("homeurl", HOME);
+		User user = staffService.findUserById();
+		model.addAttribute("name", user.getFirstName() + " " + user.getLastName());
 		model.addAttribute("role", SecurityUtil.getCurrentLoggedUserRole());
 		return "manager/home";
 	}

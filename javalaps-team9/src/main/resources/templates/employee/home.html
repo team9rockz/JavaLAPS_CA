@@ -7,9 +7,8 @@
 <body>
 	<div th:replace="fragments/logged_header :: logged-header"></div>
 	<div class="container">
-		<p th:text="'Hello, ' + ${name}"></p>
+		<h3 th:text="'Hello, ' + ${name}"></h3>
 		<div>
-		<p>Leaves Available : </p>
 		<p>Annual Leaves : <span th:text="${annual_leave}"></span></p>
 		<p>Medical Leaves : <span th:text="${medical_leave}"></span></p>
 		</div>

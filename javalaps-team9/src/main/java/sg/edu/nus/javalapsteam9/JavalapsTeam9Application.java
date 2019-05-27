@@ -81,11 +81,11 @@ public class JavalapsTeam9Application implements CommandLineRunner {
 		//Generate leave applications for testing
 		LeaveApplication lap1 = new LeaveApplication(format.parse("2019-07-05"), format.parse("2019-07-12"),
 				LeaveType.ANNUAL, format.parse("2019-01-01"), "Holiday to India", "Handed tasks to intern", 5, null,
-				LeaveStatus.APPLIED, null, false, manager3);
+				LeaveStatus.APPLIED, null, false, employee1);
 		adminService.saveLeaveRecord(lap1);
 		LeaveApplication lap2 = new LeaveApplication(format.parse("2019-08-08"), format.parse("2019-08-13"),
 				LeaveType.ANNUAL, format.parse("2019-01-01"), "Holiday to Maldives", "Handed tasks to intern", 4, null,
-				LeaveStatus.APPLIED, null, false, manager1);
+				LeaveStatus.APPLIED, null, false, employee1);
 		adminService.saveLeaveRecord(lap2);
 		LeaveApplication lap3 = new LeaveApplication(format.parse("2019-12-20"), format.parse("2019-12-27"),
 				LeaveType.ANNUAL, format.parse("2019-01-01"), "Holiday to Phuket", "Handed tasks to intern", 6, null,
@@ -113,11 +113,11 @@ public class JavalapsTeam9Application implements CommandLineRunner {
 		adminService.saveLeaveRecord(lap8);
 		LeaveApplication lap9 = new LeaveApplication(format.parse("2019-05-01"), format.parse("2019-05-15"),
 				LeaveType.ANNUAL, format.parse("2019-01-01"), "Holiday to USA", "Handed tasks to intern", 15, null,
-				LeaveStatus.APPROVED, null, false, manager2);
+				LeaveStatus.APPROVED, null, false, employee4);
 		adminService.saveLeaveRecord(lap9);
 		LeaveApplication lap10 = new LeaveApplication(format.parse("2019-11-01"), format.parse("2019-11-05"),
 				LeaveType.ANNUAL, format.parse("2019-01-01"), "Holiday to KL", "Handed tasks to intern", 3, null,
-				LeaveStatus.APPROVED, null, false, manager2);
+				LeaveStatus.APPROVED, null, false, employee4);
 		adminService.saveLeaveRecord(lap10);
 
 		//Generate public holidays
