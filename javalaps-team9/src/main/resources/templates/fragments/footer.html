@@ -25,16 +25,14 @@
 				    $('#user_tbl').DataTable();
 				    $('#holiday_tbl').DataTable();
 				    $('#leave_tbl').DataTable();
-				    $('#leave_process_tbl').DataTable({
-				        dom: 'Bfrtip',
-				        buttons: [
-				          {
-				        	  extend: 'csv',
-				        	  text: 'Export'
-				          }
-				        ]
-				    });
-				} );
+				    var table = $('#leave_process_tbl').DataTable();
+				    var buttons = new $.fn.dataTable.Buttons(table, {
+				        buttons: [{
+				        extend:'csv',
+				        text:'Export'
+				        }]
+				    }).container().appendTo($('#buttons'));
+				});
 		
 			</script>
 		</footer>
