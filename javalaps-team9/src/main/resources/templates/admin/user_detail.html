@@ -40,13 +40,13 @@
 				<tr>
 					<td>
 						<form th:action="@{'/admin/user/edit/'+${user.id}}" method="post">
-							<input type="hidden" th:value="${user.id}" name="id"> <input
+							<input type="hidden" th:value="${user.id}" name="id"> <input class="btn btn-primary"
 								type="submit" value="Update">
 						</form>
 					</td>
 					<td>
 						<form th:action="@{'/admin/user/delete/'+${user.id}}" method="post">
-							<input type="hidden" th:value="${user.id}" name="id"> <input
+							<input type="hidden" th:value="${user.id}" name="id"> <input class="btn btn-danger"
 								type="submit" value="Delete">
 						</form>
 					</td>

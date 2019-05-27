@@ -31,7 +31,7 @@
 					</td>
 					<td>
 						<form th:action="@{'/admin/publicHoliday/delete/'+${publicHoliday.name}}" method="post">
-							<input type="hidden" th:value="${publicHoliday.name}" name="name"> <input
+							<input type="hidden" th:value="${publicHoliday.name}" name="name"> <input class="btn btn-danger"
 								type="submit" value="Delete">
 						</form>
 					</td>
