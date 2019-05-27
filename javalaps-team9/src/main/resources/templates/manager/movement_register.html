@@ -6,7 +6,7 @@
 </head>
 <body>
 	<div th:replace="fragments/logged_header :: logged-header"></div>
-	<div class="container">
+	<div class="container" style="margin: auto auto; width:650px">
 			<h1>Movement Register by Month</h1>
 	<form th:action="@{'/movementregister/month'}">
 		<label>Select Month:</label> <select name="month"
@@ -40,6 +40,7 @@
 	</div>
 	<p th:text="'Displaying records for: ' +  ${selectedMonth}"></p>
 	</div>
+	<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>
 

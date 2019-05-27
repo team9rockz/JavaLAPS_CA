@@ -13,7 +13,7 @@
 	
 	<div th:each = "subLeave,iter2: ${subLeaves}" >		
 		<table th:if = "${iter2.index}== ${iter1.index}" class="table table-hover table-striped cell-border">
-			<tr>
+			<tr th:if="${not #lists.isEmpty(subLeave)}">
 				<th>Leave Id</th>
 				<th>Leave Type</th>
 				<th>Start Date</th>
@@ -31,11 +31,8 @@
 			</tr>
 			
 			<tr >
-				<td th:if="${#lists.isEmpty(subLeave)}">NA</td>
-				<td th:if="${#lists.isEmpty(subLeave)}">NA</td>
-				<td th:if="${#lists.isEmpty(subLeave)}">NA</td>
-				<td th:if="${#lists.isEmpty(subLeave)}">NA</td>
-				<td th:if="${#lists.isEmpty(subLeave)}">NA</td>
+				<td th:if="${#lists.isEmpty(subLeave)}" colspan="5">No records to display</td>
+				
 			</tr>
 				
 		</table>
@@ -43,13 +40,13 @@
 		
 	</div>
 </div>
-
+<div th:replace="fragments/footer :: footer"></div>
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
-	<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
-	<script type="text/javascript">
-		$(document).ready( function () {
-		    $('#leave_process_tbl').DataTable();
-		} );
-	</script>
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript">
+	$(document).ready( function () {
+	    $('#leave_process_tbl').DataTable();
+	} );
+</script>
 </body>
 </html>	
