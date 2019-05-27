@@ -43,9 +43,6 @@ public class ManagerController {
 	@GetMapping("/home")
 	public String outstandingLeaves(Model model) {
 
-		// To update method to retrieve both "APPLIED" and "OUTSTANDING" leaves
-		// Also, to show leaves for employees whose reportsTo = manager's staffId (not
-		// done yet)
 		List<LeaveApplication> leaves = managerService.findAllOutstandingLeaves();
 		model.addAttribute("leaves", leaves);
 		model.addAttribute("homeurl", HOME);
@@ -61,16 +58,6 @@ public class ManagerController {
 		model.addAttribute("homeurl", HOME);
 		model.addAttribute("role", SecurityUtil.getCurrentLoggedUserRole());
 		return "manager/leave_details";
-	}
-
-	@GetMapping("/approve/{id}")
-	public String approveLeave(@PathVariable("id") Integer id, @RequestParam(name = "comment", required = false) String comment) {
-		
-		managerService.approveLeave(id, comment);
-		LeaveApplication leave = managerService.findLeaveById(id);
-		sendApprovalEmail(leave);
-		
-		return "redirect:/manager/home";
 	}
 	
 	@PostMapping("/approve")
@@ -121,60 +108,6 @@ public class ManagerController {
 		return "manager/view_leave";
 	}
 
-	/*
-	 * @GetMapping("/movementregister/{month}") public String
-	 * viewStaffMovementForSelectedMonth(Model model, @RequestParam("month") String
-	 * selectedMonth) {
-	 * 
-	 * List<String> months = new ArrayList<String>(); months.add("January");
-	 * months.add("February"); months.add("March"); months.add("April");
-	 * months.add("May"); months.add("June"); months.add("July");
-	 * months.add("August"); months.add("September"); months.add("October");
-	 * months.add("November"); months.add("December"); model.addAttribute("months",
-	 * months);
-	 * 
-	 * LocalDate currentDate = LocalDate.now(); int currentYear =
-	 * currentDate.getYear();
-	 * 
-	 * int startMonthInNum = months.indexOf(selectedMonth) + 1; int endMonthInNum =
-	 * months.indexOf(selectedMonth) + 1;
-	 * 
-	 * model.addAttribute("movements",
-	 * managerService.getLeavesByMonthYear(startMonthInNum, currentYear,
-	 * endMonthInNum, currentYear)); model.addAttribute("selectedMonth",
-	 * selectedMonth);
-	 * 
-	 * return "manager/movement_register"; }
-	 * 
-	 * @GetMapping("/movementregister") public String viewStaffMovement(Model model)
-	 * {
-	 * 
-	 * List<String> months = new ArrayList<String>(); months.add("January");
-	 * months.add("February"); months.add("March"); months.add("April");
-	 * months.add("May"); months.add("June"); months.add("July");
-	 * months.add("August"); months.add("September"); months.add("October");
-	 * months.add("November"); months.add("December"); model.addAttribute("months",
-	 * months);
-	 * 
-	 * int startMonthInNum, endMonthInNum;
-	 * 
-	 * LocalDate currentDate = LocalDate.now(); String currentMonth =
-	 * currentDate.getMonth().toString(); String currentMonthFormatted;
-	 * currentMonthFormatted = currentMonth.substring(0, 1) +
-	 * currentMonth.substring(1, currentMonth.length()).toLowerCase();
-	 * startMonthInNum = months.indexOf(currentMonthFormatted) + 1; endMonthInNum =
-	 * months.indexOf(currentMonthFormatted) + 1; int currentYear =
-	 * currentDate.getYear();
-	 * 
-	 * model.addAttribute("selectedMonth", currentMonthFormatted);
-	 * model.addAttribute("currentYear", currentYear);
-	 * model.addAttribute("movements",
-	 * managerService.getLeavesByMonthYear(startMonthInNum, currentYear,
-	 * endMonthInNum, currentYear));
-	 * 
-	 * return "manager/movement_register"; }
-	 */
-	
 	public String sendApprovalEmail(LeaveApplication leave) {
 		
 		User staff = staffService.findStaffByLeaveId(leave.getId());
