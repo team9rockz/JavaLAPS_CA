@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.TimeZone;
 
+import sg.edu.nus.javalapsteam9.enums.Roles;
 import sg.edu.nus.javalapsteam9.model.PublicHoliday;
 
 public final class Util {
@@ -125,6 +126,22 @@ public final class Util {
 			set.add(parseLocalDateToDate(startdate));
 		}
 		return set;
+	}
+	
+	public static String getHomeUrlByRole(String role) {
+		String url = "";
+		switch(Roles.valueOf(role)) {
+		case ADMIN:
+			url = "/admin/home";
+			break;
+		case MANAGER:
+			url = "/manager/home";
+			break;
+		case STAFF:
+			url = "/employee/home";
+			break;
+		}
+		return url;
 	}
 	
 }

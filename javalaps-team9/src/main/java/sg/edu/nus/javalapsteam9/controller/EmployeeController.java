@@ -20,7 +20,6 @@ import sg.edu.nus.javalapsteam9.model.LeaveApplication;
 import sg.edu.nus.javalapsteam9.model.User;
 import sg.edu.nus.javalapsteam9.service.EmailService;
 import sg.edu.nus.javalapsteam9.service.StaffService;
-import sg.edu.nus.javalapsteam9.util.EmailUtil;
 import sg.edu.nus.javalapsteam9.util.SecurityUtil;
 import sg.edu.nus.javalapsteam9.validation.CustomFieldError;
 

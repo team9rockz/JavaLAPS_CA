@@ -21,6 +21,7 @@ import sg.edu.nus.javalapsteam9.enums.Scheme;
 import sg.edu.nus.javalapsteam9.model.PublicHoliday;
 import sg.edu.nus.javalapsteam9.model.User;
 import sg.edu.nus.javalapsteam9.service.AdminService;
+import sg.edu.nus.javalapsteam9.util.SecurityUtil;
 import sg.edu.nus.javalapsteam9.validation.CustomFieldError;
 
 @Controller
@@ -42,6 +43,7 @@ public class AdminController {
 		model.addAttribute("homeurl", HOME);
 		model.addAttribute("users", users);
 		model.addAttribute("publicHolidays", publicHolidays);
+		model.addAttribute("role", SecurityUtil.getCurrentLoggedUserRole());
 		return "admin/home";
 		
 	}
@@ -52,6 +54,7 @@ public class AdminController {
 		model.addAttribute("homeurl", HOME);
 		model.addAttribute("user", new User());
 		model.addAttribute("managers", adminService.getAllManagers());
+		model.addAttribute("role", SecurityUtil.getCurrentLoggedUserRole());
 		return "admin/user_form";
 	}
     
@@ -63,6 +66,7 @@ public class AdminController {
 			result.addError(cd);
 		}
 		model.addAttribute("homeurl", HOME);
+		model.addAttribute("role", SecurityUtil.getCurrentLoggedUserRole());
     	
     	validateEmployeeForm(user, result);
     	
@@ -96,6 +100,7 @@ public class AdminController {
     	User user = adminService.findUserById(id);
 		model.addAttribute("homeurl", HOME);
     	model.addAttribute("user", user);
+		model.addAttribute("role", SecurityUtil.getCurrentLoggedUserRole());
     	return "admin/user_detail";
     }
     
@@ -106,6 +111,7 @@ public class AdminController {
 		model.addAttribute("homeurl", HOME);
     	model.addAttribute("user", user);
     	model.addAttribute("managers", adminService.getAllManagers());
+		model.addAttribute("role", SecurityUtil.getCurrentLoggedUserRole());
     	return "admin/user_edit";
     }
     
@@ -115,6 +121,7 @@ public class AdminController {
     	validateEmployeeForm(user, result);
     	
 		model.addAttribute("homeurl", HOME);
+		model.addAttribute("role", SecurityUtil.getCurrentLoggedUserRole());
 		if(result.hasErrors()) {
 			
 			model.addAttribute("managers", adminService.getAllManagers());
@@ -136,6 +143,7 @@ public class AdminController {
 		
 		model.addAttribute("homeurl", HOME);
 		model.addAttribute("publicHoliday", new PublicHoliday());
+		model.addAttribute("role", SecurityUtil.getCurrentLoggedUserRole());
 		return "admin/publicHoliday_form";
 	}
 
@@ -143,6 +151,7 @@ public class AdminController {
     public String savePublicHoliday(Model model, @Valid @ModelAttribute("publicHoliday") PublicHoliday publicHoliday, BindingResult result) {
     	validate(publicHoliday,result);
 		model.addAttribute("homeurl", HOME);
+		model.addAttribute("role", SecurityUtil.getCurrentLoggedUserRole());
     	if(result.hasErrors()) {
     		return "admin/publicHoliday_form";
     	}
@@ -156,6 +165,7 @@ public class AdminController {
     	PublicHoliday publicHoliday = adminService.findPublicHolidayByName(name);
 		model.addAttribute("homeurl", HOME);
     	model.addAttribute("publicHoliday", publicHoliday);
+		model.addAttribute("role", SecurityUtil.getCurrentLoggedUserRole());
     	return "admin/publicHoliday_detail";
     }
     

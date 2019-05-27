@@ -8,6 +8,10 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import sg.edu.nus.javalapsteam9.enums.Roles;
+import sg.edu.nus.javalapsteam9.util.SecurityUtil;
+import sg.edu.nus.javalapsteam9.util.Util;
+
 @ControllerAdvice
 public class ErrorController {
 	
@@ -18,7 +22,8 @@ public class ErrorController {
 	public String exception(final Throwable throwable, final Model model) {
 		LOG.error("Exception occured", throwable);
 		model.addAttribute("errorMsg", throwable != null ? throwable.getMessage() : "Unknown Error");
-		model.addAttribute("url", "/employee/home");
+		String url = Util.getHomeUrlByRole(SecurityUtil.getCurrentLoggedUserRole());
+		model.addAttribute("homeurl", url);
 		return "error";
 	}
 

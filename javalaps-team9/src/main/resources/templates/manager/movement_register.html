@@ -5,8 +5,10 @@
 <title>Details | Leave</title>
 </head>
 <body>
-	<h1>Movement Register by Month</h1>
-	<form th:action="@{'/manager/movementregister/month'}">
+	<div th:replace="fragments/logged_header :: logged-header"></div>
+	<div class="container">
+			<h1>Movement Register by Month</h1>
+	<form th:action="@{'/movementregister/month'}">
 		<label>Select Month:</label> <select name="month"
 			onchange="this.form.submit()">
 			<option value="default" selected>-</option>
@@ -37,6 +39,7 @@
 		</table>
 	</div>
 	<p th:text="'Displaying records for: ' +  ${selectedMonth}"></p>
+	</div>
 </body>
 </html>
 

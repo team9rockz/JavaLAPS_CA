@@ -32,14 +32,15 @@ public class CustomSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.csrf().disable().authorizeRequests()
-				.antMatchers("/", "/index", "/home", "/welcome", "/login", "/css/**", "/js/**").permitAll()
-				.antMatchers("/admin/**", "/movement/**").hasAuthority(Roles.ADMIN.getRole()).antMatchers("/manager/**","/movement/**")
-				.hasAuthority(Roles.MANAGER.getRole()).antMatchers("/employee/**","/movement/**").hasAuthority(Roles.STAFF.getRole())
-				.anyRequest().authenticated().and().addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class).formLogin().loginPage("/signin").permitAll()
-				.successHandler(successHandler).failureHandler(failureHandler).failureUrl("/").and().logout()
-				.logoutUrl("/logout").logoutSuccessHandler(logoutSuccessHandler).and().exceptionHandling()
-				.accessDeniedHandler(accessDeniedHandler);
+		http.csrf().disable().authorizeRequests().antMatchers("/", "/index", "/login", "/css/**", "/js/**").permitAll()
+				.antMatchers("/admin/**").hasAuthority(Roles.ADMIN.getRole()).antMatchers("/manager/**")
+				.hasAuthority(Roles.MANAGER.getRole()).antMatchers("/employee/**").hasAuthority(Roles.STAFF.getRole())
+				.antMatchers("/movementregister/**")
+				.hasAnyAuthority(Roles.ADMIN.getRole(), Roles.MANAGER.getRole(), Roles.STAFF.getRole()).anyRequest()
+				.authenticated().and().addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class).formLogin()
+				.loginPage("/signin").permitAll().successHandler(successHandler).failureHandler(failureHandler)
+				.failureUrl("/").and().logout().logoutUrl("/logout").logoutSuccessHandler(logoutSuccessHandler).and()
+				.exceptionHandling().accessDeniedHandler(accessDeniedHandler);
 	}
 
 }
