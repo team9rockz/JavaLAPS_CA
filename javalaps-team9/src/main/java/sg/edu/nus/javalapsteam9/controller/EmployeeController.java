@@ -120,7 +120,7 @@ public class EmployeeController {
 					}
 				}
 				
-				boolean isNotValidDates = staffService.isNotValidDates(leave.getStartDate(), leave.getEndDate());
+				boolean isNotValidDates = staffService.isNotValidDates(leave.getStartDate(), leave.getEndDate(), leave.getId());
 				if(isNotValidDates) {
 					CustomFieldError cd = new CustomFieldError("form", "startDate", leave.getStartDate(), "Leaves matched with your previous history");
 					result.addError(cd);

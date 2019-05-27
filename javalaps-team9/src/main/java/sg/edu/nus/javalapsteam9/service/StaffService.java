@@ -113,6 +113,11 @@ public class StaffService {
 		return leaveRepo.findAllByUser(user);
 	}
 	
+	public List<LeaveApplication> findAllLeavesExceptDelete() {
+		User user = findUserById();
+		return leaveRepo.findAllByUserAndStatusNot(user, LeaveStatus.DELETED);
+	}
+	
 	public List<LeaveApplication> findAllLeavesByUserOrderByAppliedDate() {
 		User user = findUserById();
 		return leaveRepo.findAllByUserOrderByAppliedDateDesc(user);
@@ -152,10 +157,16 @@ public class StaffService {
 		return userRepo.findById(SecurityUtil.getCurrentLoggedUserId()).get();
 	}
 	
-	public boolean isNotValidDates(Date startDate, Date endDate) {
-		List<LeaveApplication> existingLeaves = findAllLeavesByUserId();
+	public boolean isNotValidDates(Date startDate, Date endDate, int leaveId) {
+		List<LeaveApplication> existingLeaves = findAllLeavesExceptDelete();
 		if(existingLeaves.isEmpty()) {
 			return false;
+		}
+		
+		for(int i=0; i<existingLeaves.size(); i++) {
+			if(existingLeaves.get(i).getId() == leaveId) {
+				existingLeaves.remove(i);
+			}
 		}
 		
 		HashSet<Date> existingLeavesSet = getAllAppliedLeaveDates(existingLeaves);

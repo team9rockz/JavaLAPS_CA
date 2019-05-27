@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import sg.edu.nus.javalapsteam9.enums.LeaveStatus;
+import sg.edu.nus.javalapsteam9.enums.LeaveType;
 import sg.edu.nus.javalapsteam9.model.LeaveApplication;
 import sg.edu.nus.javalapsteam9.model.User;
 
@@ -14,6 +15,8 @@ public interface LeaveApplicationRepository
 		extends JpaRepository<LeaveApplication, Integer>, CrudRepository<LeaveApplication, Integer> {
 
 	List<LeaveApplication> findAllByUser(User user);
+
+	List<LeaveApplication> findAllByUserAndStatusNot(User user, LeaveStatus status);
 
 	List<LeaveApplication> findAllByUserOrderByAppliedDateDesc(User user);
 
