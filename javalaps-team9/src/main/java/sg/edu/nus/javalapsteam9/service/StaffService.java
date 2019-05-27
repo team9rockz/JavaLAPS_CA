@@ -157,15 +157,17 @@ public class StaffService {
 		return userRepo.findById(SecurityUtil.getCurrentLoggedUserId()).get();
 	}
 	
-	public boolean isNotValidDates(Date startDate, Date endDate, int leaveId) {
+	public boolean isNotValidDates(Date startDate, Date endDate, Integer leaveId) {
 		List<LeaveApplication> existingLeaves = findAllLeavesExceptDelete();
 		if(existingLeaves.isEmpty()) {
 			return false;
 		}
 		
-		for(int i=0; i<existingLeaves.size(); i++) {
-			if(existingLeaves.get(i).getId() == leaveId) {
-				existingLeaves.remove(i);
+		if(leaveId != null) {
+			for(int i=0; i<existingLeaves.size(); i++) {
+				if(existingLeaves.get(i).getId() == leaveId) {
+					existingLeaves.remove(i);
+				}
 			}
 		}
 		
