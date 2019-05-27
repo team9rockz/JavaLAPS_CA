@@ -1,18 +1,15 @@
 <!DOCTYPE html>
 <html xmlns:th="http://thymeleaf.org">
 <head th:replace="fragments/header :: header-css">
+
 </head>
 <body>
 <div th:fragment="logged-header" class="container-fluid" style="padding: 0 0">
 		<nav
 			class="navbar navbar-expand-sm bg-dark navbar-dark justify-content-end">
-			<h2 class="navbar-brand">LAPS</h2>
+			<h2><a th:href="@{${homeurl}}">LAPS</a></h2>
 			<div class="collapse navbar-collapse" id="navbarNav">
     			<ul class="navbar-nav" >
-      				<li class="nav-item active" >
-      					<a class="nav-link" th:href="@{/movementregister/}" >Movement Register <span class="sr-only">(current)</span></a>
-        				
-      				</li>
       				<li class="nav-item active" >
       					<a class="nav-link" th:href="@{/manager/sub_leave_history}" th:if = "${role} == 'MANAGER'" >View Subordinate Leave History<span class="sr-only">(current)</span></a>
         				
@@ -20,7 +17,12 @@
       	
 			    </ul>
 			  </div>
-			<a class="btn btn-success ml-auto mr-1" th:href="@{${homeurl}}"> Home </a>
+		  	<a class="btn btn-primary ml-auto mr-1" th:href="@{/movementregister/}"> Movement Register </a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarSupportedContent">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<a class="btn btn-primary ml-auto mr-1" th:href="@{${homeurl}}"> Home </a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#navbarSupportedContent">
 				<span class="navbar-toggler-icon"></span>
